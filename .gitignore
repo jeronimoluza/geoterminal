@@ -83,3 +83,4 @@ target/
 # Data
 *.orc
 *.csv
+*.geojson
