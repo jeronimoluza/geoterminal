@@ -2,9 +2,11 @@ import geopandas as gpd
 import pandas as pd
 import pyarrow as pa
 from shapely import wkt
+from functions import utils
 
 GEOSPATIAL_FORMATS = ["shp", "geojson"]
 NONGEOSPATIAL_FORMATS = ["csv", "orc"]
+WKTS = ["POLYGON", "MULTIPOLYGON", "LINESTRING", "POINT", "GEOMETRYCOLLECTION"]
 
 
 class ConversionFunction:
@@ -14,31 +16,27 @@ class ConversionFunction:
         self.input_file = input_file
         self.output_file = output_file
         self.buffer_size = buffer_size
-        self.input_crs = input_crs
+        if input_crs:
+            self.input_crs = input_crs
+        else:
+            self.input_crs = 4326
         self.output_crs = output_crs
-
-    @staticmethod
-    def detect_file_format(file_path):
-        """
-        Detect the file format based on the file extension.
-        """
-        extension = file_path.split(".")[-1].lower()
-        return extension
 
     def load_data(self):
         """
         Load data into a GeoDataFrame or DataFrame based on the file format.
         """
-        if self.detect_file_format(self.input_file) in GEOSPATIAL_FORMATS:
+        if utils.detect_file_format(self.input_file) in GEOSPATIAL_FORMATS:
             return gpd.read_file(self.input_file)
-        elif self.detect_file_format(self.input_file) in NONGEOSPATIAL_FORMATS:
+        elif len([f for f in WKTS if str(self.input_file).startswith(f)]):
+            return gpd.GeoDataFrame(
+                [wkt.loads(self.input_file)], columns=["geometry"], crs=self.input_crs
+            )
+        elif utils.detect_file_format(self.input_file) in NONGEOSPATIAL_FORMATS:
             df = pd.read_csv(self.input_file)
             if "geometry" in df.columns:
                 df["geometry"] = df.geometry.apply(wkt.loads)
-                if self.input_crs:
-                    return gpd.GeoDataFrame(df, crs=self.input_crs)
-                else:
-                    return gpd.GeoDataFrame(df, crs=4326)
+                return gpd.GeoDataFrame(df, crs=self.input_crs)
 
         else:
             raise ValueError("Unsupported file format")
@@ -57,7 +55,7 @@ class ConversionFunction:
         """
         Export GeoDataFrame to a specified file.
         """
-        output_format = self.detect_file_format(self.output_file)
+        output_format = utils.detect_file_format(self.output_file)
         if output_format == "geojson":
             gdf.to_file(self.output_file, driver="GeoJSON")
         elif output_format == "csv":

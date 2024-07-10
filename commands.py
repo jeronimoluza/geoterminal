@@ -16,15 +16,11 @@ def convert(
     output_crs: int = None,
     buffer_size: float = None,
 ) -> None:
-    try:
-        function = ConversionFunction(
-            input_file, output_file, buffer_size, input_crs, output_crs
-        )
-        click.echo(f"Converting to {output_file}")
-        data = function.load_data()
-        data = function.transform_data(data)
-        function.export_data(data)
-        click.echo(f"Conversion completed successfully.")
-    except Exception as e:
-        click.echo(f"An error occurred: {e}")
-        raise SystemExit(1)
+    function = ConversionFunction(
+        input_file, output_file, buffer_size, input_crs, output_crs
+    )
+    click.echo(f"Converting to {output_file}")
+    data = function.load_data()
+    data = function.transform_data(data)
+    function.export_data(data)
+    click.echo(f"Conversion completed successfully.")
