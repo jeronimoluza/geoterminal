@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import pyarrow as pa
 from shapely import wkt
-from functions import utils
+from functions import utils, h3funcs
 
 GEOSPATIAL_FORMATS = ["shp", "geojson"]
 NONGEOSPATIAL_FORMATS = ["csv", "orc"]
@@ -11,10 +11,19 @@ WKTS = ["POLYGON", "MULTIPOLYGON", "LINESTRING", "POINT", "GEOMETRYCOLLECTION"]
 
 class ConversionFunction:
     def __init__(
-        self, input_file, output_file, buffer_size=None, input_crs=None, output_crs=None
+        self,
+        input_file,
+        output_file,
+        h3_res=None,
+        h3_geom=False,
+        buffer_size=None,
+        input_crs=None,
+        output_crs=None,
     ):
         self.input_file = input_file
         self.output_file = output_file
+        self.h3_res = h3_res
+        self.h3_geom = h3_geom
         self.buffer_size = buffer_size
         if input_crs:
             self.input_crs = input_crs
@@ -49,6 +58,8 @@ class ConversionFunction:
             gdf = gdf.to_crs(crs=self.output_crs)
         if self.buffer_size:
             gdf.geometry = gdf.buffer(self.buffer_size)
+        if self.h3_res:
+            gdf = h3funcs.polyfill(gdf, self.h3_res, self.h3_geom)
         return gdf
 
     def export_data(self, gdf):

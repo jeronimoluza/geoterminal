@@ -60,6 +60,58 @@ all = ["GeoAlchemy2", "SQLAlchemy (>=1.3)", "folium", "geopy", "mapclassify", "m
 dev = ["black", "codecov", "pre-commit", "pytest (>=3.1.0)", "pytest-cov", "pytest-xdist"]
 
 [[package]]
+name = "h3"
+version = "4.0.0b2"
+description = "Hierarchical hexagonal geospatial indexing system"
+optional = false
+python-versions = "*"
+files = [
+    {file = "h3-4.0.0b2-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:ccd574740d6167fd91e5fc0d7ce1234ef2c5f58e1dbcb16b9fc6d6e69202d621"},
+    {file = "h3-4.0.0b2-cp27-cp27m-manylinux2010_x86_64.whl", hash = "sha256:d0372f2b22d6ed944fcda0d21d1e01c9d0a1d8e9dec90878e60a729a1ff9789f"},
+    {file = "h3-4.0.0b2-cp27-cp27mu-manylinux2010_x86_64.whl", hash = "sha256:2dec48f6433516ed8463154cf35fd20002b36db643143fbbe7e1439a82207540"},
+    {file = "h3-4.0.0b2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:32939d04bce59c1f72c9f41a67827aaa4b5755afbdace1f719deeda7fbbe9224"},
+    {file = "h3-4.0.0b2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:6a929ee46488eb351b279882fb3e3d7ed5ed04b5ac6fb6b0b420f5002a17454d"},
+    {file = "h3-4.0.0b2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e1e5e7bf6d560af4b8a4e7d541b5f12dbd758811eb9d2149ce8554505f85f5e7"},
+    {file = "h3-4.0.0b2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e952df0562581c2a564fed48d5910822963307756de93157ba5a5f8535b42044"},
+    {file = "h3-4.0.0b2-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:0c6421ebc9be6fe1992875aa819eec4d6d5b19786a290b80f5586c26f4847449"},
+    {file = "h3-4.0.0b2-cp310-cp310-win_amd64.whl", hash = "sha256:97004313272831f4004d846871e53d7194ca4d6dc3e41ac51792b27f1dda5f05"},
+    {file = "h3-4.0.0b2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:1d1049e64a5eac7b328a5c0caf159a2ddecf90f30ba5db791aa5cdaab5a449ce"},
+    {file = "h3-4.0.0b2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:9c29271518498997820d78351d05a0aca97dd9264612b55ba300736f177b926c"},
+    {file = "h3-4.0.0b2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2e5f822edd8fd0c8c0d7923206b7ede26956f80874de6fd116dc6e34cc770df0"},
+    {file = "h3-4.0.0b2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3c3ad9e65f59a69ed2c725e186b576d1dc8e1813db21d56c9addd7aae8162891"},
+    {file = "h3-4.0.0b2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:aecd898b8e6c343fcf2989518a1966b0691b28dae4266aea0d1126ddea8ae823"},
+    {file = "h3-4.0.0b2-cp311-cp311-win_amd64.whl", hash = "sha256:b3acb6f65829ad293d31f471bf7ea15b09ffadf654e6835789a4ec8850eec7c6"},
+    {file = "h3-4.0.0b2-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:76c7083b17d4685f2e4fed4580e13922d17a853d0d0cc82f77311a2b5611065e"},
+    {file = "h3-4.0.0b2-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a5db1010b50365d99f0635dcd484236bb45614442a6d2f0b1285f07cc336daeb"},
+    {file = "h3-4.0.0b2-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c65e849219d21ce74d6fb87c327f490925190032ee489d7f467d4d5e9fc6b893"},
+    {file = "h3-4.0.0b2-cp36-cp36m-musllinux_1_1_x86_64.whl", hash = "sha256:e2905af6a941493467fff7272292cb161ac57515b00d346cef841e3a787d3e50"},
+    {file = "h3-4.0.0b2-cp36-cp36m-win_amd64.whl", hash = "sha256:e93123ff86c599705ab9de6ac35f5d91882f2e3837294b19cebdbc40347320b5"},
+    {file = "h3-4.0.0b2-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:781e68bedae150baa655aa25ca55d1974107e2886ae6820e539b279300b75a59"},
+    {file = "h3-4.0.0b2-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:29b72b1e27b758979c88456df4a4f7725f58613eded3e37ed5ae67b106ee1ce1"},
+    {file = "h3-4.0.0b2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d540228eb9ce3692bc38f7e8bd32d10640ea32dbfb4d6dd1fb954a7ca94d8cb4"},
+    {file = "h3-4.0.0b2-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:0489e8892472b9514825d480544bac854862ce5cf94c7f497936053565787954"},
+    {file = "h3-4.0.0b2-cp37-cp37m-win_amd64.whl", hash = "sha256:6d9dd20d77e19d981ffbcb619a7d71219833cae592791e849704f2db46f3d502"},
+    {file = "h3-4.0.0b2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:2ae5546fab09cb26ea3a9e234c7be26a5c7f3bf8544207c288b58d08034df3ae"},
+    {file = "h3-4.0.0b2-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:9a7e24bbfa5f301288c9531b2a82170d91655a55a35fe1df4b5b4ebf54a1f15c"},
+    {file = "h3-4.0.0b2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7a18447ae1a802d02010e6453d43473ed278cab62ae94ba727d8b19a299c6317"},
+    {file = "h3-4.0.0b2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f427541f64d47af21da6358bd034dd801cb2a9f54854b2936a3074867687b2cb"},
+    {file = "h3-4.0.0b2-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:c9a779276afd54a7877503b9779ffa55e792145efbe8b19f3d51737c1973e522"},
+    {file = "h3-4.0.0b2-cp38-cp38-win_amd64.whl", hash = "sha256:9c379089aebee9e90e3839c592a3f07bc92de8ac060a28ca50b38d70cb77cead"},
+    {file = "h3-4.0.0b2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:0da5014d76d8aa02812cbc8c3e4bdcfe995ff4c17f95f47994b0ebe7fbb8d8d6"},
+    {file = "h3-4.0.0b2-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:e9001f546dba7da0dad25d8fcf6c62a13ae5ba4c2bc2a1cdd76dc04853b5e556"},
+    {file = "h3-4.0.0b2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:153574baba08f2ac2e301695a017629cff59e564444b735e83c6edc162051679"},
+    {file = "h3-4.0.0b2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:88d9a360f19e7ebbabe1b203bf8b81e72afa9a9eb691bc5f38407496129418d7"},
+    {file = "h3-4.0.0b2-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:93d781900f1568b53a116cbd57a6fbf8d0f67a7641816259f82732ba7b477591"},
+    {file = "h3-4.0.0b2-cp39-cp39-win_amd64.whl", hash = "sha256:cd4e6b64087b3c5d1bd4e766fee59de7cdfe99c43ca4333cd4719750ac7313ff"},
+    {file = "h3-4.0.0b2.tar.gz", hash = "sha256:be147d4662db70c95742a7b283d2bcf9a46313f29253950a6072cce795908871"},
+]
+
+[package.extras]
+all = ["flake8", "numpy", "pylint", "pytest", "pytest-cov"]
+numpy = ["numpy"]
+test = ["flake8", "pylint", "pytest", "pytest-cov"]
+
+[[package]]
 name = "numpy"
 version = "2.0.0"
 description = "Fundamental package for array computing in Python"
@@ -433,4 +485,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "4cc9dee030fad70de120ab97bd607d1093d6fb6f59e372e6eb8b306073a394e6"
+content-hash = "7b22a0f8b0deca3045514d8a0bc30ef32d33113d4ae8bbb7cd16f6f4da27b916"
