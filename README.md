@@ -2,9 +2,11 @@
 
 Geoterminal is a command line interface (CLI) made in Python, and designed to automate common operations in the field of Geographic Information Systems (GIS) data development. As a GIS Data Developer, you often find yourself performing tasks like data transformation, geometry loading, and format conversion. Geoterminal streamlines these processes, allowing you to focus on higher-level tasks rather than repetitive operations.
 
-## Features
+## Main Features
 
-- **CSV to GeoJSON Conversion:** Geoterminal provides a convenient method for converting CSV files containing geographical data into GeoJSON format. This is particularly useful when you need to visualize or work with geographic data in various mapping tools.
+- **File Conversion**: Convert files from and to different formats, such as CSV, ORC, GeoJSON and Shapefiles.
+- **WKT Dumping**: Converts a Well-Known Text (WKT) representation of a geometry to any of the mentioned file formats.
+- **H3 Hexagon Transformation**: Converts geometries to Uber's H3 cells in the desired resolution.
 
 ## Installation
 
