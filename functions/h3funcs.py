@@ -16,13 +16,13 @@ def polyfill(
     if type(unary) == str:
         unary = wkt.loads(unary)
     elif type(unary) == GeoDataFrame:
-        unary = unary.unary_union
+        unary = unary.union_all()
 
     def polyfill_polygon(unary, resolution):
         coords = [(lat, lon) for lon, lat in unary.exterior.coords]
         return h3.polygon_to_cells(h3.Polygon(coords), resolution)
 
-    # unary = gdf.unary_union
+    # unary = gdf.union_all()
     if type(unary) == Polygon:
         data = gpd.GeoDataFrame(
             list(polyfill_polygon(unary, resolution)), columns=["hex"]
@@ -37,9 +37,8 @@ def polyfill(
         data = gpd.GeoDataFrame(list(set(finalset)), columns=["hex"])
 
     if geom:
-        data["geometry"] = data.hex.apply(get_geometry)
-        data = gpd.GeoDataFrame(data)
-        data = data.set_geometry("geometry")
+        geometry = data.hex.apply(get_geometry)
+        data = gpd.GeoDataFrame(data, geometry=geometry)
         data["geometry"] = data.geometry.buffer(0)
     return data
 

@@ -84,3 +84,6 @@ target/
 *.orc
 *.csv
 *.geojson
+
+# pytest
+*.pytest_cache/
