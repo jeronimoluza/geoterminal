@@ -3,6 +3,7 @@ import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Polygon, Point
 from shapely import wkt
+import pyarrow as pa
 from functions import utils, h3funcs
 from functions.conversion import (
     ConversionFunction,
