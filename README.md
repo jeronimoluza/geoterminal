@@ -19,13 +19,13 @@ To get started with Geoterminal, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/jeronimoluza/geoterminal.git
    ```
 
-2. Install the required dependencies. Ensure you have Python 3.9 or later installed.
+2. Install the required dependencies.
 
    ```bash
-   pip install geopandas fire
+   poetry install
    ```
 
 # Usage
@@ -85,10 +85,10 @@ This command converts the data to an H3 index at resolution level 9 and includes
 To apply a buffer distance to the data during conversion, use the `--buffer_size` option followed by the desired buffer distance in meters:
 
 ```bash
-geoterminal input.geojson output_buffered.geojson --input_crs EPSG:4326 --output_crs EPSG:3857 --buffer_size=1000
+geoterminal input.geojson output_buffered.geojson --buffer_size=1000
 ```
 
-This example applies a 1000-meter buffer to the data during conversion.
+This example applies a 1000-degree buffer to the data during conversion.
 
 ## Contribution
 
