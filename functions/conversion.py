@@ -55,7 +55,7 @@ class ConversionFunction:
         Apply transformations to the GeoDataFrame.
         """
         if self.buffer_size:
-            gdf.geometry = gdf.buffer(self.buffer_size)
+            gdf.geometry = gdf.geometry.buffer(self.buffer_size)
         if self.h3_res:
             gdf = h3funcs.polyfill(gdf, self.h3_res, self.h3_geom)
         if self.output_crs:

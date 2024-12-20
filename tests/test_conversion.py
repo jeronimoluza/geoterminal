@@ -32,7 +32,7 @@ def sample_dataframe():
     return pd.DataFrame(
         {
             "id": [1, 2],
-            "geometry": [wkt.loads("POINT (0.5 0.5)"), wkt.loads("POINT (1.5 1.5)")],
+            "geometry": ["POINT (0.5 0.5)", "POINT (1.5 1.5)"],
         }
     )
 
@@ -72,6 +72,8 @@ def test_load_data_nongeospatial_format(mocker, sample_dataframe):
 def test_transform_data_with_buffer(sample_geodataframe):
     conversion = ConversionFunction("input.geojson", "output.geojson", buffer_size=1)
     transformed_gdf = conversion.transform_data(sample_geodataframe)
+    print(transformed_gdf.geometry.iloc[0])
+    print(sample_geodataframe.buffer(1).iloc[0])
 
     assert transformed_gdf.geometry.iloc[0].equals(
         sample_geodataframe.buffer(1).iloc[0]
