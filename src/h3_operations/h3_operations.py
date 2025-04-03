@@ -34,7 +34,7 @@ def polyfill(gdf, resolution, include_geometry=False):
     gdf = gdf.explode(index_parts=True).reset_index(drop=True)
     for geom in gdf.geometry:
         if geom.is_valid:
-            hex_set = h3.geo_to_cells(geom)
+            hex_set = h3.geo_to_cells(geom, res=resolution)
             hexes.extend(list(hex_set))
 
     hex_gdf = pd.DataFrame({"hex": hexes})
