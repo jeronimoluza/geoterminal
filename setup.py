@@ -1,14 +1,30 @@
-from setuptools import setup, find_packages
+"""Setup configuration for the geoterminal package.
+
+This module handles package metadata, dependencies, and installation
+configuration.
+"""
+
+import os
+
+from setuptools import find_packages, setup
+
+# Read version from _version.py
+version: dict = {}
+with open(os.path.join("geoterminal", "_version.py"), "r") as f:
+    exec(f.read(), version)
+__version__ = version["__version__"]
 
 setup(
     name="geoterminal",
-    version="0.1.0",
-    description="Geoterminal is a command-line tool designed to simplify common GIS (Geographic Information System) tasks that you may encounter in your daily work.",
+    version=__version__,
+    description=(
+        "Geoterminal is a command-line tool designed to simplify common GIS "
+        "tasks that you may encounter in your daily work."
+    ),
     author="Jerónimo Luza",
     author_email="jero.luza@gmail.com",
     url="https://github.com/jeronimoluza/geoterminal",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
+    packages=find_packages(),
     install_requires=[
         "geopandas>=0.9.0",
         "pandas>=1.2.0",
@@ -25,7 +41,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "geoterminal=src.cli:main",
+            "geoterminal=geoterminal.cli:main",
         ]
     },
     classifiers=[

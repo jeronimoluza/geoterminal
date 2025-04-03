@@ -1,99 +1,127 @@
 # Geoterminal
 
-Geoterminal is a command line interface (CLI) made in Python, and designed to automate common operations in the field of Geographic Information Systems (GIS) data development. As a GIS Data Developer, you often find yourself performing tasks like data transformation, geometry loading, and format conversion. Geoterminal streamlines these processes, allowing you to focus on higher-level tasks rather than repetitive operations.
+[![PyPI version](https://badge.fury.io/py/geoterminal.svg)](https://badge.fury.io/py/geoterminal)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-## Main Features
+Geoterminal is a powerful Python library and command-line tool designed to streamline geospatial data processing and H3 grid operations. It provides an intuitive interface for common GIS operations, supporting multiple file formats and offering both a Python API and CLI for maximum flexibility.
 
-- **File Conversion**: Convert files from and to different formats, such as CSV, ORC, GeoJSON and Shapefiles.
-- **WKT Dumping**: Converts a Well-Known Text (WKT) representation of a geometry to any of the mentioned file formats.
-- **H3 Hexagon Transformation**: Converts geometries to Uber's H3 cells in the desired resolution.
-- **Geospatial Data Conversion**: Convert geospatial data between different CRSs.
-- **H3 Hexagonal Grid Resolution**: Apply H3 hexagonal grid resolutions to the converted data.
-- **Geometry Inclusion**: Optionally include H3 geometries in the output.
-- **Buffering Support**: Apply a buffer distance to the data during conversion.
+## Features
 
-## Installation
+- **Flexible Input/Output**
+  - Support for GeoJSON, Shapefile, CSV, and WKT formats
+  - Direct WKT string input for quick operations
+  - Automatic format detection and conversion
 
-To get started with Geoterminal, follow these steps:
+- **Geometry Operations**
+  - Buffer creation with customizable distance
+  - Geometry clipping with file or WKT mask
+  - CRS transformation and validation
 
-1. Clone the repository:
+- **H3 Integration**
+  - Convert geometries to H3 cells
+  - Configurable resolution (0-15)
+  - Optional geometry inclusion
+  - Efficient spatial indexing
 
-   ```bash
-   git clone https://github.com/jeronimoluza/geoterminal.git
-   ```
+- **Developer-Friendly**
+  - Clean Python API
+  - Comprehensive CLI
+  - Extensive documentation
+  - Type hints and error handling
 
-2. Install the required dependencies.
+## Quick Start
 
-   ```bash
-   poetry install
-   ```
-
-# Usage
-
-Geoterminal offers a variety of functionalities through its command-line interface. Here are some examples of how to use its features:
-
-## Command Structure
-
-- `input`: Path to the input geospatial file.
-- `output`: Path where the converted data should be saved.
-- `--h3_res`: H3 hexagon resolution to convert to.
-- `--h3_geom`: Whether to include the H3 geometry or not.
-- `--input_crs`: Input file projection (EPSG code).
-- `--output_crs`: Output file projection (EPSG code).
-- `--buffer_size`: Buffer distance to apply.
-
-### Basic Conversion
-
-To perform a basic conversion between file formats:
+### Installation
 
 ```bash
-geoterminal input.csv output.geojson
+# Install from PyPI
+pip install geoterminal
 ```
 
-### Basic Reprojection
-
-Perform reprojections using the following command:
+Alternatively, you can clone the repository and install the dependencies:
 
 ```bash
-geoterminal input.geojson output.geojson --input_crs EPSG:4326 --output_crs EPSG:3857
+git clone https://github.com/jeronimoluza/geoterminal.git
+cd geoterminal
+pip install -e .
 ```
 
-This command converts data from WGS84 (EPSG:4326) to Web Mercator (EPSG:3857).
+## Usage
 
-### Conversion With H3 Resolution Specification
+### Basic Usage
 
-To convert data and apply an H3 resolution, specify the `--h3_res` option followed by the desired resolution level:
+Geoterminal accepts both file paths and WKT strings as input:
 
 ```bash
-geoterminal input.geojson output.h3 --input_crs EPSG:4326 --output_crs EPSG:3857 --h3_res=9
+# Process a file
+geoterminal input.geojson output.geojson
+
+# Process a WKT string
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 ```
 
-This example converts the data to an H3 index at resolution level 9.
+### Processing Options
 
-### Including H3 Geometry
-
-To include H3 geometries in the output, set the `--h3_geom` option to `True`:
+You can combine multiple processing options:
 
 ```bash
-geoterminal input.geojson output_with_geometry.h3 --input_crs EPSG:4326 --output_crs EPSG:3857 --h3_res=9 --h3_geom=True
+# Apply a buffer and convert to H3 cells
+geoterminal input.geojson output.geojson --buffer-size 1000 --h3-res 9
+
+# Convert WKT to H3 cells with geometries
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
+
+# Reproject data
+geoterminal input.geojson output.geojson --input-crs 4326 --output-crs 3857
 ```
 
-This command converts the data to an H3 index at resolution level 9 and includes the H3 geometries in the output file.
-
-### Applying Buffer Distance
-
-To apply a buffer distance to the data during conversion, use the `--buffer_size` option followed by the desired buffer distance in meters:
+### Additional Commands
 
 ```bash
-geoterminal input.geojson output_buffered.geojson --buffer_size=1000
+# Clip geometries using a mask file
+geoterminal clip input.geojson mask.geojson output.geojson
+
+# Clip using WKT string as mask
+geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
 ```
 
-This example applies a 1000-degree buffer to the data during conversion.
+## Python API
 
-## Contribution
+```python
+from geoterminal.geometry_operations import GeometryProcessor
+from geoterminal.h3_operations import H3Processor
+from geoterminal.file_io import read_geometry_file
 
-Contributions to Geoterminal are welcome! If you have any ideas for new features, improvements, or bug fixes, feel free to submit a pull request.
+# Read data
+gdf = read_geometry_file("input.geojson")
+
+# Geometry operations
+processor = GeometryProcessor(gdf)
+buffered = processor.apply_buffer(distance=1000)
+
+# H3 operations
+h3_processor = H3Processor(gdf)
+h3_cells = h3_processor.polyfill(resolution=9)
+
+# Export
+h3_cells.to_file("output.geojson")
+```
+
+## Documentation
+
+Comprehensive documentation is available:
+
+- [Installation Guide](docs/installation.md)
+- [Usage Guide](docs/usage.md)
+- [API Reference](docs/api.md)
+- [CLI Documentation](docs/cli.md)
+- [FAQ](docs/faq.md)
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
-Geoterminal is released under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

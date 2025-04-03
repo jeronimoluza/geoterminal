@@ -87,3 +87,5 @@ target/
 
 # pytest
 *.pytest_cache/
+
+site/
