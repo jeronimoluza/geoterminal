@@ -1,0 +1,52 @@
+site_name: Geoterminal Documentation
+site_description: Documentation for the Geoterminal GIS CLI tool
+repo_url: https://github.com/jeronimoluza/geoterminal
+repo_name: jeronimoluza/geoterminal
+
+theme:
+  name: readthedocs
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+  palette:
+    - scheme: default
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: true
+            show_root_heading: true
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage:
+    - Getting Started: usage/getting-started.md
+    - Command Reference: usage/commands.md
+    - Examples: usage/examples.md
+  - API Reference:
+    - Geometry Operations: api/geometry_operations.md
+    - H3 Operations: api/h3_operations.md
+    - File I/O: api/file_io.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md

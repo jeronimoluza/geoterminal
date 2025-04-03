@@ -2,7 +2,7 @@ import pytest
 import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Polygon
-from src.h3_operations.h3_operations import get_hex_geometry, polyfill
+from src.h3_operations.h3_operations import H3Processor, H3OperationError
 
 @pytest.fixture
 def sample_hex_id():
@@ -19,7 +19,7 @@ def sample_polygon_gdf():
 
 def test_get_hex_geometry(sample_hex_id):
     """Test getting geometry from H3 hex ID."""
-    geometry = get_hex_geometry(sample_hex_id)
+    geometry = H3Processor.get_hex_geometry(sample_hex_id)
     
     # Check if we got a valid polygon
     assert isinstance(geometry, Polygon)
@@ -30,10 +30,15 @@ def test_get_hex_geometry(sample_hex_id):
     exterior_coords = list(geometry.exterior.coords)
     assert len(exterior_coords) == 7  # 6 vertices + 1 closing point
 
+    # Test invalid hex ID
+    with pytest.raises(H3OperationError):
+        H3Processor.get_hex_geometry("invalid_hex_id")
+
 def test_polyfill_without_geometry(sample_polygon_gdf):
     """Test H3 polyfill operation without including geometry."""
+    processor = H3Processor(sample_polygon_gdf)
     resolution = 9
-    result = polyfill(sample_polygon_gdf, resolution, include_geometry=False)
+    result = processor.polyfill(resolution, include_geometry=False)
     
     # Check that we got a DataFrame (not GeoDataFrame since include_geometry=False)
     assert isinstance(result, pd.DataFrame)
@@ -47,10 +52,17 @@ def test_polyfill_without_geometry(sample_polygon_gdf):
     for hex_id in result['hex']:
         assert isinstance(hex_id, str)
 
+    # Test invalid resolution
+    with pytest.raises(H3OperationError):
+        processor.polyfill(-1)
+    with pytest.raises(H3OperationError):
+        processor.polyfill(16)
+
 def test_polyfill_with_geometry(sample_polygon_gdf):
     """Test H3 polyfill operation with geometry included."""
+    processor = H3Processor(sample_polygon_gdf)
     resolution = 9
-    result = polyfill(sample_polygon_gdf, resolution, include_geometry=True)
+    result = processor.polyfill(resolution, include_geometry=True)
     
     # Check that we got a GeoDataFrame
     assert isinstance(result, gpd.GeoDataFrame)
@@ -71,8 +83,19 @@ def test_polyfill_with_invalid_geometry():
     invalid_polygon = Polygon([(0, 0), (1, 1), (1, 0), (0, 1)])
     invalid_gdf = gpd.GeoDataFrame(geometry=[invalid_polygon], crs="EPSG:4326")
     
+    processor = H3Processor(invalid_gdf)
     resolution = 9
-    result = polyfill(invalid_gdf, resolution)
+    result = processor.polyfill(resolution)
     
     # Should return an empty DataFrame since the geometry is invalid
     assert len(result) == 0
+
+def test_h3processor_validation():
+    """Test H3Processor validation."""
+    with pytest.raises(H3OperationError):
+        # Should raise error for non-GeoDataFrame input
+        H3Processor(pd.DataFrame())
+    
+    # Should work with None
+    processor = H3Processor()
+    assert processor.gdf is None
