@@ -1,52 +1,60 @@
-site_name: Geoterminal Documentation
-site_description: Documentation for the Geoterminal GIS CLI tool
+site_name: Geoterminal
+site_description: A Python library for geospatial data processing and H3 operations
+site_author: Jeronimo Luza
 repo_url: https://github.com/jeronimoluza/geoterminal
-repo_name: jeronimoluza/geoterminal
 
 theme:
   name: readthedocs
+  palette:
+    primary: teal
+    accent: deep orange
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.sections
     - navigation.expand
-    - navigation.top
-    - search.highlight
-    - search.share
-  palette:
-    - scheme: default
-      primary: teal
-      accent: deep orange
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: slate
-      primary: teal
-      accent: deep orange
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+    - toc.integrate
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - Usage Guide: usage.md
+    - CLI Reference: cli.md
+  - Usage:
+    - Getting Started: usage/getting-started.md
+    - Commands: usage/commands.md
+    - Examples: usage/examples.md
+  - API Reference:
+    - Overview: api.md
+    - Geometry Operations: api/geometry_operations.md
+    - H3 Operations: api/h3_operations.md
+    - File I/O: api/file_io.md
+  - Contributing: contributing.md
+  - FAQ: faq.md
+  - Changelog: changelog.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist
 
 plugins:
   - search
   - mkdocstrings:
+      default_handler: python
       handlers:
         python:
           paths: [src]
           options:
             show_source: true
             show_root_heading: true
-
-nav:
-  - Home: index.md
-  - Installation: installation.md
-  - Usage:
-    - Getting Started: usage/getting-started.md
-    - Command Reference: usage/commands.md
-    - Examples: usage/examples.md
-  - API Reference:
-    - Geometry Operations: api/geometry_operations.md
-    - H3 Operations: api/h3_operations.md
-    - File I/O: api/file_io.md
-  - Contributing: contributing.md
-  - Changelog: changelog.md
+            show_object_full_path: true
+            show_category_heading: true
