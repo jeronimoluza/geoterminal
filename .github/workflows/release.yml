@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get version from tag
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+        
+      - name: Verify version match
+        run: |
+          VERSION=$(python -c "from geoterminal._version import __version__; print(__version__)")
+          TAG_VERSION=${{ steps.get_version.outputs.VERSION }}
+          if [ "$VERSION" != "$TAG_VERSION" ]; then
+            echo "Version mismatch: Tag version ($TAG_VERSION) doesn't match package version ($VERSION)"
+            exit 1
+          fi
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true

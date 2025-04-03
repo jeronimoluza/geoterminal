@@ -43,7 +43,8 @@ Alternatively, you can clone the repository and install the dependencies:
 
 ```bash
 git clone https://github.com/jeronimoluza/geoterminal.git
-poetry install
+cd geoterminal
+pip install -e .
 ```
 
 ## Usage

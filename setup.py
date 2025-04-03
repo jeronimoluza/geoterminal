@@ -1,8 +1,13 @@
+import os
 from setuptools import setup, find_packages
+
+# Read version from _version.py
+with open(os.path.join('geoterminal', '_version.py'), 'r') as f:
+    exec(f.read())
 
 setup(
     name="geoterminal",
-    version="0.1.0",
+    version=__version__,
     description="Geoterminal is a command-line tool designed to simplify common GIS (Geographic Information System) tasks that you may encounter in your daily work.",
     author="Jerónimo Luza",
     author_email="jero.luza@gmail.com",
