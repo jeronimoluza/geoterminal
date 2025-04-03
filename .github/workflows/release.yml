@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Get version from tag
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
-        
+
       - name: Verify version match
         run: |
           VERSION=$(python -c "from geoterminal._version import __version__; print(__version__)")
@@ -23,7 +23,7 @@ jobs:
             echo "Version mismatch: Tag version ($TAG_VERSION) doesn't match package version ($VERSION)"
             exit 1
           fi
-          
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:

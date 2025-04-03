@@ -100,11 +100,11 @@ from geoterminal.file_io import read_geometry_file, FileHandlerError
 try:
     # Read input
     gdf = read_geometry_file("input.geojson")
-    
+
     # Process
     processor = GeometryProcessor(gdf)
     result = processor.apply_buffer(distance=1000)
-    
+
     # Save
     result.to_file("output.geojson")
 except FileHandlerError as e:

@@ -1,24 +1,40 @@
+"""File I/O operations for geospatial data.
+
+This module provides functions for reading and writing geospatial data in
+various formats, including GeoJSON, Shapefile, CSV with WKT,
+and direct WKT strings.
+"""
+
 import logging
 from pathlib import Path
-from typing import List, Optional, Set, Union
+from typing import Optional, Union
 
 import geopandas as gpd
 import pandas as pd
 import pyarrow as pa
-from shapely import wkt
-from shapely.geometry.base import BaseGeometry
+from shapely.wkt import loads as wkt
 
 logger = logging.getLogger(__name__)
 
+
 class FileHandlerError(Exception):
     """Custom exception for file handling errors."""
+
     pass
+
 
 # Supported file formats and geometry types
 GEOSPATIAL_FORMATS = [".shp", ".geojson", ".json"]
 NONGEOSPATIAL_FORMATS = [".csv", ".orc"]
-WKT_TYPES = ["POLYGON", "MULTIPOLYGON", "LINESTRING", "POINT", "GEOMETRYCOLLECTION"]
+WKT_TYPES = [
+    "POLYGON",
+    "MULTIPOLYGON",
+    "LINESTRING",
+    "POINT",
+    "GEOMETRYCOLLECTION",
+]
 GEOMETRY_COLUMNS = ["geometry", "geom", "wkt", "the_geom"]
+
 
 def read_wkt(wkt_str: str, crs: int = 4326) -> gpd.GeoDataFrame:
     """Convert WKT string to GeoDataFrame.
@@ -39,7 +55,10 @@ def read_wkt(wkt_str: str, crs: int = 4326) -> gpd.GeoDataFrame:
     except Exception as e:
         raise FileHandlerError(f"Failed to parse WKT: {str(e)}") from e
 
-def read_csv_with_geometry(file_path: Path, crs: Optional[int] = None) -> gpd.GeoDataFrame:
+
+def read_csv_with_geometry(
+    file_path: Path, crs: Optional[int] = None
+) -> gpd.GeoDataFrame:
     """Read CSV file containing geometry information.
 
     Args:
@@ -54,26 +73,31 @@ def read_csv_with_geometry(file_path: Path, crs: Optional[int] = None) -> gpd.Ge
     """
     try:
         df = pd.read_csv(file_path)
-        
+
         # Find geometry column
-        geom_col = next((col for col in GEOMETRY_COLUMNS if col in df.columns), None)
+        geom_col = next(
+            (col for col in GEOMETRY_COLUMNS if col in df.columns), None
+        )
         if not geom_col:
             raise FileHandlerError("No geometry column found in CSV")
-        
+
         # Convert WKT strings to geometries
-        df['geometry'] = df[geom_col].apply(wkt.loads)
-        gdf = gpd.GeoDataFrame(df, geometry='geometry')
-        
+        df["geometry"] = df[geom_col].apply(wkt.loads)
+        gdf = gpd.GeoDataFrame(df, geometry="geometry")
+
         if crs is not None:
             gdf.set_crs(crs, inplace=True)
-            
+
         return gdf
     except Exception as e:
         if isinstance(e, FileHandlerError):
             raise
         raise FileHandlerError(f"Failed to read CSV: {str(e)}") from e
 
-def read_geometry_file(file_path: Union[str, Path], crs: Optional[int] = None) -> gpd.GeoDataFrame:
+
+def read_geometry_file(
+    file_path: Union[str, Path], crs: Optional[int] = None
+) -> gpd.GeoDataFrame:
     """Read geometry from various file formats.
 
     Supported formats:
@@ -129,6 +153,7 @@ def read_geometry_file(file_path: Union[str, Path], crs: Optional[int] = None) -
             raise
         raise FileHandlerError(f"Failed to read geometry: {str(e)}") from e
 
+
 def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
     """Export GeoDataFrame to various formats.
 
@@ -155,13 +180,17 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
         elif suffix == ".csv":
             # Convert geometry to WKT for CSV export
             df = pd.DataFrame(gdf)
-            df['geometry'] = df['geometry'].apply(lambda x: x.wkt if x else None)
+            df["geometry"] = df["geometry"].apply(
+                lambda x: x.wkt if x else None
+            )
             df.to_csv(path, index=False)
         elif suffix in [".shp", ".zip"]:
             gdf.to_file(path, driver="ESRI Shapefile")
         elif suffix == ".orc":
             df = pd.DataFrame(gdf)
-            df['geometry'] = df['geometry'].apply(lambda x: x.wkt if x else None)
+            df["geometry"] = df["geometry"].apply(
+                lambda x: x.wkt if x else None
+            )
             table = pa.Table.from_pandas(df)
             with pa.output_stream(path) as orc_writer:
                 pa.orc.write_table(table, orc_writer)
@@ -173,7 +202,10 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
     except Exception as e:
         raise FileHandlerError(f"Failed to export data: {str(e)}") from e
 
+
 # For backward compatibility
-def load_data(input_file: Union[str, Path], input_crs: int = 4326) -> gpd.GeoDataFrame:
+def load_data(
+    input_file: Union[str, Path], input_crs: int = 4326
+) -> gpd.GeoDataFrame:
     """Legacy function for backward compatibility."""
     return read_geometry_file(input_file, input_crs)
