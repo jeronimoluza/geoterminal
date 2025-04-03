@@ -32,6 +32,7 @@ geoterminal h3 input.geojson output.geojson --resolution 9
 ### File Format Support
 
 Geoterminal supports multiple file formats:
+
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV with WKT column
