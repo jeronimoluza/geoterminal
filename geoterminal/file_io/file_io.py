@@ -12,7 +12,7 @@ from typing import Optional, Union
 import geopandas as gpd
 import pandas as pd
 import pyarrow as pa
-from shapely.wkt import loads as wkt
+from shapely import wkt
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +51,8 @@ def read_wkt(wkt_str: str, crs: int = 4326) -> gpd.GeoDataFrame:
     """
     try:
         geometry = wkt.loads(wkt_str)
-        return gpd.GeoDataFrame(geometry=[geometry], crs=crs)
+        gdf = gpd.GeoDataFrame(geometry=[geometry], crs=crs)
+        return gdf
     except Exception as e:
         raise FileHandlerError(f"Failed to parse WKT: {str(e)}") from e
 
