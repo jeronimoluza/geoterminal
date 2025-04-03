@@ -32,5 +32,8 @@ repos:
     -   id: mypy
         additional_dependencies:
             - types-setuptools
-            - pandas-stubs
-            - types-pyarrow
+        args: [
+            --ignore-missing-imports,
+            --disallow-untyped-defs,
+            --check-untyped-defs
+        ]
