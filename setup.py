@@ -2,8 +2,10 @@ import os
 from setuptools import setup, find_packages
 
 # Read version from _version.py
+version = {}
 with open(os.path.join('geoterminal', '_version.py'), 'r') as f:
-    exec(f.read())
+    exec(f.read(), version)
+__version__ = version['__version__']
 
 setup(
     name="geoterminal",

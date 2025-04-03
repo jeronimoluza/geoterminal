@@ -5,19 +5,19 @@ from shapely.geometry import Polygon
 from geoterminal.h3_operations.h3_operations import H3Processor, H3OperationError
 
 @pytest.fixture
-def sample_hex_id():
+def sample_hex_id() -> str:
     """Return a sample H3 hex ID at resolution 9 near the equator."""
     return "868389177ffffff"
 
 @pytest.fixture
-def sample_polygon_gdf():
+def sample_polygon_gdf() -> gpd.GeoDataFrame:
     """Create a sample GeoDataFrame with a simple polygon."""
     # Create a small polygon near the equator
     polygon = Polygon([(0, 0), (0.01, 0), (0.01, 0.01), (0, 0.01)])
     gdf = gpd.GeoDataFrame(geometry=[polygon], crs="EPSG:4326")
     return gdf
 
-def test_get_hex_geometry(sample_hex_id):
+def test_get_hex_geometry(sample_hex_id: str) -> None:
     """Test getting geometry from H3 hex ID."""
     geometry = H3Processor.get_hex_geometry(sample_hex_id)
     
@@ -34,7 +34,7 @@ def test_get_hex_geometry(sample_hex_id):
     with pytest.raises(H3OperationError):
         H3Processor.get_hex_geometry("invalid_hex_id")
 
-def test_polyfill_without_geometry(sample_polygon_gdf):
+def test_polyfill_without_geometry(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
     """Test H3 polyfill operation without including geometry."""
     processor = H3Processor(sample_polygon_gdf)
     resolution = 9
@@ -58,7 +58,7 @@ def test_polyfill_without_geometry(sample_polygon_gdf):
     with pytest.raises(H3OperationError):
         processor.polyfill(16)
 
-def test_polyfill_with_geometry(sample_polygon_gdf):
+def test_polyfill_with_geometry(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
     """Test H3 polyfill operation with geometry included."""
     processor = H3Processor(sample_polygon_gdf)
     resolution = 9
@@ -77,7 +77,7 @@ def test_polyfill_with_geometry(sample_polygon_gdf):
         assert isinstance(geom, Polygon)
         assert geom.is_valid
 
-def test_polyfill_with_invalid_geometry():
+def test_polyfill_with_invalid_geometry() -> None:
     """Test polyfill with an invalid geometry."""
     # Create an invalid polygon (self-intersecting)
     invalid_polygon = Polygon([(0, 0), (1, 1), (1, 0), (0, 1)])
@@ -90,7 +90,7 @@ def test_polyfill_with_invalid_geometry():
     # Should return an empty DataFrame since the geometry is invalid
     assert len(result) == 0
 
-def test_h3processor_validation():
+def test_h3processor_validation() -> None:
     """Test H3Processor validation."""
     with pytest.raises(H3OperationError):
         # Should raise error for non-GeoDataFrame input

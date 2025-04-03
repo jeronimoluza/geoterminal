@@ -5,7 +5,7 @@ from typing import Optional, Union
 
 from geoterminal.file_io.file_io import read_geometry_file, export_data, FileHandlerError
 from geoterminal.geometry_operations.geometry_operations import GeometryProcessor, GeometryOperationError
-from geoterminal.h3_operations.h3_operations import H3Processor, H3OperationError
+from geoterminal.h3_operations.h3_operations import H3Processor, H3OperationError, polyfill
 
 # Configure logging
 logging.basicConfig(

@@ -15,38 +15,38 @@ from geoterminal.file_io.file_io import (
 
 # Test fixtures
 @pytest.fixture
-def sample_wkt():
+def sample_wkt() -> str:
     return "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
 
 @pytest.fixture
-def sample_gdf():
+def sample_gdf() -> gpd.GeoDataFrame:
     polygon = Polygon([(30, 10), (40, 40), (20, 40), (10, 20), (30, 10)])
     return gpd.GeoDataFrame(geometry=[polygon], crs=4326)
 
 @pytest.fixture
-def temp_dir():
+def temp_dir() -> Path:
     with tempfile.TemporaryDirectory() as tmp_dir:
         yield Path(tmp_dir)
 
 # Test WKT reading
-def test_read_wkt(sample_wkt):
+def test_read_wkt(sample_wkt: str) -> None:
     gdf = read_wkt(sample_wkt)
     assert isinstance(gdf, gpd.GeoDataFrame)
     assert gdf.crs.to_epsg() == 4326
     assert len(gdf) == 1
     assert isinstance(gdf.geometry.iloc[0], Polygon)
 
-def test_read_wkt_invalid():
+def test_read_wkt_invalid() -> None:
     with pytest.raises(FileHandlerError):
         read_wkt("INVALID WKT")
 
 # Test file reading
-def test_read_geometry_file_wkt(sample_wkt):
+def test_read_geometry_file_wkt(sample_wkt: str) -> None:
     gdf = read_geometry_file(sample_wkt)
     assert isinstance(gdf, gpd.GeoDataFrame)
     assert gdf.crs.to_epsg() == 4326
 
-def test_read_geometry_file_geojson(temp_dir, sample_gdf):
+def test_read_geometry_file_geojson(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     file_path = temp_dir / "test.geojson"
     sample_gdf.to_file(file_path, driver="GeoJSON")
     
@@ -54,7 +54,7 @@ def test_read_geometry_file_geojson(temp_dir, sample_gdf):
     assert isinstance(gdf, gpd.GeoDataFrame)
     assert len(gdf) == len(sample_gdf)
 
-def test_read_geometry_file_csv(temp_dir, sample_gdf):
+def test_read_geometry_file_csv(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     file_path = temp_dir / "test.csv"
     # Convert geometry to WKT for CSV export
     df = sample_gdf.copy()
@@ -65,12 +65,12 @@ def test_read_geometry_file_csv(temp_dir, sample_gdf):
     assert isinstance(gdf, gpd.GeoDataFrame)
     assert len(gdf) == len(sample_gdf)
 
-def test_read_geometry_file_invalid():
+def test_read_geometry_file_invalid() -> None:
     with pytest.raises(FileHandlerError):
         read_geometry_file("nonexistent.file")
 
 # Test file exporting
-def test_export_geojson(temp_dir, sample_gdf):
+def test_export_geojson(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     file_path = temp_dir / "output.geojson"
     export_data(sample_gdf, file_path)
     assert file_path.exists()
@@ -79,7 +79,7 @@ def test_export_geojson(temp_dir, sample_gdf):
     gdf = gpd.read_file(file_path)
     assert len(gdf) == len(sample_gdf)
 
-def test_export_csv(temp_dir, sample_gdf):
+def test_export_csv(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     file_path = temp_dir / "output.csv"
     export_data(sample_gdf, file_path)
     assert file_path.exists()
@@ -88,6 +88,6 @@ def test_export_csv(temp_dir, sample_gdf):
     gdf = read_geometry_file(file_path)
     assert len(gdf) == len(sample_gdf)
 
-def test_export_invalid_format(temp_dir, sample_gdf):
+def test_export_invalid_format(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     with pytest.raises(FileHandlerError):
         export_data(sample_gdf, temp_dir / "output.invalid")

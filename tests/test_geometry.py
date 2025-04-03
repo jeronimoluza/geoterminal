@@ -1,23 +1,24 @@
 import pytest
 import geopandas as gpd
 from shapely.geometry import Point, Polygon
-from geoterminal.geometry_operations.geometry_operations import GeometryProcessor
+import pandas as pd
+from geoterminal.geometry_operations.geometry_operations import GeometryProcessor, GeometryOperationError
 
 @pytest.fixture
-def sample_point_gdf():
+def sample_point_gdf() -> gpd.GeoDataFrame:
     """Create a sample GeoDataFrame with point geometry."""
     point = Point(0, 0)
     gdf = gpd.GeoDataFrame(geometry=[point], crs="EPSG:4326")
     return gdf
 
 @pytest.fixture
-def sample_polygon_gdf():
+def sample_polygon_gdf() -> gpd.GeoDataFrame:
     """Create a sample GeoDataFrame with polygon geometry."""
     polygon = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
     gdf = gpd.GeoDataFrame(geometry=[polygon], crs="EPSG:4326")
     return gdf
 
-def test_apply_buffer_to_point(sample_point_gdf):
+def test_apply_buffer_to_point(sample_point_gdf: gpd.GeoDataFrame) -> None:
     """Test buffer operation on a point geometry."""
     processor = GeometryProcessor(sample_point_gdf)
     buffer_size = 1.0
@@ -30,7 +31,7 @@ def test_apply_buffer_to_point(sample_point_gdf):
     assert buffered_gdf.geometry.iloc[0].area > 0
     assert isinstance(buffered_gdf.geometry.iloc[0], Polygon)
 
-def test_apply_buffer_to_polygon(sample_polygon_gdf):
+def test_apply_buffer_to_polygon(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
     """Test buffer operation on a polygon geometry."""
     processor = GeometryProcessor(sample_polygon_gdf)
     original_area = sample_polygon_gdf.geometry.iloc[0].area
@@ -40,7 +41,7 @@ def test_apply_buffer_to_polygon(sample_polygon_gdf):
     # Check if the buffered area is larger than the original
     assert buffered_gdf.geometry.iloc[0].area > original_area
 
-def test_reproject_gdf(sample_point_gdf):
+def test_reproject_gdf(sample_point_gdf: gpd.GeoDataFrame) -> None:
     """Test reprojection of GeoDataFrame."""
     processor = GeometryProcessor(sample_point_gdf)
     target_crs = "EPSG:3857"  # Web Mercator projection
@@ -54,7 +55,7 @@ def test_reproject_gdf(sample_point_gdf):
     assert isinstance(reprojected_gdf, gpd.GeoDataFrame)
     assert len(reprojected_gdf) == len(sample_point_gdf)
 
-def test_geometry_processor_validation():
+def test_geometry_processor_validation() -> None:
     """Test GeometryProcessor validation."""
     with pytest.raises(Exception):
         # Should raise error for non-GeoDataFrame input
