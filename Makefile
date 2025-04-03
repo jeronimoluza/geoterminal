@@ -22,15 +22,15 @@ test:
 	pytest tests/
 
 coverage:
-	pytest tests/ --cov=src --cov-report=term-missing
+	pytest tests/ --cov=geoterminal --cov-report=term-missing
 
 lint:
-	flake8 src/ tests/
-	mypy src/ tests/
+	flake8 geoterminal/ tests/
+	mypy geoterminal/ tests/
 
 format:
-	black src/ tests/
-	isort src/ tests/
+	black geoterminal/ tests/
+	isort geoterminal/ tests/
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -r {} +

@@ -7,8 +7,7 @@ setup(
     author="Jerónimo Luza",
     author_email="jero.luza@gmail.com",
     url="https://github.com/jeronimoluza/geoterminal",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
+    packages=find_packages(),
     install_requires=[
         "geopandas>=0.9.0",
         "pandas>=1.2.0",
@@ -25,7 +24,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "geoterminal=src.cli:main",
+            "geoterminal=geoterminal.cli:main",
         ]
     },
     classifiers=[

@@ -2,7 +2,7 @@ import pytest
 import geopandas as gpd
 import pandas as pd
 from shapely.geometry import Polygon
-from src.h3_operations.h3_operations import H3Processor, H3OperationError
+from geoterminal.h3_operations.h3_operations import H3Processor, H3OperationError
 
 @pytest.fixture
 def sample_hex_id():

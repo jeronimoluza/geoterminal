@@ -1,13 +1,40 @@
 # Command Line Interface (CLI)
 
-Geoterminal provides a command-line interface for common geospatial operations.
+Geoterminal provides a command-line interface for common geospatial operations. It accepts both file paths and WKT strings as input.
 
-## Global Options
+## Basic Usage
 
-- `--verbose`: Enable verbose logging
-- `--version`: Show version information
+```bash
+geoterminal INPUT OUTPUT [OPTIONS]
+```
 
-## Commands
+### Arguments
+- `INPUT`: Input geometry (file path or WKT string)
+- `OUTPUT`: Output file path
+
+### Options
+- `--buffer-size`: Buffer size to apply (in CRS units)
+- `--h3-res`: H3 resolution for polyfilling (0-15)
+- `--h3-geom`: Include H3 geometries in output
+- `--input-crs`: Input CRS (default: 4326)
+- `--output-crs`: Output CRS
+
+### Examples
+```bash
+# Process a file
+geoterminal input.geojson output.geojson
+
+# Process a WKT string
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+
+# Apply buffer and convert to H3
+geoterminal input.geojson output.geojson --buffer-size 1000 --h3-res 9
+
+# Convert WKT to H3 with geometries
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
+```
+
+## Additional Commands
 
 ### clip
 
@@ -36,54 +63,7 @@ geoterminal clip input.geojson mask.geojson output.geojson
 geoterminal clip input.geojson "POLYGON((...))" output.geojson --mask-crs EPSG:4326
 ```
 
-### buffer
 
-Creates a buffer around geometries.
-
-```bash
-geoterminal buffer INPUT OUTPUT [OPTIONS]
-```
-
-#### Arguments
-- `INPUT`: Input file path
-- `OUTPUT`: Output file path
-
-#### Options
-- `--distance`: Buffer distance in CRS units (required)
-- `--input-crs`: CRS of input file (default: read from file)
-- `--output-crs`: CRS of output file (default: same as input)
-
-#### Examples
-```bash
-# Create 1km buffer
-geoterminal buffer input.geojson output.geojson --distance 1000
-```
-
-### h3
-
-Performs H3 grid operations.
-
-```bash
-geoterminal h3 INPUT OUTPUT [OPTIONS]
-```
-
-#### Arguments
-- `INPUT`: Input file path
-- `OUTPUT`: Output file path
-
-#### Options
-- `--resolution`: H3 resolution (0-15, required)
-- `--include-geometry`: Include hex geometries in output (default: true)
-- `--input-crs`: CRS of input file (default: read from file)
-
-#### Examples
-```bash
-# Convert to H3 cells at resolution 9
-geoterminal h3 input.geojson output.geojson --resolution 9
-
-# Get only H3 indexes
-geoterminal h3 input.geojson output.csv --resolution 9 --include-geometry false
-```
 
 ## Error Handling
 

@@ -1,7 +1,7 @@
 import pytest
 import geopandas as gpd
 from shapely.geometry import Point, Polygon
-from src.geometry_operations.geometry_operations import GeometryProcessor
+from geoterminal.geometry_operations.geometry_operations import GeometryProcessor
 
 @pytest.fixture
 def sample_point_gdf():

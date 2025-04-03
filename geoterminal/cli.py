@@ -3,9 +3,9 @@ import logging
 from pathlib import Path
 from typing import Optional, Union
 
-from src.file_io.file_io import read_geometry_file, export_data, FileHandlerError
-from src.geometry_operations.geometry_operations import GeometryProcessor, GeometryOperationError
-from src.h3_operations.h3_operations import H3Processor, H3OperationError
+from geoterminal.file_io.file_io import read_geometry_file, export_data, FileHandlerError
+from geoterminal.geometry_operations.geometry_operations import GeometryProcessor, GeometryOperationError
+from geoterminal.h3_operations.h3_operations import H3Processor, H3OperationError
 
 # Configure logging
 logging.basicConfig(
@@ -48,17 +48,18 @@ def setup_parser() -> argparse.ArgumentParser:
         Configured argument parser
     """
     parser = argparse.ArgumentParser(description="GIS Toolkit CLI")
-    subparsers = parser.add_subparsers(dest='command', help='Available commands')
-
-    # Process command
-    process_parser = subparsers.add_parser('process', help='Process geometries')
-    process_parser.add_argument("--input-file", required=True, help="Path to the input file")
-    process_parser.add_argument("--output-file", required=True, help="Path to the output file")
-    process_parser.add_argument("--buffer-size", type=float, help="Buffer size to apply")
-    process_parser.add_argument("--h3-res", type=int, help="H3 resolution for polyfilling")
-    process_parser.add_argument("--h3-geom", action="store_true", help="Include H3 geometries")
-    process_parser.add_argument("--input-crs", type=int, help="Input CRS")
-    process_parser.add_argument("--output-crs", type=int, help="Output CRS")
+    
+    # Add main arguments (previously process command arguments)
+    parser.add_argument("input", help="Input geometry (file path or WKT string)")
+    parser.add_argument("output", help="Output file path (format determined by extension)")
+    parser.add_argument("--buffer-size", type=float, help="Buffer size to apply")
+    parser.add_argument("--h3-res", type=int, help="H3 resolution for polyfilling")
+    parser.add_argument("--h3-geom", action="store_true", help="Include H3 geometries")
+    parser.add_argument("--input-crs", type=int, default=4326, help="Input CRS (default: 4326)")
+    parser.add_argument("--output-crs", type=int, help="Output CRS")
+    
+    # Add subcommands
+    subparsers = parser.add_subparsers(dest='command', help='Additional commands')
 
     # Clip command
     clip_parser = subparsers.add_parser('clip', help='Clip geometries with mask')
@@ -94,22 +95,18 @@ def main() -> None:
     parser = setup_parser()
     args = parser.parse_args()
 
-    if not args.command:
-        parser.print_help()
-        return
-
     try:
-        if args.command == 'process':
+        # Default behavior (previously process command)
+        if not args.command:
             # Load and process data
-            input_crs = args.input_crs if args.input_crs else 4326
-            gdf = load_data(input_file=args.input_file, input_crs=input_crs)
+            gdf = read_geometry_file(args.input, args.input_crs)
             
             processor = GeometryProcessor(gdf)
             process_geometries(processor, args)
             
             # Export results
-            export_data(processor.gdf, args.output_file)
-            logger.info(f"Successfully processed and saved to {args.output_file}")
+            export_data(processor.gdf, args.output)
+            logger.info(f"Successfully processed and saved to {args.output}")
 
         elif args.command == 'clip':
             try:

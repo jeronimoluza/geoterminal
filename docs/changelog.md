@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pre-commit hooks for code quality
 
 ### Changed
+- Simplified CLI interface - no need to specify 'process' command for basic operations
+- Made process command the default operation
 - Refactored geometry operations into GeometryProcessor class
 - Refactored H3 operations into H3Processor class
 - Improved error messages and logging

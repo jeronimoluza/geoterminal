@@ -110,7 +110,7 @@ def apply_buffer(gdf: gpd.GeoDataFrame, buffer_size: float) -> gpd.GeoDataFrame:
     return processor.apply_buffer(buffer_size)
 
 def reproject_gdf(gdf: gpd.GeoDataFrame, output_crs: Union[int, str]) -> gpd.GeoDataFrame:
-    """Legacy function for backward compatibility."""
+    """Legacy function for backward compatibility.
     processor = GeometryProcessor(gdf)
     return processor.reproject(output_crs)
 

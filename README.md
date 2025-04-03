@@ -48,50 +48,41 @@ poetry install
 
 ## Usage
 
-### Conversion With H3 Resolution Specification
+### Basic Usage
 
-To convert data and apply an H3 resolution, specify the `--h3_res` option followed by the desired resolution level:
-
-```bash
-geoterminal input.geojson output.csv --input_crs EPSG:4326 --output_crs EPSG:3857 --h3_res=9
-```
-
-This example converts the data to an H3 index at resolution level 9.
-
-### Including H3 Geometry
-
-To include H3 geometries in the output, set the `--h3_geom` option to `True`:
+Geoterminal accepts both file paths and WKT strings as input:
 
 ```bash
-geoterminal input.geojson output_with_geometry.h3 --input_crs EPSG:4326 --output_crs EPSG:3857 --h3_res=9 --h3_geom=True
+# Process a file
+geoterminal input.geojson output.geojson
+
+# Process a WKT string
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 ```
 
-This command converts the data to an H3 index at resolution level 9 and includes the H3 geometries in the output file.
+### Processing Options
 
-### Applying Buffer Distance
-
-To apply a buffer distance to the data during conversion, use the `--buffer_size` option followed by the desired buffer distance in meters:
+You can combine multiple processing options:
 
 ```bash
-geoterminal input.geojson output_buffered.geojson --buffer_size=1000
+# Apply a buffer and convert to H3 cells
+geoterminal input.geojson output.geojson --buffer-size 1000 --h3-res 9
+
+# Convert WKT to H3 cells with geometries
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
+
+# Reproject data
+geoterminal input.geojson output.geojson --input-crs 4326 --output-crs 3857
 ```
 
-This example applies a 1000-degree buffer to the data during conversion.
-
-## Command Line
+### Additional Commands
 
 ```bash
 # Clip geometries using a mask file
 geoterminal clip input.geojson mask.geojson output.geojson
 
-# Clip using WKT string
+# Clip using WKT string as mask
 geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
-
-# Create buffer
-geoterminal buffer input.geojson output.geojson --distance 1000
-
-# Convert to H3 cells
-geoterminal h3 input.geojson output.geojson --resolution 9
 ```
 
 ## Python API

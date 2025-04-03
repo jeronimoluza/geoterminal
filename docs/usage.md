@@ -6,27 +6,41 @@ Geoterminal provides both a Python API and a command-line interface (CLI) for ge
 
 ## Command Line Interface
 
-### Basic Commands
+### Basic Usage
 
-1. **Clip Operation**
+Geoterminal accepts both file paths and WKT strings as input:
+
 ```bash
-# Clip using a mask file
+# Process a file
+geoterminal input.geojson output.geojson
+
+# Process a WKT string
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+```
+
+### Processing Options
+
+You can combine multiple processing options:
+
+```bash
+# Apply a buffer and convert to H3 cells
+geoterminal input.geojson output.geojson --buffer-size 1000 --h3-res 9
+
+# Convert WKT to H3 cells with geometries
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
+
+# Reproject data
+geoterminal input.geojson output.geojson --input-crs 4326 --output-crs 3857
+```
+
+### Additional Commands
+
+```bash
+# Clip geometries using a mask file
 geoterminal clip input.geojson mask.geojson output.geojson
 
-# Clip using WKT string
-geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson --mask-crs EPSG:4326
-```
-
-2. **Buffer Operation**
-```bash
-# Create a buffer around geometries
-geoterminal buffer input.geojson output.geojson --distance 1000
-```
-
-3. **H3 Operations**
-```bash
-# Convert geometries to H3 cells
-geoterminal h3 input.geojson output.geojson --resolution 9
+# Clip using WKT string as mask
+geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
 ```
 
 ### File Format Support
