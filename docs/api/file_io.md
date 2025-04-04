@@ -14,16 +14,20 @@ def read_geometry_file(
 Reads geometry from file or WKT string.
 
 **Parameters:**
+
 - `file_path`: Path to file or WKT string
 - `crs`: CRS for WKT input (required for WKT)
 
 **Returns:**
+
 - GeoDataFrame containing the geometries
 
 **Raises:**
+
 - `FileHandlerError`: If file reading fails
 
 **Supported Formats:**
+
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV with WKT column
@@ -41,10 +45,12 @@ def export_data(
 Exports data to file.
 
 **Parameters:**
+
 - `data`: Data to export (GeoDataFrame or DataFrame)
 - `output_path`: Output file path
 
 **Raises:**
+
 - `FileHandlerError`: If export fails
 
 **Supported Formats:**

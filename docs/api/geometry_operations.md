@@ -11,6 +11,7 @@ GeometryProcessor(gdf: Optional[gpd.GeoDataFrame] = None)
 ```
 
 **Parameters:**
+
 - `gdf`: Optional GeoDataFrame to process. If None, can be set later.
 
 ### Methods
@@ -24,9 +25,11 @@ def apply_buffer(self, distance: float) -> gpd.GeoDataFrame
 Creates a buffer around geometries.
 
 **Parameters:**
+
 - `distance`: Buffer distance in the units of the GeoDataFrame's CRS
 
 **Returns:**
+
 - GeoDataFrame with buffered geometries
 
 **Raises:**
@@ -41,12 +44,15 @@ def clip(self, mask: Union[gpd.GeoDataFrame, Polygon]) -> gpd.GeoDataFrame
 Clips geometries using a mask.
 
 **Parameters:**
+
 - `mask`: GeoDataFrame or Polygon to use as clip mask
 
 **Returns:**
+
 - GeoDataFrame with clipped geometries
 
 **Raises:**
+
 - `GeometryOperationError`: If clip operation fails
 
 #### reproject
@@ -58,12 +64,15 @@ def reproject(self, target_crs: Union[str, int]) -> gpd.GeoDataFrame
 Reprojects the GeoDataFrame to a new CRS.
 
 **Parameters:**
+
 - `target_crs`: Target CRS as EPSG code or string
 
 **Returns:**
+
 - Reprojected GeoDataFrame
 
 **Raises:**
+
 - `GeometryOperationError`: If reprojection fails
 
 ### Properties

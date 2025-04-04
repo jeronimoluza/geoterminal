@@ -60,6 +60,7 @@ H3Processor(gdf: Optional[gpd.GeoDataFrame] = None)
 def get_hex_geometry(hex_id: str) -> Polygon
 ```
 Gets the geometry of an H3 hexagon.
+
 - `hex_id`: H3 index as string
 
 ##### polyfill
@@ -67,6 +68,7 @@ Gets the geometry of an H3 hexagon.
 def polyfill(self, resolution: int, include_geometry: bool = True) -> Union[gpd.GeoDataFrame, pd.DataFrame]
 ```
 Fills polygons with H3 cells.
+
 - `resolution`: H3 resolution (0-15)
 - `include_geometry`: Whether to include hex geometries in output
 
@@ -79,6 +81,7 @@ Fills polygons with H3 cells.
 def read_geometry_file(file_path: Union[str, Path], crs: Optional[int] = None) -> gpd.GeoDataFrame
 ```
 Reads geometry from file or WKT string.
+
 - `file_path`: Path to file or WKT string
 - `crs`: CRS for WKT input
 
@@ -87,6 +90,7 @@ Reads geometry from file or WKT string.
 def export_data(data: Union[gpd.GeoDataFrame, pd.DataFrame], output_path: Union[str, Path]) -> None
 ```
 Exports data to file.
+
 - `data`: Data to export
 - `output_path`: Output file path
 
