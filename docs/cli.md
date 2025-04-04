@@ -22,13 +22,13 @@ geoterminal INPUT OUTPUT [OPTIONS]
 ### Examples
 ```bash
 # Process a file
-geoterminal input.geojson output.geojson
+geoterminal input.shp output.geojson
 
 # Process a WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
 # Apply buffer and convert to H3
-geoterminal input.geojson output.geojson --buffer-size 1000 --h3-res 9
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 9
 
 # Convert WKT to H3 with geometries
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
@@ -57,10 +57,10 @@ geoterminal clip INPUT MASK OUTPUT [OPTIONS]
 #### Examples
 ```bash
 # Clip using mask file
-geoterminal clip input.geojson mask.geojson output.geojson
+geoterminal clip input.shp mask.geojson output.csv
 
 # Clip using WKT string
-geoterminal clip input.geojson "POLYGON((...))" output.geojson --mask-crs EPSG:4326
+geoterminal clip input.geojson "POLYGON((...))" output.csv --mask-crs EPSG:4326
 ```
 
 
@@ -68,6 +68,7 @@ geoterminal clip input.geojson "POLYGON((...))" output.geojson --mask-crs EPSG:4
 ## Error Handling
 
 The CLI will exit with non-zero status in case of errors:
+
 - 1: Invalid arguments
 - 2: File operation error
 - 3: Geometry operation error
@@ -83,6 +84,7 @@ Error messages are printed to stderr with details about the failure.
 ## Output Formats
 
 The output format is determined by the file extension:
+
 - `.geojson`: GeoJSON format
 - `.shp`: Shapefile format
 - `.csv`: CSV format with WKT geometry column

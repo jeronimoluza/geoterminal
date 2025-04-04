@@ -12,7 +12,7 @@ Geoterminal accepts both file paths and WKT strings as input:
 
 ```bash
 # Process a file
-geoterminal input.geojson output.geojson
+geoterminal input.shp output.geojson
 
 # Process a WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
@@ -24,23 +24,23 @@ You can combine multiple processing options:
 
 ```bash
 # Apply a buffer and convert to H3 cells
-geoterminal input.geojson output.geojson --buffer-size 1000 --h3-res 9
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 9
 
 # Convert WKT to H3 cells with geometries
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
 
 # Reproject data
-geoterminal input.geojson output.geojson --input-crs 4326 --output-crs 3857
+geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
 ```
 
 ### Additional Commands
 
 ```bash
 # Clip geometries using a mask file
-geoterminal clip input.geojson mask.geojson output.geojson
+geoterminal clip input.shp mask.geojson output.csv
 
 # Clip using WKT string as mask
-geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
+geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.csv
 ```
 
 ### File Format Support
@@ -107,6 +107,7 @@ export_data(gdf, "output.geojson")
 ## Best Practices
 
 1. **CRS Management**
+
    - Always specify the CRS when working with WKT input
    - Use appropriate CRS for your geographic region
 

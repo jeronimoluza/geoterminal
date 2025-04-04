@@ -15,11 +15,14 @@ Geoterminal is a powerful Python library for geospatial data processing and H3 o
 # Install Geoterminal
 pip install geoterminal
 
-# Basic usage - clip a geometry
-geoterminal clip input.geojson mask.geojson output.geojson
+# Process a file
+geoterminal input.shp output.geojson
 
-# Use WKT string as mask
-geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
+# Process a WKT string
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+
+# Apply a buffer and convert to H3 cells
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 9
 ```
 
 ## Documentation Sections
