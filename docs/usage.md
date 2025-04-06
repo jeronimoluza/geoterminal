@@ -36,6 +36,18 @@ geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
 ### Additional Commands
 
 ```bash
+# View first 5 rows of a file (default)
+geoterminal head input.geojson
+
+# View first 10 rows of a file
+geoterminal head -n 10 input.geojson
+
+# View last 5 rows of a file (default)
+geoterminal tail input.geojson
+
+# View last 8 rows of a file
+geoterminal tail -n 8 input.geojson
+
 # Clip geometries using a mask file
 geoterminal clip input.shp mask.geojson output.csv
 

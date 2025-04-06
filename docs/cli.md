@@ -36,6 +36,57 @@ geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-r
 
 ## Additional Commands
 
+### head
+
+Displays the first n rows of a geometry file.
+
+```bash
+geoterminal head INPUT [-n ROWS] [OPTIONS]
+```
+
+#### Arguments
+- `INPUT`: Input file path (GeoJSON, Shapefile, CSV)
+
+#### Options
+- `-n, --rows`: Number of rows to display (default: 5)
+- `--input-crs`: CRS of input file (default: 4326)
+
+#### Examples
+```bash
+# Show first 5 rows
+geoterminal head input.geojson
+
+# Show first 10 rows
+geoterminal head -n 10 input.geojson
+```
+
+### tail
+
+Displays the last n rows of a geometry file.
+
+```bash
+geoterminal tail INPUT [-n ROWS] [OPTIONS]
+```
+
+#### Arguments
+
+- `INPUT`: Input file path (GeoJSON, Shapefile, CSV)
+
+#### Options
+
+- `-n, --rows`: Number of rows to display (default: 5)
+- `--input-crs`: CRS of input file (default: 4326)
+
+#### Examples
+
+```bash
+# Show last 5 rows
+geoterminal tail input.geojson
+
+# Show last 8 rows
+geoterminal tail -n 8 input.geojson
+```
+
 ### clip
 
 Clips geometries using a mask.
