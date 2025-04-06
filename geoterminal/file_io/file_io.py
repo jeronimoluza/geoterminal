@@ -12,6 +12,7 @@ from typing import Optional, Union
 import geopandas as gpd
 import pandas as pd
 import pyarrow as pa
+import pyarrow.orc as orc
 from shapely import wkt
 
 logger = logging.getLogger(__name__)
@@ -57,8 +58,57 @@ def read_wkt(wkt_str: str, crs: int = 4326) -> gpd.GeoDataFrame:
         raise FileHandlerError(f"Failed to parse WKT: {str(e)}") from e
 
 
+def read_orc_with_geometry(
+    file_path: Path, crs: Optional[int] = None, geometry_column: Optional[str] = None
+) -> gpd.GeoDataFrame:
+    """Read ORC file containing geometry information.
+
+    Args:
+        file_path: Path to ORC file
+        crs: Optional coordinate reference system
+        geometry_column: Optional name of column containing WKT geometry strings
+
+    Returns:
+        GeoDataFrame from ORC
+
+    Raises:
+        FileHandlerError: If geometry column not found or parsing fails
+    """
+    try:
+        # Read ORC file into pandas DataFrame
+        table = orc.read_table(str(file_path))
+        df = table.to_pandas()
+
+        # Use specified geometry column or try to find one
+        if geometry_column:
+            if geometry_column not in df.columns:
+                raise FileHandlerError(f"Specified geometry column '{geometry_column}' not found in ORC")
+            geom_col = geometry_column
+        else:
+            # Find geometry column
+            geom_col = next(
+                (col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)),
+                None,
+            )
+            if geom_col is None:
+                raise FileHandlerError("No geometry column found in ORC")
+
+        # Convert WKT strings to geometries
+        df["geometry"] = df[geom_col].apply(wkt.loads)
+        gdf = gpd.GeoDataFrame(df, geometry="geometry")
+
+        if crs is not None:
+            gdf.set_crs(crs, inplace=True)
+
+        return gdf
+    except Exception as e:
+        if isinstance(e, FileHandlerError):
+            raise
+        raise FileHandlerError(f"Failed to read ORC: {str(e)}") from e
+
+
 def read_csv_with_geometry(
-    file_path: Path, crs: Optional[int] = None
+    file_path: Path, crs: Optional[int] = None, geometry_column: Optional[str] = None
 ) -> gpd.GeoDataFrame:
     """Read CSV file containing geometry information.
 
@@ -75,12 +125,19 @@ def read_csv_with_geometry(
     try:
         df = pd.read_csv(file_path)
 
-        # Find geometry column
-        geom_col = next(
-            (col for col in GEOMETRY_COLUMNS if col in df.columns), None
-        )
-        if not geom_col:
-            raise FileHandlerError("No geometry column found in CSV")
+        # Use specified geometry column or try to find one
+        if geometry_column:
+            if geometry_column not in df.columns:
+                raise FileHandlerError(f"Specified geometry column '{geometry_column}' not found in CSV")
+            geom_col = geometry_column
+        else:
+            # Find geometry column
+            geom_col = next(
+                (col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)),
+                None,
+            )
+            if geom_col is None:
+                raise FileHandlerError("No geometry column found in CSV")
 
         # Convert WKT strings to geometries
         df["geometry"] = df[geom_col].apply(wkt.loads)
@@ -97,7 +154,8 @@ def read_csv_with_geometry(
 
 
 def read_geometry_file(
-    file_path: Union[str, Path], crs: Optional[int] = None
+    file_path: Union[str, Path], crs: Optional[int] = None,
+    geometry_column: Optional[str] = None
 ) -> gpd.GeoDataFrame:
     """Read geometry from various file formats.
 
@@ -136,7 +194,9 @@ def read_geometry_file(
         elif suffix == ".shp":
             gdf = gpd.read_file(path)
         elif suffix == ".csv":
-            gdf = read_csv_with_geometry(path, crs)
+            gdf = read_csv_with_geometry(path, crs, geometry_column)
+        elif suffix == ".orc":
+            gdf = read_orc_with_geometry(path, crs, geometry_column)
         else:
             raise FileHandlerError(f"Unsupported file format: {suffix}")
 

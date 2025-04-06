@@ -37,6 +37,10 @@ def setup_parser() -> argparse.ArgumentParser:
         "--input-crs", type=int, default=4326, help="Input CRS (default: 4326)"
     )
     parser.add_argument("--output-crs", type=int, help="Output CRS")
+    parser.add_argument(
+        "--geometry-column", 
+        help="Column name to use as geometry for CSV/ORC files (must contain WKT strings)"
+    )
 
     # Add subcommands
     subparsers = parser.add_subparsers(

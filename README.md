@@ -9,7 +9,7 @@ Geoterminal is a powerful Python library and command-line tool designed to strea
 ## Features
 
 - **Flexible Input/Output**
-  - Support for GeoJSON, Shapefile, CSV, and WKT formats
+  - Support for GeoJSON, Shapefile, CSV, ORC, and WKT formats
   - Direct WKT string input for quick operations
   - Automatic format detection and conversion
 

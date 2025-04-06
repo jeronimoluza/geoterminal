@@ -18,6 +18,7 @@ geoterminal INPUT OUTPUT [OPTIONS]
 - `--h3-geom`: Include H3 geometries in output
 - `--input-crs`: Input CRS (default: 4326)
 - `--output-crs`: Output CRS
+- `--geometry-column`: Column name containing WKT geometry strings (for CSV/ORC files)
 
 ### Examples
 ```bash
@@ -139,3 +140,12 @@ The output format is determined by the file extension:
 - `.geojson`: GeoJSON format
 - `.shp`: Shapefile format
 - `.csv`: CSV format with WKT geometry column
+- `.orc`: ORC format with WKT geometry column
+
+For CSV and ORC files, you can specify which column contains the WKT geometry strings using `--geometry-column`. If not specified, the tool will look for standard column names (geometry, geom, wkt, the_geom).
+
+```bash
+# Use custom geometry column
+geoterminal input.csv output.geojson --geometry-column my_wkt_column
+geoterminal input.orc output.geojson --geometry-column my_wkt_column
+```
