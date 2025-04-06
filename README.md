@@ -54,10 +54,10 @@ pip install -e .
 Geoterminal accepts both file paths and WKT strings as input:
 
 ```bash
-# Process a file
-geoterminal input.geojson output.geojson
+# Convert files between formats
+geoterminal input.shp output.geojson
 
-# Process a WKT string
+# Generate a file from a WKT
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 ```
 
@@ -67,7 +67,7 @@ You can combine multiple processing options:
 
 ```bash
 # Apply a buffer and convert to H3 cells
-geoterminal input.geojson output.geojson --buffer-size 1000 --h3-res 9
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 9
 
 # Convert WKT to H3 cells with geometries
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
