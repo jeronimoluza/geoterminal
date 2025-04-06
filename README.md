@@ -59,6 +59,8 @@ geoterminal input.shp output.geojson
 
 # Generate a file from a WKT
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+
+geoterminal input.orc output.shp --geometry-column my_input_wkt_column
 ```
 
 ### Processing Options
