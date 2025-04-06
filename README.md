@@ -86,10 +86,10 @@ geoterminal head -n 10 input.geojson
 geoterminal tail -n 8 input.geojson
 
 # Clip geometries using a mask file
-geoterminal clip input.geojson mask.geojson output.geojson
+geoterminal clip input.shp mask.geojson output.geojson
 
 # Clip using WKT string as mask
-geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
+geoterminal clip input.shp "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
 ```
 
 ## Python API
