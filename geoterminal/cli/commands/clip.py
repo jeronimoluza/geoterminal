@@ -4,13 +4,16 @@ import logging
 from typing import Any
 
 from geoterminal.file_io.file_io import export_data, read_geometry_file
-from geoterminal.geometry_operations.geometry_operations import GeometryProcessor
+from geoterminal.geometry_operations.geometry_operations import (
+    GeometryProcessor,
+)
 
 logger = logging.getLogger(__name__)
 
+
 def setup_clip_command(subparsers: Any) -> None:
     """Set up the clip command parser.
-    
+
     Args:
         subparsers: Subparser group to add this command to
     """
@@ -51,9 +54,10 @@ def setup_clip_command(subparsers: Any) -> None:
         help="CRS for mask geometry (default: 4326)",
     )
 
+
 def handle_clip_command(args: argparse.Namespace) -> None:
     """Handle the clip command execution.
-    
+
     Args:
         args: Parsed command line arguments
     """

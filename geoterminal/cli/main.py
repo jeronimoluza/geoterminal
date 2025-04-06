@@ -3,7 +3,10 @@
 import logging
 
 from geoterminal.cli.commands.clip import handle_clip_command
-from geoterminal.cli.commands.head_tail import handle_head_command, handle_tail_command
+from geoterminal.cli.commands.head_tail import (
+    handle_head_command,
+    handle_tail_command,
+)
 from geoterminal.cli.parser import setup_parser
 from geoterminal.cli.processor import process_geometries
 from geoterminal.file_io.file_io import (

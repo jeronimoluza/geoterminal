@@ -3,7 +3,10 @@
 import argparse
 
 from geoterminal.cli.commands.clip import setup_clip_command
-from geoterminal.cli.commands.head_tail import setup_head_command, setup_tail_command
+from geoterminal.cli.commands.head_tail import (
+    setup_head_command,
+    setup_tail_command,
+)
 
 
 def setup_parser() -> argparse.ArgumentParser:
@@ -43,7 +46,7 @@ def setup_parser() -> argparse.ArgumentParser:
     # Set up head and tail commands
     setup_head_command(subparsers)
     setup_tail_command(subparsers)
-    
+
     # Set up clip command
     setup_clip_command(subparsers)
 

@@ -3,7 +3,9 @@
 import argparse
 import logging
 
-from geoterminal.geometry_operations.geometry_operations import GeometryProcessor
+from geoterminal.geometry_operations.geometry_operations import (
+    GeometryProcessor,
+)
 from geoterminal.h3_operations.h3_operations import polyfill
 
 logger = logging.getLogger(__name__)
