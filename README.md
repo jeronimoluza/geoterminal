@@ -79,6 +79,9 @@ geoterminal input.geojson output.geojson --input-crs 4326 --output-crs 3857
 ### Additional Commands
 
 ```bash
+# View first 10 rows of a file
+geoterminal head -n 10 input.geojson
+
 # Clip geometries using a mask file
 geoterminal clip input.geojson mask.geojson output.geojson
 
