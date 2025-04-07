@@ -19,6 +19,10 @@ dependencies = [
   "h3==4.1.2"
 ]
 
+[project.urls]
+Repository = "https://github.com/jeronimoluza/geoterminal"
+Homepage = "https://github.com/jeronimoluza/geoterminal"
+
 [project.scripts]
 geoterminal = "geoterminal.cli.main:main"
 
