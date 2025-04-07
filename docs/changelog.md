@@ -43,4 +43,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better CRS handling and validation
 - Fixed geometry validation issues
 - Improved H3 resolution validation
-
