@@ -59,7 +59,9 @@ def read_wkt(wkt_str: str, crs: int = 4326) -> gpd.GeoDataFrame:
 
 
 def read_orc_with_geometry(
-    file_path: Path, crs: Optional[int] = None, geometry_column: Optional[str] = None
+    file_path: Path,
+    crs: Optional[int] = None,
+    geometry_column: Optional[str] = None,
 ) -> gpd.GeoDataFrame:
     """Read ORC file containing geometry information.
 
@@ -82,13 +84,17 @@ def read_orc_with_geometry(
         # Use specified geometry column or try to find one
         if geometry_column:
             if geometry_column not in df.columns:
-                raise FileHandlerError(f"Specified geometry column '{geometry_column}' not found in ORC")
+                raise FileHandlerError(
+                    f"Specified geometry column '{geometry_column}' not found in ORC"
+                )
             geom_col = geometry_column
         else:
             # Find geometry column
             try:
                 geom_col = next(
-                    col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)
+                    col
+                    for col in df.columns
+                    if any(col.lower() == g for g in GEOMETRY_COLUMNS)
                 )
             except StopIteration:
                 geom_col = None
@@ -110,7 +116,9 @@ def read_orc_with_geometry(
 
 
 def read_csv_with_geometry(
-    file_path: Path, crs: Optional[int] = None, geometry_column: Optional[str] = None
+    file_path: Path,
+    crs: Optional[int] = None,
+    geometry_column: Optional[str] = None,
 ) -> gpd.GeoDataFrame:
     """Read CSV file containing geometry information.
 
@@ -130,13 +138,17 @@ def read_csv_with_geometry(
         # Use specified geometry column or try to find one
         if geometry_column:
             if geometry_column not in df.columns:
-                raise FileHandlerError(f"Specified geometry column '{geometry_column}' not found in CSV")
+                raise FileHandlerError(
+                    f"Specified geometry column '{geometry_column}' not found in CSV"
+                )
             geom_col = geometry_column
         else:
             # Find geometry column
             try:
                 geom_col = next(
-                    col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)
+                    col
+                    for col in df.columns
+                    if any(col.lower() == g for g in GEOMETRY_COLUMNS)
                 )
             except StopIteration:
                 geom_col = None
@@ -158,8 +170,9 @@ def read_csv_with_geometry(
 
 
 def read_geometry_file(
-    file_path: Union[str, Path], crs: Optional[int] = None,
-    geometry_column: Optional[str] = None
+    file_path: Union[str, Path],
+    crs: Optional[int] = None,
+    geometry_column: Optional[str] = None,
 ) -> gpd.GeoDataFrame:
     """Read geometry from various file formats.
 
