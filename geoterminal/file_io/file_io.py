@@ -86,10 +86,12 @@ def read_orc_with_geometry(
             geom_col = geometry_column
         else:
             # Find geometry column
-            geom_col = next(
-                (col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)),
-                None,
-            )
+            try:
+                geom_col = next(
+                    col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)
+                )
+            except StopIteration:
+                geom_col = None
             if geom_col is None:
                 raise FileHandlerError("No geometry column found in ORC")
 
@@ -132,10 +134,12 @@ def read_csv_with_geometry(
             geom_col = geometry_column
         else:
             # Find geometry column
-            geom_col = next(
-                (col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)),
-                None,
-            )
+            try:
+                geom_col = next(
+                    col for col in df.columns if any(col.lower() == g for g in GEOMETRY_COLUMNS)
+                )
+            except StopIteration:
+                geom_col = None
             if geom_col is None:
                 raise FileHandlerError("No geometry column found in CSV")
 
