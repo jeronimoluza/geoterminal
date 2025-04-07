@@ -45,6 +45,12 @@ For development, we use Poetry. First install Poetry if you haven't already:
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
+Or if you have Homebrew installed, you can do:
+
+```bash
+brew install poetry
+```
+
 Then clone and install the project:
 
 ```bash
