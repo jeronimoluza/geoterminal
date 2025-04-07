@@ -47,7 +47,9 @@ def main() -> None:
         else:
             # Default behavior (no command)
             # Load and process data
-            gdf = read_geometry_file(args.input, args.input_crs, args.geometry_column)
+            gdf = read_geometry_file(
+                args.input, args.input_crs, args.geometry_column
+            )
 
             processor = GeometryProcessor(gdf)
             process_geometries(processor, args)
