@@ -74,18 +74,14 @@
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Changelog</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#unreleased">[Unreleased]</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#010-2025-04-03">[0.1.0] - 2025-04-03</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#added">Added</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#010-2025-04-03">[0.1.0] - 2025-04-03</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#added_1">Added</a>
     </li>
         </ul>
     </li>
@@ -121,6 +117,7 @@
 <p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
+<h2 id="010-2025-04-03">[0.1.0] - 2025-04-03<a class="headerlink" href="#010-2025-04-03" title="Permanent link">&para;</a></h2>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Class-based structure for geometry operations</li>
@@ -134,13 +131,20 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Automated testing with pytest</li>
 <li>CI/CD pipeline</li>
 <li>Pre-commit hooks for code quality</li>
+<li>Initial release</li>
+<li>Basic geometry operations</li>
+<li>Basic H3 operations</li>
+<li>File I/O support</li>
+<li>Command-line interface</li>
+<li>Basic documentation</li>
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
 <ul>
+<li>Switched from <code>setup.py</code> to Poetry with <code>pyproject.toml</code> for dependency and packaging management</li>
 <li>Simplified CLI interface - no need to specify 'process' command for basic operations</li>
-<li>Made process command the default operation</li>
-<li>Refactored geometry operations into GeometryProcessor class</li>
-<li>Refactored H3 operations into H3Processor class</li>
+<li>Made <code>process</code> command the default operation</li>
+<li>Refactored geometry operations into <code>GeometryProcessor</code> class</li>
+<li>Refactored H3 operations into <code>H3Processor</code> class</li>
 <li>Improved error messages and logging</li>
 <li>Updated CLI interface for better usability</li>
 <li>Consolidated file handling utilities</li>
@@ -151,16 +155,6 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Better CRS handling and validation</li>
 <li>Fixed geometry validation issues</li>
 <li>Improved H3 resolution validation</li>
-</ul>
-<h2 id="010-2025-04-03">[0.1.0] - 2025-04-03<a class="headerlink" href="#010-2025-04-03" title="Permanent link">&para;</a></h2>
-<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Initial release</li>
-<li>Basic geometry operations</li>
-<li>Basic H3 operations</li>
-<li>File I/O support</li>
-<li>Command-line interface</li>
-<li>Basic documentation</li>
 </ul>
               
             </div>
