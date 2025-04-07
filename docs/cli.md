@@ -29,10 +29,10 @@ geoterminal input.shp output.geojson
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
 # Apply buffer and convert to H3
-geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 9
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
 # Convert WKT to H3 with geometries
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
 ```
 
 ## Additional Commands
