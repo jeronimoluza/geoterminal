@@ -91,7 +91,7 @@ You can combine multiple processing options:
 
 ```bash
 # Apply a buffer and convert to H3 cells
-geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 9
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
 # Convert WKT to H3 cells with geometries
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 9 --h3-geom
@@ -132,7 +132,7 @@ buffered = processor.apply_buffer(distance=1000)
 
 # H3 operations
 h3_processor = H3Processor(gdf)
-h3_cells = h3_processor.polyfill(resolution=9)
+h3_cells = h3_processor.polyfill(resolution=6)
 
 # Export
 h3_cells.to_file("output.geojson")
