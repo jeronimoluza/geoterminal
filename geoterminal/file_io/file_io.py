@@ -68,7 +68,8 @@ def read_orc_with_geometry(
     Args:
         file_path: Path to ORC file
         crs: Optional coordinate reference system
-        geometry_column: Optional name of column containing WKT geometry strings
+        geometry_column: Optional name of column
+                        containing WKT geometry strings
 
     Returns:
         GeoDataFrame from ORC
@@ -85,7 +86,8 @@ def read_orc_with_geometry(
         if geometry_column:
             if geometry_column not in df.columns:
                 raise FileHandlerError(
-                    f"Specified geometry column '{geometry_column}' not found in ORC"
+                    f"Specified geometry column '{geometry_column}' \
+                    not found in ORC"
                 )
             geom_col = geometry_column
         else:
@@ -139,7 +141,8 @@ def read_csv_with_geometry(
         if geometry_column:
             if geometry_column not in df.columns:
                 raise FileHandlerError(
-                    f"Specified geometry column '{geometry_column}' not found in CSV"
+                    f"Specified geometry column '{geometry_column}'\
+                    not found in CSV"
                 )
             geom_col = geometry_column
         else:
