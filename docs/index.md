@@ -29,7 +29,7 @@ geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
 - [Installation](installation.md)
 - [Usage Guide](usage.md)
-- [API Reference](api.md)
+- [API Reference](usage.md#python-api)
 - [CLI Documentation](cli.md)
 - [Contributing](contributing.md)
 
