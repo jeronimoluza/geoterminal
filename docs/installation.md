@@ -2,8 +2,8 @@
 
 ## Requirements
 
-- Python 3.8 or higher
-- pip (Python package installer)
+- Python 3.10 or higher
+- Poetry (Python package manager)
 
 ## Dependencies
 
@@ -22,22 +22,39 @@ Geoterminal requires the following main dependencies:
 pip install geoterminal
 ```
 
-### 2. From Source
+### 2. From Source (Development)
 
-1. Clone the repository:
+1. Install Poetry if you haven't already:
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+2. Clone the repository:
 ```bash
 git clone https://github.com/jeronimoluza/geoterminal.git
 cd geoterminal
 ```
 
-2. Install dependencies:
+3. Install dependencies and create virtual environment:
 ```bash
-pip install -r requirements.txt
+poetry install
 ```
 
-3. Install in development mode:
+4. Activate the virtual environment:
 ```bash
-pip install -e .
+poetry shell
+```
+
+### Optional Dependencies
+
+For development:
+```bash
+poetry install --with dev
+```
+
+For documentation:
+```bash
+poetry install --with docs
 ```
 
 ## Verifying Installation

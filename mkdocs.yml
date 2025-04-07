@@ -22,7 +22,6 @@ nav:
     - Usage Guide: usage.md
     - CLI Reference: cli.md
   - API Reference:
-    - Overview: api.md
     - Geometry Operations: api/geometry_operations.md
     - H3 Operations: api/h3_operations.md
     - File I/O: api/file_io.md

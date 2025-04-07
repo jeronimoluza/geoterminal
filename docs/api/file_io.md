@@ -7,7 +7,8 @@
 ```python
 def read_geometry_file(
     file_path: Union[str, Path],
-    crs: Optional[int] = None
+    crs: Optional[int] = None,
+    geometry_column: Optional[str] = None
 ) -> gpd.GeoDataFrame
 ```
 
@@ -17,6 +18,7 @@ Reads geometry from file or WKT string.
 
 - `file_path`: Path to file or WKT string
 - `crs`: CRS for WKT input (required for WKT)
+- `geometry_column`: Column name containing WKT geometry strings (for CSV/ORC files)
 
 **Returns:**
 
@@ -31,6 +33,7 @@ Reads geometry from file or WKT string.
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV with WKT column
+- ORC with WKT column
 - WKT string
 
 ### export_data
@@ -57,6 +60,7 @@ Exports data to file.
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV (.csv)
+- ORC (.orc)
 
 ## Exceptions
 
@@ -81,6 +85,10 @@ gdf = read_geometry_file("input.geojson")
 # Read WKT with CRS
 wkt = "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))"
 gdf = read_geometry_file(wkt, crs="EPSG:4326")
+
+# Read CSV/ORC with custom geometry column
+gdf = read_geometry_file("input.csv", geometry_column="my_wkt_column")
+gdf = read_geometry_file("input.orc", geometry_column="my_wkt_column")
 ```
 
 ### Exporting Files

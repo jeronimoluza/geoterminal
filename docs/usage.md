@@ -62,7 +62,21 @@ Geoterminal supports multiple file formats:
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV with WKT column
+- ORC with WKT column
 - Direct WKT string input
+
+For CSV and ORC files, you can specify which column contains the WKT geometry strings:
+
+```bash
+# Use default behavior (looks for columns named: geometry, geom, wkt, the_geom)
+geoterminal input.csv output.geojson
+
+# Specify a custom geometry column
+geoterminal input.csv output.geojson --geometry-column my_custom_wkt_column
+
+# Same works for ORC files
+geoterminal input.orc output.geojson --geometry-column my_custom_wkt_column
+```
 
 ## Python API
 

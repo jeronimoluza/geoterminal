@@ -2,14 +2,14 @@
 
 [![PyPI version](https://badge.fury.io/py/geoterminal.svg)](https://badge.fury.io/py/geoterminal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 Geoterminal is a powerful Python library and command-line tool designed to streamline geospatial data processing and H3 grid operations. It provides an intuitive interface for common GIS operations, supporting multiple file formats and offering both a Python API and CLI for maximum flexibility.
 
 ## Features
 
 - **Flexible Input/Output**
-  - Support for GeoJSON, Shapefile, CSV, and WKT formats
+  - Support for GeoJSON, Shapefile, CSV, ORC, and WKT formats
   - Direct WKT string input for quick operations
   - Automatic format detection and conversion
 
@@ -39,12 +39,30 @@ Geoterminal is a powerful Python library and command-line tool designed to strea
 pip install geoterminal
 ```
 
-Alternatively, you can clone the repository and install the dependencies:
+For development, we use Poetry. First install Poetry if you haven't already:
 
 ```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Then clone and install the project:
+
+```bash
+# Clone the repository
 git clone https://github.com/jeronimoluza/geoterminal.git
 cd geoterminal
-pip install -e .
+
+# Install dependencies and create virtual environment
+poetry install
+
+# Install with development dependencies
+poetry install --with dev
+
+# Install with documentation dependencies
+poetry install --with docs
+
+# Activate the virtual environment
+poetry shell
 ```
 
 ## Usage
@@ -54,11 +72,17 @@ pip install -e .
 Geoterminal accepts both file paths and WKT strings as input:
 
 ```bash
-# Convert files between formats
+# Convert between different formats
 geoterminal input.shp output.geojson
+geoterminal input.geojson output.csv
+geoterminal input.csv output.orc
 
-# Generate a file from a WKT
+# Generate from WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+
+# Work with CSV/ORC files using custom geometry columns
+geoterminal input.csv output.geojson --geometry-column my_wkt_column
+geoterminal input.orc output.shp --geometry-column my_wkt_column
 ```
 
 ### Processing Options
