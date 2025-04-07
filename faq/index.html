@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jeronimo Luza" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>FAQ - Geoterminal</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "FAQ";
+        var mkdocs_page_input_path = "faq.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Geoterminal
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli/">CLI Reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/geometry_operations/">Geometry Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/h3_operations/">H3 Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/file_io/">File I/O</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">FAQ</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#general-questions">General Questions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-geoterminal">What is Geoterminal?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#what-file-formats-are-supported">What file formats are supported?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#why-am-i-getting-gdal-related-errors">Why am I getting GDAL-related errors?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#can-i-use-geoterminal-with-python-37">Can I use Geoterminal with Python 3.7?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-do-i-handle-large-datasets">How do I handle large datasets?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-is-my-wkt-input-not-working">Why is my WKT input not working?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-do-i-choose-the-right-h3-resolution">How do I choose the right H3 resolution?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-issues">Common Issues</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#invalid-geometry-errors">Invalid Geometry Errors</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#crs-mismatches">CRS Mismatches</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#performance-issues">Performance Issues</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-can-i-contribute">How can I contribute?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#where-can-i-report-bugs">Where can I report bugs?</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Geoterminal</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">FAQ</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/jeronimoluza/geoterminal/edit/master/docs/faq.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="frequently-asked-questions-faq">Frequently Asked Questions (FAQ)<a class="headerlink" href="#frequently-asked-questions-faq" title="Permanent link">&para;</a></h1>
+<h2 id="general-questions">General Questions<a class="headerlink" href="#general-questions" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-geoterminal">What is Geoterminal?<a class="headerlink" href="#what-is-geoterminal" title="Permanent link">&para;</a></h3>
+<p>Geoterminal is a Python library and command-line tool for geospatial data processing, focusing on geometry operations and H3 grid integration.</p>
+<h3 id="what-file-formats-are-supported">What file formats are supported?<a class="headerlink" href="#what-file-formats-are-supported" title="Permanent link">&para;</a></h3>
+<p>Geoterminal supports:
+- GeoJSON (.geojson)
+- Shapefile (.shp)
+- CSV with WKT column
+- Direct WKT string input</p>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<h3 id="why-am-i-getting-gdal-related-errors">Why am I getting GDAL-related errors?<a class="headerlink" href="#why-am-i-getting-gdal-related-errors" title="Permanent link">&para;</a></h3>
+<p>GDAL is a required dependency that sometimes needs to be installed separately. See the <a href="../installation/">Installation Guide</a> for platform-specific instructions.</p>
+<h3 id="can-i-use-geoterminal-with-python-37">Can I use Geoterminal with Python 3.7?<a class="headerlink" href="#can-i-use-geoterminal-with-python-37" title="Permanent link">&para;</a></h3>
+<p>No, Geoterminal requires Python 3.8 or higher due to type hint features and dependency requirements.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<h3 id="how-do-i-handle-large-datasets">How do I handle large datasets?<a class="headerlink" href="#how-do-i-handle-large-datasets" title="Permanent link">&para;</a></h3>
+<p>For large datasets:
+1. Process data in chunks when possible
+2. Use appropriate H3 resolution
+3. Consider using memory-efficient formats like parquet
+4. Set the <code>GEOTERMINAL_MAX_WORKERS</code> environment variable for parallel processing</p>
+<h3 id="why-is-my-wkt-input-not-working">Why is my WKT input not working?<a class="headerlink" href="#why-is-my-wkt-input-not-working" title="Permanent link">&para;</a></h3>
+<p>Common issues with WKT input:
+1. Missing CRS specification (use <code>--mask-crs</code> for CLI or <code>crs</code> parameter in API)
+2. Invalid WKT syntax
+3. Self-intersecting or invalid geometry</p>
+<h3 id="how-do-i-choose-the-right-h3-resolution">How do I choose the right H3 resolution?<a class="headerlink" href="#how-do-i-choose-the-right-h3-resolution" title="Permanent link">&para;</a></h3>
+<p>H3 resolution choice depends on your use case:
+- Resolution 0-3: Continental scale
+- Resolution 4-7: Regional scale
+- Resolution 8-10: City scale
+- Resolution 11-15: Building scale</p>
+<p>Consider that each increase in resolution approximately septuples the number of cells.</p>
+<h2 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h2>
+<h3 id="invalid-geometry-errors">Invalid Geometry Errors<a class="headerlink" href="#invalid-geometry-errors" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Check for self-intersecting polygons</li>
+<li>Ensure geometries are properly closed</li>
+<li>Use <code>shapely.is_valid</code> to validate geometries</li>
+<li>Consider using <code>shapely.make_valid()</code></li>
+</ol>
+<h3 id="crs-mismatches">CRS Mismatches<a class="headerlink" href="#crs-mismatches" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Always check input CRS</li>
+<li>Use appropriate CRS for your region</li>
+<li>Be careful with lat/lon order in WKT</li>
+<li>Remember that H3 expects WGS84 (EPSG:4326)</li>
+</ol>
+<h3 id="performance-issues">Performance Issues<a class="headerlink" href="#performance-issues" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Use appropriate H3 resolution</li>
+<li>Enable parallel processing</li>
+<li>Consider chunking large datasets</li>
+<li>Profile memory usage</li>
+</ol>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<h3 id="how-can-i-contribute">How can I contribute?<a class="headerlink" href="#how-can-i-contribute" title="Permanent link">&para;</a></h3>
+<p>See our <a href="../contributing/">Contributing Guide</a> for details on:
+1. Setting up development environment
+2. Running tests
+3. Submitting pull requests
+4. Code style guidelines</p>
+<h3 id="where-can-i-report-bugs">Where can I report bugs?<a class="headerlink" href="#where-can-i-report-bugs" title="Permanent link">&para;</a></h3>
+<p>Report bugs on our <a href="https://github.com/jeronimoluza/geoterminal/issues">GitHub Issues</a> page.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../contributing/" class="btn btn-neutral float-left" title="Contributing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/jeronimoluza/geoterminal" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../contributing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

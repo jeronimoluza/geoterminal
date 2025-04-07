@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jeronimo Luza" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Geometry Operations - Geoterminal</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Geometry Operations";
+        var mkdocs_page_input_path = "api/geometry_operations.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Geoterminal
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI Reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Geometry Operations</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#geometryprocessor">GeometryProcessor</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#constructor">Constructor</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#apply_buffer">apply_buffer</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#clip">clip</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#reproject">reproject</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#properties">Properties</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gdf">gdf</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#crs">crs</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exceptions">Exceptions</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#geometryoperationerror">GeometryOperationError</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../h3_operations/">H3 Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_io/">File I/O</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../contributing/">Contributing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Geoterminal</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+      <li class="breadcrumb-item active">Geometry Operations</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/jeronimoluza/geoterminal/edit/master/docs/api/geometry_operations.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="geometry-operations-api">Geometry Operations API<a class="headerlink" href="#geometry-operations-api" title="Permanent link">&para;</a></h1>
+<h2 id="geometryprocessor">GeometryProcessor<a class="headerlink" href="#geometryprocessor" title="Permanent link">&para;</a></h2>
+<p>The <code>GeometryProcessor</code> class is the main interface for geometric operations.</p>
+<h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">GeometryProcessor(gdf: Optional[gpd.GeoDataFrame] = None)</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>gdf</code>: Optional GeoDataFrame to process. If None, can be set later.</li>
+</ul>
+<h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
+<h4 id="apply_buffer">apply_buffer<a class="headerlink" href="#apply_buffer" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def apply_buffer(self, distance: float) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Creates a buffer around geometries.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>distance</code>: Buffer distance in the units of the GeoDataFrame's CRS</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with buffered geometries</li>
+</ul>
+<p><strong>Raises:</strong>
+- <code>GeometryOperationError</code>: If buffer operation fails</p>
+<h4 id="clip">clip<a class="headerlink" href="#clip" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def clip(self, mask: Union[gpd.GeoDataFrame, Polygon]) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Clips geometries using a mask.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>mask</code>: GeoDataFrame or Polygon to use as clip mask</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with clipped geometries</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If clip operation fails</li>
+</ul>
+<h4 id="reproject">reproject<a class="headerlink" href="#reproject" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def reproject(self, target_crs: Union[str, int]) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Reprojects the GeoDataFrame to a new CRS.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target_crs</code>: Target CRS as EPSG code or string</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Reprojected GeoDataFrame</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If reprojection fails</li>
+</ul>
+<h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
+<h4 id="gdf">gdf<a class="headerlink" href="#gdf" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">@property
+def gdf(self) -&gt; Optional[gpd.GeoDataFrame]</code></pre>
+<p>The current GeoDataFrame being processed.</p>
+<h4 id="crs">crs<a class="headerlink" href="#crs" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">@property
+def crs(self) -&gt; Optional[str]</code></pre>
+<p>The CRS of the current GeoDataFrame.</p>
+<h3 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h3>
+<h4 id="geometryoperationerror">GeometryOperationError<a class="headerlink" href="#geometryoperationerror" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">class GeometryOperationError(Exception)</code></pre>
+<p>Raised when a geometry operation fails. Includes detailed error message.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../cli/" class="btn btn-neutral float-left" title="CLI Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../h3_operations/" class="btn btn-neutral float-right" title="H3 Operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/jeronimoluza/geoterminal" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../cli/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../h3_operations/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
