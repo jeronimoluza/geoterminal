@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2025-04-03
+
 ### Added
 - Class-based structure for geometry operations
 - Class-based structure for H3 operations
@@ -19,12 +21,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automated testing with pytest
 - CI/CD pipeline
 - Pre-commit hooks for code quality
+- Initial release
+- Basic geometry operations
+- Basic H3 operations
+- File I/O support
+- Command-line interface
+- Basic documentation
 
 ### Changed
+- Switched from `setup.py` to Poetry with `pyproject.toml` for dependency and packaging management
 - Simplified CLI interface - no need to specify 'process' command for basic operations
-- Made process command the default operation
-- Refactored geometry operations into GeometryProcessor class
-- Refactored H3 operations into H3Processor class
+- Made `process` command the default operation
+- Refactored geometry operations into `GeometryProcessor` class
+- Refactored H3 operations into `H3Processor` class
 - Improved error messages and logging
 - Updated CLI interface for better usability
 - Consolidated file handling utilities
@@ -35,12 +44,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed geometry validation issues
 - Improved H3 resolution validation
 
-## [0.1.0] - 2025-04-03
-
-### Added
-- Initial release
-- Basic geometry operations
-- Basic H3 operations
-- File I/O support
-- Command-line interface
-- Basic documentation
