@@ -11,50 +11,6 @@ from geoterminal.geometry_operations.geometry_operations import (
 logger = logging.getLogger(__name__)
 
 
-def setup_clip_command(subparsers: Any) -> None:
-    """Set up the clip command parser.
-
-    Args:
-        subparsers: Subparser group to add this command to
-    """
-    clip_parser = subparsers.add_parser(
-        "clip", help="Clip geometries with mask"
-    )
-    clip_parser.add_argument(
-        "input",
-        help=(
-            "Input geometry (file path or WKT string). Supported formats: "
-            "GeoJSON, Shapefile, CSV with WKT, or inline WKT"
-        ),
-    )
-    clip_parser.add_argument(
-        "mask",
-        help=(
-            "Mask geometry (file path or WKT string). Supported formats: "
-            "GeoJSON, Shapefile, CSV with WKT, or inline WKT"
-        ),
-    )
-    clip_parser.add_argument(
-        "output",
-        help=(
-            "Output file path. Format determined by extension "
-            "(.geojson, .shp, .csv)"
-        ),
-    )
-    clip_parser.add_argument(
-        "--input-crs",
-        type=int,
-        default=4326,
-        help="CRS for input geometry (default: 4326)",
-    )
-    clip_parser.add_argument(
-        "--mask-crs",
-        type=int,
-        default=4326,
-        help="CRS for mask geometry (default: 4326)",
-    )
-
-
 def handle_clip_command(args: argparse.Namespace) -> None:
     """Handle the clip command execution.
 
