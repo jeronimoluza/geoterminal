@@ -107,6 +107,9 @@ geoterminal input.shp output.csv --input-crs 4326 --output-crs 3857
 
 # Clip geometries using a mask file
 geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
+
+# Clip geometries using a mask WKT
+geoterminal input.shp output.geojson --mask "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
 ```
 
 ### File Inspection
