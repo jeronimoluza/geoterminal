@@ -15,7 +15,10 @@ def setup_parser() -> argparse.ArgumentParser:
     Returns:
         Configured argument parser
     """
-    parser = argparse.ArgumentParser(description="GIS Toolkit CLI")
+    parser = argparse.ArgumentParser(
+        description="GeoTerminal is a command-line tool designed to \
+    simplify common GIS tasks that you may encounter in your daily work."
+    )
 
     # Add main arguments for default behavior
     parser.add_argument(
