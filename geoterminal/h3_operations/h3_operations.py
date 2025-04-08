@@ -9,7 +9,6 @@ from typing import List, Optional, Set
 
 import geopandas as gpd
 import h3
-import pandas as pd
 from shapely import Polygon
 
 # Configure logging

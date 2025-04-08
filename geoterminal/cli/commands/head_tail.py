@@ -1,7 +1,7 @@
 """Head and tail commands implementation."""
+
 import argparse
 import logging
-from typing import Any
 
 from geoterminal.file_io.file_io import read_geometry_file
 

@@ -3,12 +3,11 @@
 import argparse
 import logging
 
+from geoterminal.file_io.file_io import read_geometry_file
 from geoterminal.geometry_operations.geometry_operations import (
     GeometryProcessor,
 )
 from geoterminal.h3_operations.h3_operations import polyfill
-
-from geoterminal.file_io.file_io import read_geometry_file
 
 logger = logging.getLogger(__name__)
 
