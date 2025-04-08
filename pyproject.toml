@@ -2,41 +2,34 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[project]
+[tool.poetry]
 name = "geoterminal"
 version = "0.1.0"
 description = "Geoterminal is a command-line tool designed to simplify common GIS tasks that you may encounter in your daily work."
-authors = [{name = "Jerónimo Luza", email = "jero.luza@gmail.com"}]
-license = {text = "MIT"}
+authors = ["Jerónimo Luza <jero.luza@gmail.com>"]
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10"
+homepage = "https://github.com/jeronimoluza/geoterminal"
+repository = "https://github.com/jeronimoluza/geoterminal"
+packages = [{ include = "geoterminal" }]
+keywords = ["gis", "cli", "geopandas", "h3"]
 
-dependencies = [
-  "geopandas>=0.9.0",
-  "pandas>=1.2.0",
-  "pyarrow>=6.0.0",
-  "shapely>=1.7.0",
-  "h3==4.1.2"
-]
+[tool.poetry.dependencies]
+python = ">=3.8"
+geopandas = ">=0.9.0"
+pandas = ">=1.2.0"
+pyarrow = ">=6.0.0"
+shapely = ">=1.7.0"
+h3 = "==4.1.2"
 
-[project.urls]
-Repository = "https://github.com/jeronimoluza/geoterminal"
-Homepage = "https://github.com/jeronimoluza/geoterminal"
-
-[project.scripts]
+[tool.poetry.scripts]
 geoterminal = "geoterminal.cli.main:main"
 
-[tool.setuptools.packages.find]
-include = ["geoterminal"]
+[tool.poetry.group.dev.dependencies]
+pytest = ">=6.0"
+black = ">=21.0"
+flake8 = ">=3.8"
 
-[project.optional-dependencies]
-dev = [
-  "pytest>=6.0",
-  "black>=21.0",
-  "flake8>=3.8"
-]
-
-docs = [
-  "mkdocs>=1.6.1",
-  "mkdocs-material>=9.6.11"
-]
+[tool.poetry.group.docs.dependencies]
+mkdocs = ">=1.6.1"
+mkdocs-material = ">=9.6.11"
