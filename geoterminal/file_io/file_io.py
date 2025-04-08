@@ -160,7 +160,8 @@ def read_csv_with_geometry(
 
         # Convert WKT strings to geometries
         df["geometry"] = df[geom_col].apply(wkt.loads)
-        df = df.drop(geom_col, axis=1)
+        if geom_col != "geometry":
+            df = df.drop(geom_col, axis=1)
         gdf = gpd.GeoDataFrame(df, geometry="geometry")
 
         if crs is not None:
