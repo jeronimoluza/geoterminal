@@ -118,14 +118,16 @@ class H3Processor:
                 else:
                     logger.warning("Skipping invalid geometry")
 
-            hex_gdf = pd.DataFrame({"hex": hexes})
+            hex_gdf = gpd.GeoDataFrame({"hex": hexes})
 
             if include_geometry:
                 logger.info("Including hexagon geometries in output")
-                hex_gdf["geometry"] = hex_gdf["hex"].apply(
-                    self.get_hex_geometry
+                geometry_series = gpd.GeoSeries(
+                    hex_gdf["hex"].apply(self.get_hex_geometry)
                 )
-                hex_gdf = gpd.GeoDataFrame(hex_gdf, crs=4326)
+                hex_gdf = gpd.GeoDataFrame(
+                    hex_gdf, geometry=geometry_series, crs=4326
+                )
 
             return hex_gdf
 

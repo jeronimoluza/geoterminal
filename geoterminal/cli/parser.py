@@ -19,18 +19,18 @@ def setup_parser() -> argparse.ArgumentParser:
         "input", help="Input geometry (file path or WKT string)"
     )
     parser.add_argument(
-        "output", nargs="?", 
-        help="Output file path (format determined by extension)"
+        "output",
+        nargs="?",
+        help="Output file path (format determined by extension)",
     )
     parser.add_argument(
-        "--mask",
-        help="Mask geometry (file path or WKT string)"
+        "--mask", help="Mask geometry (file path or WKT string)"
     )
     parser.add_argument(
         "--mask-crs",
         type=int,
         default=4326,
-        help="CRS for mask geometry (default: 4326)"
+        help="CRS for mask geometry (default: 4326)",
     )
     parser.add_argument(
         "--buffer-size", type=float, help="Buffer size to apply"
@@ -39,14 +39,15 @@ def setup_parser() -> argparse.ArgumentParser:
         "--h3-res", type=int, help="H3 resolution for polyfilling"
     )
     parser.add_argument(
-        "--h3-geom", action="store_true", help="Include H3 geometries"
+        "--h3-geom",
+        default=True,
+        action="store_true",
+        help="Include H3 geometries",
     )
     parser.add_argument(
         "--input-crs", type=int, default=4326, help="Input CRS (default: 4326)"
     )
-    parser.add_argument(
-        "--output-crs", type=int, help="Output CRS"
-    )
+    parser.add_argument("--output-crs", type=int, help="Output CRS")
     parser.add_argument(
         "--geometry-column",
         help="Column name to use as geometry for CSV/ORC files \
@@ -55,18 +56,19 @@ def setup_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--head",
         action="store_true",
-        help="Show first n rows of the geometry file"
+        help="Show first n rows of the geometry file",
     )
     parser.add_argument(
         "--tail",
         action="store_true",
-        help="Show last n rows of the geometry file"
+        help="Show last n rows of the geometry file",
     )
     parser.add_argument(
-        "-n", "--rows",
+        "-n",
+        "--rows",
         type=int,
         default=5,
-        help="Number of rows to show for head/tail (default: 5)"
+        help="Number of rows to show for head/tail (default: 5)",
     )
 
     # # Add subcommands

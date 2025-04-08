@@ -65,7 +65,12 @@ class GeometryProcessor:
 
         try:
             logger.info(f"Applying buffer of size {buffer_size}")
-            self.gdf.geometry = self.gdf.geometry.buffer(buffer_size)
+            og_crs = self.gdf.crs
+            self.gdf.geometry = (
+                self.gdf.geometry.to_crs(epsg=3857)
+                .buffer(buffer_size)
+                .to_crs(og_crs)
+            )
             return self.gdf
         except Exception as e:
             raise GeometryOperationError(
