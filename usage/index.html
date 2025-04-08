@@ -58,7 +58,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#processing-options">Processing Options</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#additional-commands">Additional Commands</a>
+    <li class="toctree-l3"><a class="reference internal" href="#file-inspection">File Inspection</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#file-format-support">File Format Support</a>
     </li>
@@ -141,33 +141,25 @@ geoterminal input.shp output.geojson
 # Process a WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson</code></pre>
 <h3 id="processing-options">Processing Options<a class="headerlink" href="#processing-options" title="Permanent link">&para;</a></h3>
-<p>You can combine multiple processing options:</p>
-<pre class="highlight"><code class="language-bash"># Apply a buffer and convert to H3 cells
+<p>You can combine multiple processing options with your conversion commands:</p>
+<pre class="highlight"><code class="language-bash"># Apply a buffer of 1000 meters and convert to H3 cells
 geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
 # Convert WKT to H3 cells with geometries
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
 
 # Reproject data
-geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857</code></pre>
-<h3 id="additional-commands">Additional Commands<a class="headerlink" href="#additional-commands" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-bash"># View first 5 rows of a file (default)
-geoterminal head input.geojson
-
-# View first 10 rows of a file
-geoterminal head -n 10 input.geojson
-
-# View last 5 rows of a file (default)
-geoterminal tail input.geojson
-
-# View last 8 rows of a file
-geoterminal tail -n 8 input.geojson
+geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
 
 # Clip geometries using a mask file
-geoterminal clip input.shp mask.geojson output.csv
+geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326</code></pre>
+<h3 id="file-inspection">File Inspection<a class="headerlink" href="#file-inspection" title="Permanent link">&para;</a></h3>
+<p>View the contents of your files using the head and tail commands:</p>
+<pre class="highlight"><code class="language-bash"># View first 10 rows of a file
+geoterminal input.geojson --head --rows 10
 
-# Clip using WKT string as mask
-geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.csv</code></pre>
+# View last 8 rows of a file
+geoterminal input.geojson --tail --rows 8</code></pre>
 <h3 id="file-format-support">File Format Support<a class="headerlink" href="#file-format-support" title="Permanent link">&para;</a></h3>
 <p>Geoterminal supports multiple file formats:</p>
 <ul>
@@ -239,14 +231,18 @@ export_data(gdf, "output.geojson")</code></pre>
 <li>
 <p><strong>Memory Management</strong></p>
 </li>
-<li>For large datasets, consider processing in chunks</li>
+<li>
+<p>For large datasets, consider processing in chunks</p>
+</li>
 <li>
 <p>Use appropriate H3 resolution for your use case</p>
 </li>
 <li>
 <p><strong>Error Handling</strong></p>
 </li>
-<li>Always check for invalid geometries</li>
+<li>
+<p>Always check for invalid geometries</p>
+</li>
 <li>Handle exceptions appropriately</li>
 </ol>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>

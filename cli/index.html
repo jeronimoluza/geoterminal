@@ -62,45 +62,17 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#additional-commands">Additional Commands</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#head">head</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#arguments_1">Arguments</a>
+    <li class="toctree-l2"><a class="reference internal" href="#file-format-support">File Format Support</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#options_1">Options</a>
+    <li class="toctree-l2"><a class="reference internal" href="#coordinate-reference-systems">Coordinate Reference Systems</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#examples_1">Examples</a>
+    <li class="toctree-l2"><a class="reference internal" href="#h3-options">H3 Options</a>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tail">tail</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#arguments_2">Arguments</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#options_2">Options</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#examples_2">Examples</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#clip">clip</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#arguments_3">Arguments</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#options_3">Options</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#examples_3">Examples</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#output-formats">Output Formats</a>
     </li>
     </ul>
                   </li>
@@ -151,94 +123,113 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="command-line-interface-cli">Command Line Interface (CLI)<a class="headerlink" href="#command-line-interface-cli" title="Permanent link">&para;</a></h1>
-<p>Geoterminal provides a command-line interface for common geospatial operations. It accepts both file paths and WKT strings as input.</p>
+                <h1 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">&para;</a></h1>
+<p>The Geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.</p>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <pre class="highlight"><code class="language-bash">geoterminal INPUT OUTPUT [OPTIONS]</code></pre>
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>INPUT</code>: Input geometry (file path or WKT string)</li>
-<li><code>OUTPUT</code>: Output file path</li>
+<li><code>OUTPUT</code>: Output file path (optional; format determined by extension)</li>
 </ul>
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>--buffer-size</code>: Buffer size to apply (in CRS units)</li>
 <li><code>--h3-res</code>: H3 resolution for polyfilling (0-15)</li>
-<li><code>--h3-geom</code>: Include H3 geometries in output</li>
+<li><code>--h3-geom</code>: Include H3 geometries in output (default: True)</li>
 <li><code>--input-crs</code>: Input CRS (default: 4326)</li>
 <li><code>--output-crs</code>: Output CRS</li>
 <li><code>--geometry-column</code>: Column name containing WKT geometry strings (for CSV/ORC files)</li>
+<li><code>--mask</code>: Mask geometry (file path or WKT string)</li>
+<li><code>--mask-crs</code>: CRS for mask geometry (default: 4326)</li>
+<li><code>--head</code>: Show first n rows of the geometry file</li>
+<li><code>--tail</code>: Show last n rows of the geometry file</li>
+<li><code>--rows</code>: Number of rows to show for head/tail (default: 5)</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-bash"># Process a file
+<pre class="highlight"><code class="language-bash"># Basic file conversion
 geoterminal input.shp output.geojson
 
 # Process a WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
-# Apply buffer and convert to H3
+# Apply buffer and convert to H3 cells
 geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
-# Convert WKT to H3 with geometries
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom</code></pre>
-<h2 id="additional-commands">Additional Commands<a class="headerlink" href="#additional-commands" title="Permanent link">&para;</a></h2>
-<h3 id="head">head<a class="headerlink" href="#head" title="Permanent link">&para;</a></h3>
-<p>Displays the first n rows of a geometry file.</p>
-<pre class="highlight"><code class="language-bash">geoterminal head INPUT [-n ROWS] [OPTIONS]</code></pre>
-<h4 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>INPUT</code>: Input file path (GeoJSON, Shapefile, CSV)</li>
-</ul>
-<h4 id="options_1">Options<a class="headerlink" href="#options_1" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>-n, --rows</code>: Number of rows to display (default: 5)</li>
-<li><code>--input-crs</code>: CRS of input file (default: 4326)</li>
-</ul>
-<h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
-<pre class="highlight"><code class="language-bash"># Show first 5 rows
-geoterminal head input.geojson
+# Convert WKT to H3 cells with geometries
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
 
-# Show first 10 rows
-geoterminal head -n 10 input.geojson</code></pre>
-<h3 id="tail">tail<a class="headerlink" href="#tail" title="Permanent link">&para;</a></h3>
-<p>Displays the last n rows of a geometry file.</p>
-<pre class="highlight"><code class="language-bash">geoterminal tail INPUT [-n ROWS] [OPTIONS]</code></pre>
-<h4 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>INPUT</code>: Input file path (GeoJSON, Shapefile, CSV)</li>
-</ul>
-<h4 id="options_2">Options<a class="headerlink" href="#options_2" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>-n, --rows</code>: Number of rows to display (default: 5)</li>
-<li><code>--input-crs</code>: CRS of input file (default: 4326)</li>
-</ul>
-<h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
-<pre class="highlight"><code class="language-bash"># Show last 5 rows
-geoterminal tail input.geojson
+# Reproject data
+geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
 
-# Show last 8 rows
-geoterminal tail -n 8 input.geojson</code></pre>
-<h3 id="clip">clip<a class="headerlink" href="#clip" title="Permanent link">&para;</a></h3>
-<p>Clips geometries using a mask.</p>
-<pre class="highlight"><code class="language-bash">geoterminal clip INPUT MASK OUTPUT [OPTIONS]</code></pre>
-<h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>INPUT</code>: Input file path (GeoJSON, Shapefile, CSV)</li>
-<li><code>MASK</code>: Mask file path or WKT string</li>
-<li><code>OUTPUT</code>: Output file path</li>
-</ul>
-<h4 id="options_3">Options<a class="headerlink" href="#options_3" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>--input-crs</code>: CRS of input file (default: read from file)</li>
-<li><code>--mask-crs</code>: CRS of mask geometry (required for WKT input)</li>
-<li><code>--output-crs</code>: CRS of output file (default: same as input)</li>
-</ul>
-<h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
-<pre class="highlight"><code class="language-bash"># Clip using mask file
-geoterminal clip input.shp mask.geojson output.csv
+# Clip geometries using a mask file
+geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
 
-# Clip using WKT string
-geoterminal clip input.geojson "POLYGON((...))" output.csv --mask-crs EPSG:4326</code></pre>
+# Clip geometries using a mask WKT
+geoterminal input.shp output.geojson --mask "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
+
+# View first 10 rows of a file
+geoterminal input.geojson --head --rows 10
+
+# View last 8 rows of a file
+geoterminal input.geojson --tail --rows 8
+
+# Work with CSV/ORC files using custom geometry columns
+geoterminal input.csv output.geojson --geometry-column my_wkt_column</code></pre>
+<h2 id="file-format-support">File Format Support<a class="headerlink" href="#file-format-support" title="Permanent link">&para;</a></h2>
+<p>Geoterminal supports multiple file formats:</p>
+<ul>
+<li>GeoJSON (.geojson)</li>
+<li>Shapefile (.shp)</li>
+<li>CSV with WKT column</li>
+<li>ORC with WKT column</li>
+<li>Direct WKT string input</li>
+</ul>
+<p>For CSV and ORC files, you can specify which column contains the WKT geometry strings. If not specified, it will look for columns named: geometry, geom, wkt, the_geom.</p>
+<h2 id="coordinate-reference-systems">Coordinate Reference Systems<a class="headerlink" href="#coordinate-reference-systems" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Default CRS: EPSG:4326 (WGS 84)</li>
+<li>Input CRS can be specified using EPSG codes</li>
+<li>Output CRS can be specified using EPSG codes</li>
+<li>Mask CRS defaults to EPSG:4326 but can be overridden</li>
+</ul>
+<h2 id="h3-options">H3 Options<a class="headerlink" href="#h3-options" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Resolution range: 0-15</li>
+<li>Default includes H3 geometries (can be disabled with --h3-geom False)</li>
+<li>Geometries are stored in WKT format</li>
+</ul>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Input Validation</strong></p>
+</li>
+<li>
+<p>Always specify CRS when working with WKT input</p>
+</li>
+<li>Validate input geometries before processing</li>
+<li>
+<p>Use appropriate CRS for your geographic region</p>
+</li>
+<li>
+<p><strong>Performance</strong></p>
+</li>
+<li>
+<p>For large datasets, consider processing in chunks</p>
+</li>
+<li>Use appropriate H3 resolution based on your use case</li>
+<li>
+<p>Buffer size should be appropriate for your CRS units</p>
+</li>
+<li>
+<p><strong>Error Handling</strong></p>
+</li>
+<li>
+<p>Check for invalid geometries</p>
+</li>
+<li>Handle exceptions appropriately</li>
+<li>Validate CRS codes before use</li>
+</ol>
 <h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
 <p>The CLI will exit with non-zero status in case of errors:</p>
 <ul>
@@ -253,18 +244,6 @@ geoterminal clip input.geojson "POLYGON((...))" output.csv --mask-crs EPSG:4326<
 <li><code>GEOTERMINAL_LOG_LEVEL</code>: Set logging level (default: INFO)</li>
 <li><code>GEOTERMINAL_MAX_WORKERS</code>: Maximum number of worker processes for parallel operations</li>
 </ul>
-<h2 id="output-formats">Output Formats<a class="headerlink" href="#output-formats" title="Permanent link">&para;</a></h2>
-<p>The output format is determined by the file extension:</p>
-<ul>
-<li><code>.geojson</code>: GeoJSON format</li>
-<li><code>.shp</code>: Shapefile format</li>
-<li><code>.csv</code>: CSV format with WKT geometry column</li>
-<li><code>.orc</code>: ORC format with WKT geometry column</li>
-</ul>
-<p>For CSV and ORC files, you can specify which column contains the WKT geometry strings using <code>--geometry-column</code>. If not specified, the tool will look for standard column names (geometry, geom, wkt, the_geom).</p>
-<pre class="highlight"><code class="language-bash"># Use custom geometry column
-geoterminal input.csv output.geojson --geometry-column my_wkt_column
-geoterminal input.orc output.geojson --geometry-column my_wkt_column</code></pre>
               
             </div>
           </div><footer>
