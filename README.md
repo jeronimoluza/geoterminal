@@ -75,7 +75,7 @@ poetry shell
 
 ### Basic Usage
 
-Geoterminal accepts both file paths and WKT strings as input:
+Geoterminal accepts both file paths and WKT strings as input. The input and output file formats are automatically detected based on their extensions.
 
 ```bash
 # Convert between different formats
@@ -93,10 +93,10 @@ geoterminal input.orc output.shp --geometry-column my_wkt_column
 
 ### Processing Options
 
-You can combine multiple processing options:
+You can combine multiple processing options with your conversion commands:
 
 ```bash
-# Apply a buffer and convert to H3 cells
+# Apply a buffer of 1000 meters and convert to H3 cells
 geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
 # Convert WKT to H3 cells with geometries
@@ -104,22 +104,24 @@ geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-r
 
 # Reproject data
 geoterminal input.shp output.csv --input-crs 4326 --output-crs 3857
+
+# Clip geometries using a mask file
+geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
+
+# Clip geometries using a mask WKT
+geoterminal input.shp output.geojson --mask "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
 ```
 
-### Additional Commands
+### File Inspection
+
+View the contents of your files using the head and tail commands:
 
 ```bash
 # View first 10 rows of a file
-geoterminal head -n 10 input.geojson
+geoterminal input.geojson --head --rows 10
 
 # View last 8 rows of a file
-geoterminal tail -n 8 input.geojson
-
-# Clip geometries using a mask file
-geoterminal clip input.shp mask.geojson output.geojson
-
-# Clip using WKT string as mask
-geoterminal clip input.shp "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.geojson
+geoterminal input.geojson --tail --rows 8
 ```
 
 ## Python API

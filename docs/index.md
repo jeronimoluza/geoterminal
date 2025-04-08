@@ -21,7 +21,7 @@ geoterminal input.shp output.geojson
 # Process a WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
-# Apply a buffer and convert to H3 cells
+# Apply a buffer of 1000 meters and convert to H3 cells
 geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 ```
 

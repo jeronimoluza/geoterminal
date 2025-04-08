@@ -20,10 +20,10 @@ geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
 ### Processing Options
 
-You can combine multiple processing options:
+You can combine multiple processing options with your conversion commands:
 
 ```bash
-# Apply a buffer and convert to H3 cells
+# Apply a buffer of 1000 meters and convert to H3 cells
 geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
 # Convert WKT to H3 cells with geometries
@@ -31,28 +31,21 @@ geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-r
 
 # Reproject data
 geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
-```
-
-### Additional Commands
-
-```bash
-# View first 5 rows of a file (default)
-geoterminal head input.geojson
-
-# View first 10 rows of a file
-geoterminal head -n 10 input.geojson
-
-# View last 5 rows of a file (default)
-geoterminal tail input.geojson
-
-# View last 8 rows of a file
-geoterminal tail -n 8 input.geojson
 
 # Clip geometries using a mask file
-geoterminal clip input.shp mask.geojson output.csv
+geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
+```
 
-# Clip using WKT string as mask
-geoterminal clip input.geojson "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" output.csv
+### File Inspection
+
+View the contents of your files using the head and tail commands:
+
+```bash
+# View first 10 rows of a file
+geoterminal input.geojson --head --rows 10
+
+# View last 8 rows of a file
+geoterminal input.geojson --tail --rows 8
 ```
 
 ### File Format Support
@@ -138,10 +131,12 @@ export_data(gdf, "output.geojson")
    - Use appropriate CRS for your geographic region
 
 2. **Memory Management**
+
    - For large datasets, consider processing in chunks
    - Use appropriate H3 resolution for your use case
 
 3. **Error Handling**
+
    - Always check for invalid geometries
    - Handle exceptions appropriately
 

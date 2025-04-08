@@ -2,7 +2,6 @@
 
 import logging
 
-from geoterminal.cli.commands.clip import handle_clip_command
 from geoterminal.cli.commands.head_tail import (
     handle_head_command,
     handle_tail_command,
@@ -37,26 +36,30 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        # Handle different commands
-        if args.command == "head":
+        # Handle special commands if specified
+        if args.head:
             handle_head_command(args)
-        elif args.command == "tail":
+            return
+        elif args.tail:
             handle_tail_command(args)
-        elif args.command == "clip":
-            handle_clip_command(args)
-        else:
-            # Default behavior (no command)
-            # Load and process data
-            gdf = read_geometry_file(
-                args.input, args.input_crs, args.geometry_column
-            )
+            return
 
-            processor = GeometryProcessor(gdf)
-            process_geometries(processor, args)
+        # If only input is provided, show help
+        if not args.output:
+            parser.print_help()
+            return
 
-            # Export results
-            export_data(processor.gdf, args.output)
-            logger.info(f"Successfully processed and saved to {args.output}")
+        # Default behavior: file conversion with optional operations
+        gdf = read_geometry_file(
+            args.input, args.input_crs, args.geometry_column
+        )
+
+        processor = GeometryProcessor(gdf)
+        process_geometries(processor, args)
+
+        # Export results
+        export_data(processor.gdf, args.output)
+        logger.info(f"Successfully processed and saved to {args.output}")
 
     except FileHandlerError as e:
         logger.error(f"File handling error: {str(e)}")

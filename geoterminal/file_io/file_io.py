@@ -160,6 +160,8 @@ def read_csv_with_geometry(
 
         # Convert WKT strings to geometries
         df["geometry"] = df[geom_col].apply(wkt.loads)
+        if geom_col != "geometry":
+            df = df.drop(geom_col, axis=1)
         gdf = gpd.GeoDataFrame(df, geometry="geometry")
 
         if crs is not None:
@@ -261,17 +263,19 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
         elif suffix == ".csv":
             # Convert geometry to WKT for CSV export
             df = pd.DataFrame(gdf)
-            df["geometry"] = df["geometry"].apply(
-                lambda x: x.wkt if x else None
-            )
+            if "geometry" in df.columns:
+                df["geometry"] = df["geometry"].apply(
+                    lambda x: x.wkt if x else None
+                )
             df.to_csv(path, index=False)
         elif suffix in [".shp", ".zip"]:
             gdf.to_file(path, driver="ESRI Shapefile")
         elif suffix == ".orc":
             df = pd.DataFrame(gdf)
-            df["geometry"] = df["geometry"].apply(
-                lambda x: x.wkt if x else None
-            )
+            if "geometry" in df.columns:
+                df["geometry"] = df["geometry"].apply(
+                    lambda x: x.wkt if x else None
+                )
             table = pa.Table.from_pandas(df)
             with pa.output_stream(path) as orc_writer:
                 pa.orc.write_table(table, orc_writer)
