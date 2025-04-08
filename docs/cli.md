@@ -1,6 +1,6 @@
-# Command Line Interface (CLI)
+# Command Line Interface
 
-Geoterminal provides a command-line interface for common geospatial operations. It accepts both file paths and WKT strings as input.
+The Geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.
 
 ## Basic Usage
 
@@ -9,113 +9,102 @@ geoterminal INPUT OUTPUT [OPTIONS]
 ```
 
 ### Arguments
+
 - `INPUT`: Input geometry (file path or WKT string)
-- `OUTPUT`: Output file path
+- `OUTPUT`: Output file path (optional; format determined by extension)
 
 ### Options
+
 - `--buffer-size`: Buffer size to apply (in CRS units)
 - `--h3-res`: H3 resolution for polyfilling (0-15)
-- `--h3-geom`: Include H3 geometries in output
+- `--h3-geom`: Include H3 geometries in output (default: True)
 - `--input-crs`: Input CRS (default: 4326)
 - `--output-crs`: Output CRS
 - `--geometry-column`: Column name containing WKT geometry strings (for CSV/ORC files)
+- `--mask`: Mask geometry (file path or WKT string)
+- `--mask-crs`: CRS for mask geometry (default: 4326)
+- `--head`: Show first n rows of the geometry file
+- `--tail`: Show last n rows of the geometry file
+- `--rows`: Number of rows to show for head/tail (default: 5)
 
 ### Examples
+
 ```bash
-# Process a file
+# Basic file conversion
 geoterminal input.shp output.geojson
 
 # Process a WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
-# Apply buffer and convert to H3
+# Apply buffer and convert to H3 cells
 geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
-# Convert WKT to H3 with geometries
+# Convert WKT to H3 cells with geometries
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
+
+# Reproject data
+geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
+
+# Clip geometries using a mask file
+geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
+
+# Clip geometries using a mask WKT
+geoterminal input.shp output.geojson --mask "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
+
+# View first 10 rows of a file
+geoterminal input.geojson --head --rows 10
+
+# View last 8 rows of a file
+geoterminal input.geojson --tail --rows 8
+
+# Work with CSV/ORC files using custom geometry columns
+geoterminal input.csv output.geojson --geometry-column my_wkt_column
 ```
 
-## Additional Commands
+## File Format Support
 
-### head
+Geoterminal supports multiple file formats:
 
-Displays the first n rows of a geometry file.
+- GeoJSON (.geojson)
+- Shapefile (.shp)
+- CSV with WKT column
+- ORC with WKT column
+- Direct WKT string input
 
-```bash
-geoterminal head INPUT [-n ROWS] [OPTIONS]
-```
+For CSV and ORC files, you can specify which column contains the WKT geometry strings. If not specified, it will look for columns named: geometry, geom, wkt, the_geom.
 
-#### Arguments
-- `INPUT`: Input file path (GeoJSON, Shapefile, CSV)
+## Coordinate Reference Systems
 
-#### Options
-- `-n, --rows`: Number of rows to display (default: 5)
-- `--input-crs`: CRS of input file (default: 4326)
+- Default CRS: EPSG:4326 (WGS 84)
+- Input CRS can be specified using EPSG codes
+- Output CRS can be specified using EPSG codes
+- Mask CRS defaults to EPSG:4326 but can be overridden
 
-#### Examples
-```bash
-# Show first 5 rows
-geoterminal head input.geojson
+## H3 Options
 
-# Show first 10 rows
-geoterminal head -n 10 input.geojson
-```
+- Resolution range: 0-15
+- Default includes H3 geometries (can be disabled with --h3-geom False)
+- Geometries are stored in WKT format
 
-### tail
+## Best Practices
 
-Displays the last n rows of a geometry file.
+1. **Input Validation**
 
-```bash
-geoterminal tail INPUT [-n ROWS] [OPTIONS]
-```
+   - Always specify CRS when working with WKT input
+   - Validate input geometries before processing
+   - Use appropriate CRS for your geographic region
 
-#### Arguments
+2. **Performance**
 
-- `INPUT`: Input file path (GeoJSON, Shapefile, CSV)
+   - For large datasets, consider processing in chunks
+   - Use appropriate H3 resolution based on your use case
+   - Buffer size should be appropriate for your CRS units
 
-#### Options
+3. **Error Handling**
 
-- `-n, --rows`: Number of rows to display (default: 5)
-- `--input-crs`: CRS of input file (default: 4326)
-
-#### Examples
-
-```bash
-# Show last 5 rows
-geoterminal tail input.geojson
-
-# Show last 8 rows
-geoterminal tail -n 8 input.geojson
-```
-
-### clip
-
-Clips geometries using a mask.
-
-```bash
-geoterminal clip INPUT MASK OUTPUT [OPTIONS]
-```
-
-#### Arguments
-- `INPUT`: Input file path (GeoJSON, Shapefile, CSV)
-- `MASK`: Mask file path or WKT string
-- `OUTPUT`: Output file path
-
-#### Options
-- `--input-crs`: CRS of input file (default: read from file)
-- `--mask-crs`: CRS of mask geometry (required for WKT input)
-- `--output-crs`: CRS of output file (default: same as input)
-
-#### Examples
-```bash
-# Clip using mask file
-geoterminal clip input.shp mask.geojson output.csv
-
-# Clip using WKT string
-geoterminal clip input.geojson "POLYGON((...))" output.csv --mask-crs EPSG:4326
-```
-
-
+   - Check for invalid geometries
+   - Handle exceptions appropriately
+   - Validate CRS codes before use
 
 ## Error Handling
 
@@ -132,20 +121,3 @@ Error messages are printed to stderr with details about the failure.
 
 - `GEOTERMINAL_LOG_LEVEL`: Set logging level (default: INFO)
 - `GEOTERMINAL_MAX_WORKERS`: Maximum number of worker processes for parallel operations
-
-## Output Formats
-
-The output format is determined by the file extension:
-
-- `.geojson`: GeoJSON format
-- `.shp`: Shapefile format
-- `.csv`: CSV format with WKT geometry column
-- `.orc`: ORC format with WKT geometry column
-
-For CSV and ORC files, you can specify which column contains the WKT geometry strings using `--geometry-column`. If not specified, the tool will look for standard column names (geometry, geom, wkt, the_geom).
-
-```bash
-# Use custom geometry column
-geoterminal input.csv output.geojson --geometry-column my_wkt_column
-geoterminal input.orc output.geojson --geometry-column my_wkt_column
-```
