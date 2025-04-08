@@ -2,7 +2,6 @@
 
 import logging
 
-from geoterminal.cli.commands.clip import handle_clip_command
 from geoterminal.cli.commands.head_tail import (
     handle_head_command,
     handle_tail_command,
