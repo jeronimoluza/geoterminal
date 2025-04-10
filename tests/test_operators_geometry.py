@@ -9,7 +9,7 @@ import pandas as pd
 import pytest
 from shapely.geometry import Point, Polygon
 
-from geoterminal.geometry_operations.geometry_operations import (
+from geoterminal.operators.geometry_operations import (
     GeometryProcessor,
 )
 

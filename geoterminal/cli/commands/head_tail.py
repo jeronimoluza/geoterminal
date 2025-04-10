@@ -36,5 +36,6 @@ def handle_tail_command(args: argparse.Namespace) -> None:
     """
     gdf = read_geometry_file(args.input, args.input_crs)
     result = gdf.tail(args.head)
+    result["geometry"] = result["geometry"].apply(simplify_geom_repr)
     print(f"Last {args.head} rows of {args.input}:")
     print(result.to_string())

@@ -12,7 +12,7 @@ import geopandas as gpd
 import pytest
 from shapely.geometry import Polygon
 
-from geoterminal.file_io.file_io import (
+from geoterminal.io.file import (
     FileHandlerError,
     export_data,
     read_geometry_file,
