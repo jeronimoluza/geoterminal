@@ -48,12 +48,6 @@ cd geoterminal
 # Install dependencies and create virtual environment
 poetry install
 
-# Install with development dependencies
-poetry install --with dev
-
-# Install with documentation dependencies
-poetry install --with docs
-
 # Activate the virtual environment
 poetry shell
 ```
