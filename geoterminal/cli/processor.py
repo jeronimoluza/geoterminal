@@ -1,15 +1,21 @@
 """Geometry processing functionality for the CLI."""
 
 import argparse
-import logging
+import sys
 
-from geoterminal.file_io.file_io import read_geometry_file
-from geoterminal.geometry_operations.geometry_operations import (
-    GeometryProcessor,
-)
-from geoterminal.h3_operations.h3_operations import polyfill
+from loguru import logger
 
-logger = logging.getLogger(__name__)
+from geoterminal.io.file import read_geometry_file
+from geoterminal.operators.geometry_operations import GeometryProcessor
+from geoterminal.operators.h3_operations import polyfill
+
+# Map command line flags to operation types
+OP_FLAGS = {
+    "--mask": "mask",
+    "--buffer-size": "buffer",
+    "--h3-res": "h3",
+    "--output-crs": "reproject",
+}
 
 
 def process_geometries(
@@ -22,24 +28,42 @@ def process_geometries(
         args: Parsed command line arguments
     """
     try:
-        # Apply clip operation if specified
-        if args.mask:
-            mask_gdf = read_geometry_file(args.mask, args.mask_crs)
-            processor.clip(mask_gdf)
+        # Get operations in order they appear in command line
+        operations = []
+        args_list = sys.argv[1:]
+        i = 0
+        while i < len(args_list):
+            arg = args_list[i]
+            if arg in OP_FLAGS:
+                op_type = OP_FLAGS[arg]
+                value = None
 
-        # Apply buffer operation if specified
-        if args.buffer_size:
-            processor.apply_buffer(args.buffer_size)
+                if op_type == "mask":
+                    value = args.mask
+                elif op_type == "buffer":
+                    value = args.buffer_size
+                elif op_type == "h3":
+                    value = args.h3_res
+                elif op_type == "reproject":
+                    value = args.output_crs
 
-        # Apply H3 polyfill if specified
-        if args.h3_res:
-            processor.gdf = polyfill(
-                processor.gdf, args.h3_res, include_geometry=args.h3_geom
-            )
+                if value is not None:
+                    operations.append((op_type, value))
+            i += 1
 
-        # Reproject if specified
-        if args.output_crs:
-            processor.reproject(args.output_crs)
+        # Apply operations in the order they appear in command line
+        for op_type, value in operations:
+            if op_type == "mask":
+                mask_gdf = read_geometry_file(value, args.mask_crs)
+                processor.clip(mask_gdf)
+            elif op_type == "buffer":
+                processor.apply_buffer(value)
+            elif op_type == "h3":
+                processor.gdf = polyfill(
+                    processor.gdf, value, include_geometry=args.h3_geom
+                )
+            elif op_type == "reproject":
+                processor.reproject(value)
 
     except Exception as e:
         logger.error(f"Unexpected error during processing: {str(e)}")

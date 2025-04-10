@@ -1,5 +1,33 @@
 # Geometry Operations API
 
+Module: `geoterminal.operators.geometry_operations`
+
+## Classes
+
+### GeometryProcessor
+
+Handles geometry operations on GeoDataFrames.
+
+```python
+class GeometryProcessor:
+    def __init__(self, gdf: Optional[gpd.GeoDataFrame] = None)
+    def apply_buffer(self, size: float) -> None
+    def clip(self, mask_gdf: gpd.GeoDataFrame) -> None
+    def reproject(self, target_crs: int) -> None
+```
+
+#### Methods
+
+- `apply_buffer`: Apply a buffer of specified size in meters
+- `clip`: Clip geometries using a mask GeoDataFrame
+- `reproject`: Reproject geometries to target CRS
+
+## Exceptions
+
+### GeometryOperationError
+
+Raised when geometry operations fail.
+
 ## GeometryProcessor
 
 The `GeometryProcessor` class is the main interface for geometric operations.

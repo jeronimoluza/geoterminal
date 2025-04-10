@@ -1,5 +1,46 @@
 # Usage Guide
 
+GeoTerminal provides two main modes of operation: Inspect Mode and Transform Mode.
+
+## Inspect Mode
+
+When only an input file is provided, GeoTerminal enters inspect mode, allowing you to quickly examine your data:
+
+```bash
+# View first N rows with simplified geometry representation
+geoterminal input.shp --head 10
+
+# View last N rows
+geoterminal input.shp --tail 5
+
+# Show CRS information
+geoterminal input.shp --crs
+```
+
+## Transform Mode
+
+When both input and output files are provided, GeoTerminal enters transform mode. Operations are applied in the exact order they appear in the command line:
+
+```bash
+# Buffer first, then convert to H3
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 7
+
+# Convert to H3 first, then buffer
+geoterminal input.shp output.geojson --h3-res 7 --buffer-size 1000
+```
+
+## Logging
+
+Control the verbosity of output with the `--log-level` flag:
+
+```bash
+# Default (INFO) - minimal output
+geoterminal input.shp output.geojson --buffer-size 1000
+
+# Debug mode - detailed output with timestamps and file info
+geoterminal input.shp output.geojson --buffer-size 1000 --log-level DEBUG
+```
+
 ## Basic Concepts
 
 Geoterminal provides both a Python API and a command-line interface (CLI) for geospatial operations.
@@ -122,23 +163,6 @@ gdf_wkt = read_geometry_file("POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))", crs="EPSG:432
 # Export data
 export_data(gdf, "output.geojson")
 ```
-
-## Best Practices
-
-1. **CRS Management**
-
-   - Always specify the CRS when working with WKT input
-   - Use appropriate CRS for your geographic region
-
-2. **Memory Management**
-
-   - For large datasets, consider processing in chunks
-   - Use appropriate H3 resolution for your use case
-
-3. **Error Handling**
-
-   - Always check for invalid geometries
-   - Handle exceptions appropriately
 
 ## Examples
 

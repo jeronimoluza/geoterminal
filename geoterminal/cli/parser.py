@@ -2,6 +2,8 @@
 
 import argparse
 
+from geoterminal._version import __version__
+
 
 def setup_parser() -> argparse.ArgumentParser:
     """Set up command line argument parser.
@@ -12,6 +14,19 @@ def setup_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="GeoTerminal is a command-line tool designed to \
     simplify common GIS tasks that you may encounter in your daily work."
+    )
+
+    # Add version argument
+    parser.add_argument(
+        "--version", action="version", version=f"%(prog)s {__version__}"
+    )
+
+    # Add log level argument
+    parser.add_argument(
+        "--log-level",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        default="INFO",
+        help="Set the logging level (default: INFO)",
     )
 
     # Add main arguments for default behavior (file conversion)
@@ -53,22 +68,23 @@ def setup_parser() -> argparse.ArgumentParser:
         help="Column name to use as geometry for CSV/ORC files \
         (must contain WKT strings)",
     )
+    # Inspect mode arguments
     parser.add_argument(
         "--head",
-        action="store_true",
-        help="Show first n rows of the geometry file",
+        type=int,
+        metavar="N",
+        help="Show first N rows of the geometry file in WKT format",
     )
     parser.add_argument(
         "--tail",
-        action="store_true",
-        help="Show last n rows of the geometry file",
+        type=int,
+        metavar="N",
+        help="Show last N rows of the geometry file in WKT format",
     )
     parser.add_argument(
-        "-n",
-        "--rows",
-        type=int,
-        default=5,
-        help="Number of rows to show for head/tail (default: 5)",
+        "--crs",
+        action="store_true",
+        help="Show coordinate reference system information",
     )
 
     # # Add subcommands

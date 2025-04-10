@@ -8,10 +8,7 @@ import pandas as pd
 import pytest
 from shapely.geometry import Polygon
 
-from geoterminal.h3_operations.h3_operations import (
-    H3OperationError,
-    H3Processor,
-)
+from geoterminal.operators.h3_operations import H3OperationError, H3Processor
 
 
 @pytest.fixture

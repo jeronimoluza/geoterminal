@@ -3,9 +3,25 @@
 import argparse
 import logging
 
-from geoterminal.file_io.file_io import read_geometry_file
+from shapely import wkt
+
+from geoterminal.io.file import read_geometry_file
 
 logger = logging.getLogger(__name__)
+
+
+def simplify_geom_repr(geom_wkt: str) -> str:
+    """Convert WKT geometry to a simplified string representation.
+
+    Args:
+        geom_wkt: WKT string representation of geometry
+
+    Returns:
+        Simplified string representation (e.g. 'POLYGON(...)')
+    """
+    if geom_wkt is None:
+        return "None"
+    return f"{wkt.loads(geom_wkt).geom_type.upper()}(...)"
 
 
 def handle_head_command(args: argparse.Namespace) -> None:
@@ -15,8 +31,9 @@ def handle_head_command(args: argparse.Namespace) -> None:
         args: Parsed command line arguments
     """
     gdf = read_geometry_file(args.input, args.input_crs)
-    result = gdf.head(args.rows)
-    print(f"First {args.rows} rows of {args.input}:")
+    result = gdf.head(args.head).to_wkt()
+    result["geometry"] = result["geometry"].apply(simplify_geom_repr)
+    print(f"First {args.head} rows of {args.input}:")
     print(result.to_string())
 
 
@@ -27,6 +44,7 @@ def handle_tail_command(args: argparse.Namespace) -> None:
         args: Parsed command line arguments
     """
     gdf = read_geometry_file(args.input, args.input_crs)
-    result = gdf.tail(args.rows)
-    print(f"Last {args.rows} rows of {args.input}:")
+    result = gdf.tail(args.tail).to_wkt()
+    result["geometry"] = result["geometry"].apply(simplify_geom_repr)
+    print(f"Last {args.tail} rows of {args.input}:")
     print(result.to_string())

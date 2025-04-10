@@ -1,5 +1,38 @@
 # File I/O API
 
+Module: `geoterminal.io.file`
+
+## Functions
+
+### read_geometry_file
+
+```python
+def read_geometry_file(input_path: Union[str, Path], crs: Optional[int] = None, geometry_column: Optional[str] = None) -> gpd.GeoDataFrame
+```
+
+Read geometry data from various file formats or WKT string.
+
+### export_data
+
+```python
+def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None
+```
+
+Export GeoDataFrame to various file formats.
+
+### Supported Formats
+
+- GeoJSON (.geojson, .json)
+- Shapefile (.shp)
+- CSV (.csv) with WKT geometry
+- ORC (.orc)
+
+## Exceptions
+
+### FileHandlerError
+
+Raised when file operations fail.
+
 ## Functions
 
 ### read_geometry_file

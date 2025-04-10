@@ -1,5 +1,41 @@
 # H3 Operations API
 
+Module: `geoterminal.operators.h3_operations`
+
+## Functions
+
+### polyfill
+
+```python
+def polyfill(gdf: gpd.GeoDataFrame, resolution: int, include_geometry: bool = True) -> gpd.GeoDataFrame
+```
+
+Convert geometries to H3 hexagons at specified resolution.
+
+## Classes
+
+### H3Processor
+
+Handles H3 grid operations on GeoDataFrames.
+
+```python
+class H3Processor:
+    def __init__(self, gdf: Optional[gpd.GeoDataFrame] = None)
+    def polyfill(self, resolution: int, include_geometry: bool = True) -> gpd.GeoDataFrame
+    def get_hex_geometry(self, h3_address: str) -> Polygon
+```
+
+#### Methods
+
+- `polyfill`: Convert geometries to H3 hexagons
+- `get_hex_geometry`: Get polygon geometry for H3 address
+
+## Exceptions
+
+### H3OperationError
+
+Raised when H3 operations fail.
+
 ## H3Processor
 
 The `H3Processor` class handles H3 grid operations.

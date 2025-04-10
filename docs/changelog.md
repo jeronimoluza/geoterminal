@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2025-04-10
+
+### Added
+- New inspect mode when only INPUT is provided
+  - `--head N` to show first N rows in WKT format
+  - `--tail N` to show last N rows in WKT format
+  - `--crs` to show CRS information
+- Operation order preservation: operations are now applied in the exact order they appear in command line
+- Logging system improvements:
+  - Switched to loguru for better logging control
+  - Added `--log-level` flag with DEBUG, INFO, WARNING, ERROR options
+  - Simplified INFO output format
+  - Detailed DEBUG output with timestamps and file info
+
+### Changed
+- Restructured project:
+  - Renamed `file_io` folder to `io`
+  - Created `operators` folder for geometry and H3 operations
+- Version now reads directly from pyproject.toml
+- Improved geometry display in head/tail output
+
+### Fixed
+- Fixed warning about geometry column modification in head/tail commands
+- Reduced log verbosity for file operations
+
+## [0.1.1] - 2025-04-10
+
+### Note
+
+Version bump only. No functional changes from 0.1.0.
 
 ## [0.1.0] - 2025-04-07
 

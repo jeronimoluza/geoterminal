@@ -1,6 +1,6 @@
 """Main CLI entry point for the geoterminal package."""
 
-import logging
+from loguru import logger
 
 from geoterminal.cli.commands.head_tail import (
     handle_head_command,
@@ -8,23 +8,17 @@ from geoterminal.cli.commands.head_tail import (
 )
 from geoterminal.cli.parser import setup_parser
 from geoterminal.cli.processor import process_geometries
-from geoterminal.file_io.file_io import (
+from geoterminal.io.file import (
     FileHandlerError,
     export_data,
     read_geometry_file,
 )
-from geoterminal.geometry_operations.geometry_operations import (
+from geoterminal.log import setup_logging
+from geoterminal.operators.geometry_operations import (
     GeometryOperationError,
     GeometryProcessor,
 )
-from geoterminal.h3_operations.h3_operations import H3OperationError
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
+from geoterminal.operators.h3_operations import H3OperationError
 
 
 def main() -> None:
@@ -35,6 +29,9 @@ def main() -> None:
     parser = setup_parser()
     args = parser.parse_args()
 
+    # Set up logging with provided log level
+    setup_logging(args.log_level)
+
     try:
         # Handle special commands if specified
         if args.head:
@@ -44,9 +41,26 @@ def main() -> None:
             handle_tail_command(args)
             return
 
-        # If only input is provided, show help
+        # If only input is provided, enter inspect mode
         if not args.output:
-            parser.print_help()
+            if args.head:
+                handle_head_command(args)
+            elif args.tail:
+                handle_tail_command(args)
+            elif args.crs:
+                # Show CRS information
+                gdf = read_geometry_file(
+                    args.input, args.input_crs, args.geometry_column
+                )
+                logger.info(f"CRS: {gdf.crs}")
+            else:
+                # Show inspect mode help
+                logger.info("\nInspect Mode Options:")
+                logger.info("  --head N     Show first N rows in WKT format")
+                logger.info("  --tail N     Show last N rows in WKT format")
+                logger.info(
+                    "  --crs        Show coordinate reference system info"
+                )
             return
 
         # Default behavior: file conversion with optional operations
