@@ -164,23 +164,6 @@ gdf_wkt = read_geometry_file("POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))", crs="EPSG:432
 export_data(gdf, "output.geojson")
 ```
 
-## Best Practices
-
-1. **CRS Management**
-
-   - Always specify the CRS when working with WKT input
-   - Use appropriate CRS for your geographic region
-
-2. **Memory Management**
-
-   - For large datasets, consider processing in chunks
-   - Use appropriate H3 resolution for your use case
-
-3. **Error Handling**
-
-   - Always check for invalid geometries
-   - Handle exceptions appropriately
-
 ## Examples
 
 Check out our [examples directory](https://github.com/jeronimoluza/geoterminal/tree/main/examples) for more detailed usage examples.
