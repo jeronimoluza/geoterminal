@@ -4,7 +4,7 @@ import argparse
 import logging
 from shapely.geometry import base
 
-from geoterminal.file_io.file_io import read_geometry_file
+from geoterminal.io.file import read_geometry_file
 
 logger = logging.getLogger(__name__)
 

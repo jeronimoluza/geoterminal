@@ -1,6 +1,7 @@
 """Command-line argument parser for the geoterminal package."""
 
 import argparse
+from geoterminal._version import __version__
 
 
 def setup_parser() -> argparse.ArgumentParser:
@@ -12,6 +13,13 @@ def setup_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="GeoTerminal is a command-line tool designed to \
     simplify common GIS tasks that you may encounter in your daily work."
+    )
+
+    # Add version argument
+    parser.add_argument(
+        '--version',
+        action='version',
+        version=f'%(prog)s {__version__}'
     )
 
     # Add main arguments for default behavior (file conversion)

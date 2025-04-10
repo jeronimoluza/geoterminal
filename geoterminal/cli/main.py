@@ -8,16 +8,9 @@ from geoterminal.cli.commands.head_tail import (
 )
 from geoterminal.cli.parser import setup_parser
 from geoterminal.cli.processor import process_geometries
-from geoterminal.file_io.file_io import (
-    FileHandlerError,
-    export_data,
-    read_geometry_file,
-)
-from geoterminal.geometry_operations.geometry_operations import (
-    GeometryOperationError,
-    GeometryProcessor,
-)
-from geoterminal.h3_operations.h3_operations import H3OperationError
+from geoterminal.io.file import FileHandlerError, export_data, read_geometry_file
+from geoterminal.operators.geometry_operations import GeometryOperationError, GeometryProcessor
+from geoterminal.operators.h3_operations import H3OperationError
 
 # Configure logging
 logging.basicConfig(

@@ -2,14 +2,21 @@
 
 import argparse
 import logging
+import sys
 
-from geoterminal.file_io.file_io import read_geometry_file
-from geoterminal.geometry_operations.geometry_operations import (
-    GeometryProcessor,
-)
-from geoterminal.h3_operations.h3_operations import polyfill
+from geoterminal.io.file import read_geometry_file
+from geoterminal.operators.geometry_operations import GeometryProcessor
+from geoterminal.operators.h3_operations import polyfill
 
 logger = logging.getLogger(__name__)
+
+# Map command line flags to operation types
+OP_FLAGS = {
+    '--mask': 'mask',
+    '--buffer-size': 'buffer',
+    '--h3-res': 'h3',
+    '--output-crs': 'reproject'
+}
 
 
 def process_geometries(
@@ -22,20 +29,29 @@ def process_geometries(
         args: Parsed command line arguments
     """
     try:
-        # Get the order of operations from the command line arguments
+        # Get operations in order they appear in command line
         operations = []
-        for arg in vars(args):
-            value = getattr(args, arg)
-            if value is not None:
-                if arg == 'mask' and value:
-                    operations.append(('mask', value))
-                elif arg == 'buffer_size' and value:
-                    operations.append(('buffer', value))
-                elif arg == 'h3_res' and value:
-                    operations.append(('h3', value))
-                elif arg == 'output_crs' and value:
-                    operations.append(('reproject', value))
-        
+        args_list = sys.argv[1:]
+        i = 0
+        while i < len(args_list):
+            arg = args_list[i]
+            if arg in OP_FLAGS:
+                op_type = OP_FLAGS[arg]
+                value = None
+                
+                if op_type == 'mask':
+                    value = args.mask
+                elif op_type == 'buffer':
+                    value = args.buffer_size
+                elif op_type == 'h3':
+                    value = args.h3_res
+                elif op_type == 'reproject':
+                    value = args.output_crs
+                    
+                if value is not None:
+                    operations.append((op_type, value))
+            i += 1
+            
         # Apply operations in the order they appear in command line
         for op_type, value in operations:
             if op_type == 'mask':
