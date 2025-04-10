@@ -50,6 +50,12 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Usage Guide</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#inspect-mode">Inspect Mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#transform-mode">Transform Mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#basic-concepts">Basic Concepts</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a>
@@ -73,8 +79,6 @@
     <li class="toctree-l3"><a class="reference internal" href="#file-io">File I/O</a>
     </li>
         </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
     </li>
@@ -130,6 +134,31 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="usage-guide">Usage Guide<a class="headerlink" href="#usage-guide" title="Permanent link">&para;</a></h1>
+<p>GeoTerminal provides two main modes of operation: Inspect Mode and Transform Mode.</p>
+<h2 id="inspect-mode">Inspect Mode<a class="headerlink" href="#inspect-mode" title="Permanent link">&para;</a></h2>
+<p>When only an input file is provided, GeoTerminal enters inspect mode, allowing you to quickly examine your data:</p>
+<pre class="highlight"><code class="language-bash"># View first N rows with simplified geometry representation
+geoterminal input.shp --head 10
+
+# View last N rows
+geoterminal input.shp --tail 5
+
+# Show CRS information
+geoterminal input.shp --crs</code></pre>
+<h2 id="transform-mode">Transform Mode<a class="headerlink" href="#transform-mode" title="Permanent link">&para;</a></h2>
+<p>When both input and output files are provided, GeoTerminal enters transform mode. Operations are applied in the exact order they appear in the command line:</p>
+<pre class="highlight"><code class="language-bash"># Buffer first, then convert to H3
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 7
+
+# Convert to H3 first, then buffer
+geoterminal input.shp output.geojson --h3-res 7 --buffer-size 1000</code></pre>
+<h2 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h2>
+<p>Control the verbosity of output with the <code>--log-level</code> flag:</p>
+<pre class="highlight"><code class="language-bash"># Default (INFO) - minimal output
+geoterminal input.shp output.geojson --buffer-size 1000
+
+# Debug mode - detailed output with timestamps and file info
+geoterminal input.shp output.geojson --buffer-size 1000 --log-level DEBUG</code></pre>
 <h2 id="basic-concepts">Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permanent link">&para;</a></h2>
 <p>Geoterminal provides both a Python API and a command-line interface (CLI) for geospatial operations.</p>
 <h2 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">&para;</a></h2>
@@ -217,34 +246,6 @@ gdf_wkt = read_geometry_file("POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))", crs="EPSG:432
 
 # Export data
 export_data(gdf, "output.geojson")</code></pre>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p><strong>CRS Management</strong></p>
-</li>
-<li>
-<p>Always specify the CRS when working with WKT input</p>
-</li>
-<li>
-<p>Use appropriate CRS for your geographic region</p>
-</li>
-<li>
-<p><strong>Memory Management</strong></p>
-</li>
-<li>
-<p>For large datasets, consider processing in chunks</p>
-</li>
-<li>
-<p>Use appropriate H3 resolution for your use case</p>
-</li>
-<li>
-<p><strong>Error Handling</strong></p>
-</li>
-<li>
-<p>Always check for invalid geometries</p>
-</li>
-<li>Handle exceptions appropriately</li>
-</ol>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>Check out our <a href="https://github.com/jeronimoluza/geoterminal/tree/main/examples">examples directory</a> for more detailed usage examples.</p>
               

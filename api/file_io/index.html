@@ -67,11 +67,27 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#export_data">export_data</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#supported-formats">Supported Formats</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#filehandlererror">FileHandlerError</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#functions_1">Functions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#read_geometry_file_1">read_geometry_file</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#export_data_1">export_data</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exceptions_1">Exceptions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#filehandlererror_1">FileHandlerError</a>
     </li>
         </ul>
     </li>
@@ -124,8 +140,26 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="file-io-api">File I/O API<a class="headerlink" href="#file-io-api" title="Permanent link">&para;</a></h1>
+<p>Module: <code>geoterminal.io.file</code></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="read_geometry_file">read_geometry_file<a class="headerlink" href="#read_geometry_file" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def read_geometry_file(input_path: Union[str, Path], crs: Optional[int] = None, geometry_column: Optional[str] = None) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Read geometry data from various file formats or WKT string.</p>
+<h3 id="export_data">export_data<a class="headerlink" href="#export_data" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -&gt; None</code></pre>
+<p>Export GeoDataFrame to various file formats.</p>
+<h3 id="supported-formats">Supported Formats<a class="headerlink" href="#supported-formats" title="Permanent link">&para;</a></h3>
+<ul>
+<li>GeoJSON (.geojson, .json)</li>
+<li>Shapefile (.shp)</li>
+<li>CSV (.csv) with WKT geometry</li>
+<li>ORC (.orc)</li>
+</ul>
+<h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
+<h3 id="filehandlererror">FileHandlerError<a class="headerlink" href="#filehandlererror" title="Permanent link">&para;</a></h3>
+<p>Raised when file operations fail.</p>
+<h2 id="functions_1">Functions<a class="headerlink" href="#functions_1" title="Permanent link">&para;</a></h2>
+<h3 id="read_geometry_file_1">read_geometry_file<a class="headerlink" href="#read_geometry_file_1" title="Permanent link">&para;</a></h3>
 <pre class="highlight"><code class="language-python">def read_geometry_file(
     file_path: Union[str, Path],
     crs: Optional[int] = None,
@@ -154,7 +188,7 @@
 <li>ORC with WKT column</li>
 <li>WKT string</li>
 </ul>
-<h3 id="export_data">export_data<a class="headerlink" href="#export_data" title="Permanent link">&para;</a></h3>
+<h3 id="export_data_1">export_data<a class="headerlink" href="#export_data_1" title="Permanent link">&para;</a></h3>
 <pre class="highlight"><code class="language-python">def export_data(
     data: Union[gpd.GeoDataFrame, pd.DataFrame],
     output_path: Union[str, Path]
@@ -174,8 +208,8 @@
 - Shapefile (.shp)
 - CSV (.csv)
 - ORC (.orc)</p>
-<h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
-<h3 id="filehandlererror">FileHandlerError<a class="headerlink" href="#filehandlererror" title="Permanent link">&para;</a></h3>
+<h2 id="exceptions_1">Exceptions<a class="headerlink" href="#exceptions_1" title="Permanent link">&para;</a></h2>
+<h3 id="filehandlererror_1">FileHandlerError<a class="headerlink" href="#filehandlererror_1" title="Permanent link">&para;</a></h3>
 <pre class="highlight"><code class="language-python">class FileHandlerError(Exception)</code></pre>
 <p>Raised when file operations fail. Includes detailed error message.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>

@@ -57,11 +57,27 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Geometry Operations</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#geometryprocessor">GeometryProcessor</a>
+    <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#geometryprocessor">GeometryProcessor</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#geometryoperationerror">GeometryOperationError</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#geometryprocessor_1">GeometryProcessor</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#constructor">Constructor</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a>
+    <li class="toctree-l3"><a class="reference internal" href="#methods_1">Methods</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#apply_buffer">apply_buffer</a>
     </li>
@@ -79,9 +95,9 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#exceptions">Exceptions</a>
+    <li class="toctree-l3"><a class="reference internal" href="#exceptions_1">Exceptions</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#geometryoperationerror">GeometryOperationError</a>
+    <li class="toctree-l4"><a class="reference internal" href="#geometryoperationerror_1">GeometryOperationError</a>
     </li>
         </ul>
     </li>
@@ -132,7 +148,25 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="geometry-operations-api">Geometry Operations API<a class="headerlink" href="#geometry-operations-api" title="Permanent link">&para;</a></h1>
-<h2 id="geometryprocessor">GeometryProcessor<a class="headerlink" href="#geometryprocessor" title="Permanent link">&para;</a></h2>
+<p>Module: <code>geoterminal.operators.geometry_operations</code></p>
+<h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
+<h3 id="geometryprocessor">GeometryProcessor<a class="headerlink" href="#geometryprocessor" title="Permanent link">&para;</a></h3>
+<p>Handles geometry operations on GeoDataFrames.</p>
+<pre class="highlight"><code class="language-python">class GeometryProcessor:
+    def __init__(self, gdf: Optional[gpd.GeoDataFrame] = None)
+    def apply_buffer(self, size: float) -&gt; None
+    def clip(self, mask_gdf: gpd.GeoDataFrame) -&gt; None
+    def reproject(self, target_crs: int) -&gt; None</code></pre>
+<h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>apply_buffer</code>: Apply a buffer of specified size in meters</li>
+<li><code>clip</code>: Clip geometries using a mask GeoDataFrame</li>
+<li><code>reproject</code>: Reproject geometries to target CRS</li>
+</ul>
+<h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
+<h3 id="geometryoperationerror">GeometryOperationError<a class="headerlink" href="#geometryoperationerror" title="Permanent link">&para;</a></h3>
+<p>Raised when geometry operations fail.</p>
+<h2 id="geometryprocessor_1">GeometryProcessor<a class="headerlink" href="#geometryprocessor_1" title="Permanent link">&para;</a></h2>
 <p>The <code>GeometryProcessor</code> class is the main interface for geometric operations.</p>
 <h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
 <pre class="highlight"><code class="language-python">GeometryProcessor(gdf: Optional[gpd.GeoDataFrame] = None)</code></pre>
@@ -140,7 +174,7 @@
 <ul>
 <li><code>gdf</code>: Optional GeoDataFrame to process. If None, can be set later.</li>
 </ul>
-<h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
+<h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h3>
 <h4 id="apply_buffer">apply_buffer<a class="headerlink" href="#apply_buffer" title="Permanent link">&para;</a></h4>
 <pre class="highlight"><code class="language-python">def apply_buffer(self, distance: float) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Creates a buffer around geometries.</p>
@@ -193,8 +227,8 @@ def gdf(self) -&gt; Optional[gpd.GeoDataFrame]</code></pre>
 <pre class="highlight"><code class="language-python">@property
 def crs(self) -&gt; Optional[str]</code></pre>
 <p>The CRS of the current GeoDataFrame.</p>
-<h3 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h3>
-<h4 id="geometryoperationerror">GeometryOperationError<a class="headerlink" href="#geometryoperationerror" title="Permanent link">&para;</a></h4>
+<h3 id="exceptions_1">Exceptions<a class="headerlink" href="#exceptions_1" title="Permanent link">&para;</a></h3>
+<h4 id="geometryoperationerror_1">GeometryOperationError<a class="headerlink" href="#geometryoperationerror_1" title="Permanent link">&para;</a></h4>
 <pre class="highlight"><code class="language-python">class GeometryOperationError(Exception)</code></pre>
 <p>Raised when a geometry operation fails. Includes detailed error message.</p>
               

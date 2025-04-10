@@ -52,11 +52,29 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">CLI Reference</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#command-structure">Command Structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#arguments">Arguments</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#options">Options</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#inspect-mode-options">Inspect Mode Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transform-mode-options">Transform Mode Options</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#general-options">General Options</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#operation-order">Operation Order</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#arguments">Arguments</a>
+    <li class="toctree-l3"><a class="reference internal" href="#arguments_1">Arguments</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#options">Options</a>
+    <li class="toctree-l3"><a class="reference internal" href="#options_1">Options</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
     </li>
@@ -124,15 +142,54 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>GeoTerminal's CLI provides two main modes of operation:</p>
+<ol>
+<li><strong>Inspect Mode</strong>: When only INPUT is provided</li>
+<li><strong>Transform Mode</strong>: When both INPUT and OUTPUT are provided</li>
+</ol>
+<h2 id="command-structure">Command Structure<a class="headerlink" href="#command-structure" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-bash">geoterminal INPUT [OUTPUT] [OPTIONS]</code></pre>
+<h2 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>INPUT</code>: Required. Input geometry (file path or WKT string)</li>
+<li><code>OUTPUT</code>: Optional. Output file path (format determined by extension)</li>
+</ul>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<h3 id="inspect-mode-options">Inspect Mode Options<a class="headerlink" href="#inspect-mode-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>--head N</code>: Show first N rows in WKT format</li>
+<li><code>--tail N</code>: Show last N rows in WKT format</li>
+<li><code>--crs</code>: Show coordinate reference system information</li>
+</ul>
+<h3 id="transform-mode-options">Transform Mode Options<a class="headerlink" href="#transform-mode-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>--buffer-size SIZE</code>: Apply buffer of SIZE meters</li>
+<li><code>--h3-res RES</code>: Convert to H3 hexagons at resolution RES</li>
+<li><code>--mask FILE</code>: Clip geometries using mask file</li>
+<li><code>--input-crs EPSG</code>: Set input CRS (default: 4326)</li>
+<li><code>--output-crs EPSG</code>: Set output CRS</li>
+<li><code>--geometry-column COL</code>: Column name for CSV/ORC files</li>
+</ul>
+<h3 id="general-options">General Options<a class="headerlink" href="#general-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>--version</code>: Show version information</li>
+<li><code>--log-level {DEBUG,INFO,WARNING,ERROR}</code>: Set logging level (default: INFO)</li>
+</ul>
+<h2 id="operation-order">Operation Order<a class="headerlink" href="#operation-order" title="Permanent link">&para;</a></h2>
+<p>In Transform Mode, operations are applied in the exact order they appear in the command line. For example:</p>
+<pre class="highlight"><code class="language-bash"># These commands produce different results:
+geoterminal input.shp out.geojson --buffer-size 1000 --h3-res 7  # Buffer first
+geoterminal input.shp out.geojson --h3-res 7 --buffer-size 1000  # H3 first</code></pre>
 <p>The Geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.</p>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <pre class="highlight"><code class="language-bash">geoterminal INPUT OUTPUT [OPTIONS]</code></pre>
-<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
+<h3 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>INPUT</code>: Input geometry (file path or WKT string)</li>
 <li><code>OUTPUT</code>: Output file path (optional; format determined by extension)</li>
 </ul>
-<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<h3 id="options_1">Options<a class="headerlink" href="#options_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>--buffer-size</code>: Buffer size to apply (in CRS units)</li>
 <li><code>--h3-res</code>: H3 resolution for polyfilling (0-15)</li>
