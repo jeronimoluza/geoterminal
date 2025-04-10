@@ -44,9 +44,23 @@ def main() -> None:
             handle_tail_command(args)
             return
 
-        # If only input is provided, show help
+        # If only input is provided, enter inspect mode
         if not args.output:
-            parser.print_help()
+            if args.head:
+                handle_head_command(args)
+            elif args.tail:
+                handle_tail_command(args)
+            elif args.crs:
+                # Show CRS information
+                gdf = read_geometry_file(args.input, args.input_crs, args.geometry_column)
+                logger.info(f"CRS: {gdf.crs}")
+            else:
+                # Show inspect mode help
+                parser.print_help()
+                logger.info("\nInspect Mode Options:")
+                logger.info("  --head N     Show first N rows in WKT format")
+                logger.info("  --tail N     Show last N rows in WKT format")
+                logger.info("  --crs        Show coordinate reference system info")
             return
 
         # Default behavior: file conversion with optional operations

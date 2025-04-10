@@ -22,24 +22,33 @@ def process_geometries(
         args: Parsed command line arguments
     """
     try:
-        # Apply clip operation if specified
-        if args.mask:
-            mask_gdf = read_geometry_file(args.mask, args.mask_crs)
-            processor.clip(mask_gdf)
-
-        # Apply buffer operation if specified
-        if args.buffer_size:
-            processor.apply_buffer(args.buffer_size)
-
-        # Apply H3 polyfill if specified
-        if args.h3_res:
-            processor.gdf = polyfill(
-                processor.gdf, args.h3_res, include_geometry=args.h3_geom
-            )
-
-        # Reproject if specified
-        if args.output_crs:
-            processor.reproject(args.output_crs)
+        # Get the order of operations from the command line arguments
+        operations = []
+        for arg in vars(args):
+            value = getattr(args, arg)
+            if value is not None:
+                if arg == 'mask' and value:
+                    operations.append(('mask', value))
+                elif arg == 'buffer_size' and value:
+                    operations.append(('buffer', value))
+                elif arg == 'h3_res' and value:
+                    operations.append(('h3', value))
+                elif arg == 'output_crs' and value:
+                    operations.append(('reproject', value))
+        
+        # Apply operations in the order they appear in command line
+        for op_type, value in operations:
+            if op_type == 'mask':
+                mask_gdf = read_geometry_file(value, args.mask_crs)
+                processor.clip(mask_gdf)
+            elif op_type == 'buffer':
+                processor.apply_buffer(value)
+            elif op_type == 'h3':
+                processor.gdf = polyfill(
+                    processor.gdf, value, include_geometry=args.h3_geom
+                )
+            elif op_type == 'reproject':
+                processor.reproject(value)
 
     except Exception as e:
         logger.error(f"Unexpected error during processing: {str(e)}")
