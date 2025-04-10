@@ -1,14 +1,14 @@
 """Geometry processing functionality for the CLI."""
 
 import argparse
-import logging
+from loguru import logger
 import sys
 
 from geoterminal.io.file import read_geometry_file
 from geoterminal.operators.geometry_operations import GeometryProcessor
 from geoterminal.operators.h3_operations import polyfill
 
-logger = logging.getLogger(__name__)
+
 
 # Map command line flags to operation types
 OP_FLAGS = {

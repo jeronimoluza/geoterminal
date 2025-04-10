@@ -1,5 +1,55 @@
 # Command Line Interface
 
+## Overview
+
+GeoTerminal's CLI provides two main modes of operation:
+
+1. **Inspect Mode**: When only INPUT is provided
+2. **Transform Mode**: When both INPUT and OUTPUT are provided
+
+## Command Structure
+
+```bash
+geoterminal INPUT [OUTPUT] [OPTIONS]
+```
+
+## Arguments
+
+- `INPUT`: Required. Input geometry (file path or WKT string)
+- `OUTPUT`: Optional. Output file path (format determined by extension)
+
+## Options
+
+### Inspect Mode Options
+
+- `--head N`: Show first N rows in WKT format
+- `--tail N`: Show last N rows in WKT format
+- `--crs`: Show coordinate reference system information
+
+### Transform Mode Options
+
+- `--buffer-size SIZE`: Apply buffer of SIZE meters
+- `--h3-res RES`: Convert to H3 hexagons at resolution RES
+- `--mask FILE`: Clip geometries using mask file
+- `--input-crs EPSG`: Set input CRS (default: 4326)
+- `--output-crs EPSG`: Set output CRS
+- `--geometry-column COL`: Column name for CSV/ORC files
+
+### General Options
+
+- `--version`: Show version information
+- `--log-level {DEBUG,INFO,WARNING,ERROR}`: Set logging level (default: INFO)
+
+## Operation Order
+
+In Transform Mode, operations are applied in the exact order they appear in the command line. For example:
+
+```bash
+# These commands produce different results:
+geoterminal input.shp out.geojson --buffer-size 1000 --h3-res 7  # Buffer first
+geoterminal input.shp out.geojson --h3-res 7 --buffer-size 1000  # H3 first
+```
+
 The Geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.
 
 ## Basic Usage

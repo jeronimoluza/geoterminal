@@ -22,6 +22,14 @@ def setup_parser() -> argparse.ArgumentParser:
         version=f'%(prog)s {__version__}'
     )
 
+    # Add log level argument
+    parser.add_argument(
+        '--log-level',
+        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
+        default='INFO',
+        help='Set the logging level (default: INFO)'
+    )
+
     # Add main arguments for default behavior (file conversion)
     parser.add_argument(
         "input", help="Input geometry (file path or WKT string)"

@@ -1,34 +1,21 @@
-# Geoterminal
+# GeoTerminal
 
 [![PyPI version](https://img.shields.io/pypi/v/geoterminal.svg)](https://pypi.python.org/pypi/geoterminal/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-Geoterminal is a powerful Python library and command-line tool designed to streamline geospatial data processing and H3 grid operations. It provides an intuitive interface for common GIS operations, supporting multiple file formats and offering both a Python API and CLI for maximum flexibility.
+GeoTerminal is a command-line tool designed to simplify common GIS tasks that you may encounter in your daily work.
 
 ## Features
 
-- **Flexible Input/Output**
-  - Support for GeoJSON, Shapefile, CSV, ORC, and WKT formats
-  - Direct WKT string input for quick operations
-  - Automatic format detection and conversion
+- File format conversion (GeoJSON, Shapefile, CSV, ORC)
+- Geometry operations (buffer, clip)
+- H3 integration (polyfill)
+- CRS transformations
+- Inspect mode for quick data viewing
+- Operation order preservation and offering both a Python API and CLI for maximum flexibility.
 
-- **Geometry Operations**
-  - Buffer creation with customizable distance
-  - Geometry clipping with file or WKT mask
-  - CRS transformation and validation
 
-- **H3 Integration**
-  - Convert geometries to H3 cells
-  - Configurable resolution (0-15)
-  - Optional geometry inclusion
-  - Efficient spatial indexing
-
-- **Developer-Friendly**
-  - Clean Python API
-  - Comprehensive CLI
-  - Extensive documentation
-  - Type hints and error handling
 
 ## Quick Start
 
@@ -75,20 +62,24 @@ poetry shell
 
 ### Basic Usage
 
-Geoterminal accepts both file paths and WKT strings as input. The input and output file formats are automatically detected based on their extensions.
+GeoTerminal accepts both file paths and WKT strings as input. The input and output file formats are automatically detected based on their extensions.
 
 ```bash
-# Convert between different formats
+# Inspect data (show first 10 rows)
+geoterminal input.shp --head 10
+
+# Show CRS information
+geoterminal input.shp --crs
+
+# Convert formats
 geoterminal input.shp output.geojson
-geoterminal input.geojson output.csv
-geoterminal input.csv output.orc
 
-# Generate from WKT string
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+# Operations are applied in the order specified
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 7  # Buffer first, then H3
+geoterminal input.shp output.geojson --h3-res 7 --buffer-size 1000  # H3 first, then buffer
 
-# Work with CSV/ORC files using custom geometry columns
-geoterminal input.csv output.geojson --geometry-column my_wkt_column
-geoterminal input.orc output.shp --geometry-column my_wkt_column
+# Set log level for detailed output
+geoterminal input.shp output.geojson --buffer-size 1000 --log-level DEBUG
 ```
 
 ### Processing Options

@@ -1,6 +1,6 @@
 """Main CLI entry point for the geoterminal package."""
 
-import logging
+from loguru import logger
 
 from geoterminal.cli.commands.head_tail import (
     handle_head_command,
@@ -9,15 +9,9 @@ from geoterminal.cli.commands.head_tail import (
 from geoterminal.cli.parser import setup_parser
 from geoterminal.cli.processor import process_geometries
 from geoterminal.io.file import FileHandlerError, export_data, read_geometry_file
+from geoterminal.log import setup_logging
 from geoterminal.operators.geometry_operations import GeometryOperationError, GeometryProcessor
 from geoterminal.operators.h3_operations import H3OperationError
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
 
 
 def main() -> None:
@@ -27,6 +21,9 @@ def main() -> None:
     """
     parser = setup_parser()
     args = parser.parse_args()
+
+    # Set up logging with provided log level
+    setup_logging(args.log_level)
 
     try:
         # Handle special commands if specified
@@ -49,7 +46,6 @@ def main() -> None:
                 logger.info(f"CRS: {gdf.crs}")
             else:
                 # Show inspect mode help
-                parser.print_help()
                 logger.info("\nInspect Mode Options:")
                 logger.info("  --head N     Show first N rows in WKT format")
                 logger.info("  --tail N     Show last N rows in WKT format")

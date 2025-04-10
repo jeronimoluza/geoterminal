@@ -5,7 +5,7 @@ various formats, including GeoJSON, Shapefile, CSV with WKT,
 and direct WKT strings.
 """
 
-import logging
+from loguru import logger
 from pathlib import Path
 from typing import Optional, Union
 
@@ -15,7 +15,7 @@ import pyarrow as pa
 import pyarrow.orc as orc
 from shapely import wkt
 
-logger = logging.getLogger(__name__)
+
 
 
 class FileHandlerError(Exception):
@@ -256,7 +256,7 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
     try:
         path = Path(output_file)
         suffix = path.suffix.lower()
-        logger.info(f"Exporting to format: {suffix}")
+        logger.debug(f"Exporting to format: {suffix}")
 
         if suffix in [".geojson", ".json"]:
             gdf.to_file(path, driver="GeoJSON")
@@ -282,7 +282,7 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
         else:
             raise FileHandlerError(f"Unsupported output format: {suffix}")
 
-        logger.info(f"Successfully exported to {output_file}")
+        logger.debug(f"Successfully exported to {output_file}")
 
     except Exception as e:
         raise FileHandlerError(f"Failed to export data: {str(e)}") from e
