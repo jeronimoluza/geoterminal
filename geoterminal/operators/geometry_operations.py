@@ -4,13 +4,12 @@ This module provides classes and functions for performing geometric operations
 on geospatial data, such as buffering, reprojection, and clipping.
 """
 
-from loguru import logger
 from typing import Optional, Union
 
 import geopandas as gpd
+from loguru import logger
 
 # Configure logging
-
 
 
 class GeometryOperationError(Exception):

@@ -1,6 +1,7 @@
 """Command-line argument parser for the geoterminal package."""
 
 import argparse
+
 from geoterminal._version import __version__
 
 
@@ -17,17 +18,15 @@ def setup_parser() -> argparse.ArgumentParser:
 
     # Add version argument
     parser.add_argument(
-        '--version',
-        action='version',
-        version=f'%(prog)s {__version__}'
+        "--version", action="version", version=f"%(prog)s {__version__}"
     )
 
     # Add log level argument
     parser.add_argument(
-        '--log-level',
-        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
-        default='INFO',
-        help='Set the logging level (default: INFO)'
+        "--log-level",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        default="INFO",
+        help="Set the logging level (default: INFO)",
     )
 
     # Add main arguments for default behavior (file conversion)

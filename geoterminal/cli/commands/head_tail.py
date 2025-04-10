@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+
 from shapely import wkt
 
 from geoterminal.io.file import read_geometry_file
@@ -10,9 +11,18 @@ logger = logging.getLogger(__name__)
 
 
 def simplify_geom_repr(geom_wkt: str) -> str:
+    """Convert WKT geometry to a simplified string representation.
+
+    Args:
+        geom_wkt: WKT string representation of geometry
+
+    Returns:
+        Simplified string representation (e.g. 'POLYGON(...)')
+    """
     if geom_wkt is None:
         return "None"
     return f"{wkt.loads(geom_wkt).geom_type.upper()}(...)"
+
 
 def handle_head_command(args: argparse.Namespace) -> None:
     """Handle the head command execution.

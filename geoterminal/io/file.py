@@ -5,7 +5,6 @@ various formats, including GeoJSON, Shapefile, CSV with WKT,
 and direct WKT strings.
 """
 
-from loguru import logger
 from pathlib import Path
 from typing import Optional, Union
 
@@ -13,9 +12,8 @@ import geopandas as gpd
 import pandas as pd
 import pyarrow as pa
 import pyarrow.orc as orc
+from loguru import logger
 from shapely import wkt
-
-
 
 
 class FileHandlerError(Exception):

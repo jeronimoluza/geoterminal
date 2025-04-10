@@ -4,15 +4,14 @@ This module provides functionality for working with Uber's H3 geospatial
 indexing system, including hexagon generation and polygon to H3 conversion.
 """
 
-from loguru import logger
 from typing import List, Optional, Set
 
 import geopandas as gpd
 import h3
+from loguru import logger
 from shapely import Polygon
 
 # Configure logging
-
 
 
 class H3OperationError(Exception):

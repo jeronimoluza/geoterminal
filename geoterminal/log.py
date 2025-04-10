@@ -1,6 +1,7 @@
 """Logging configuration for geoterminal."""
 
 import sys
+
 from loguru import logger
 
 
@@ -16,8 +17,10 @@ def setup_logging(log_level: str = "INFO") -> None:
     # Format based on log level
     if log_level == "DEBUG":
         # Debug format includes timestamp and file
-        fmt = ("{time:YYYY-MM-DD HH:mm:ss} | "
-               "{file}:{line} | {level} | {message}")
+        fmt = (
+            "{time:YYYY-MM-DD HH:mm:ss} | "
+            "{file}:{line} | {level} | {message}"
+        )
     else:
         # Info format is minimal
         fmt = "{message}"
@@ -33,7 +36,8 @@ def setup_logging(log_level: str = "INFO") -> None:
             # Show geometry and h3 operations only in DEBUG
             or (
                 log_level == "DEBUG"
-                and record["file"].name in ["geometry_operations.py", "h3_operations.py"]
+                and record["file"].name
+                in ["geometry_operations.py", "h3_operations.py"]
             )
-        )
+        ),
     )

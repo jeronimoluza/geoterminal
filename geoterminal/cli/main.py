@@ -8,9 +8,16 @@ from geoterminal.cli.commands.head_tail import (
 )
 from geoterminal.cli.parser import setup_parser
 from geoterminal.cli.processor import process_geometries
-from geoterminal.io.file import FileHandlerError, export_data, read_geometry_file
+from geoterminal.io.file import (
+    FileHandlerError,
+    export_data,
+    read_geometry_file,
+)
 from geoterminal.log import setup_logging
-from geoterminal.operators.geometry_operations import GeometryOperationError, GeometryProcessor
+from geoterminal.operators.geometry_operations import (
+    GeometryOperationError,
+    GeometryProcessor,
+)
 from geoterminal.operators.h3_operations import H3OperationError
 
 
@@ -42,14 +49,18 @@ def main() -> None:
                 handle_tail_command(args)
             elif args.crs:
                 # Show CRS information
-                gdf = read_geometry_file(args.input, args.input_crs, args.geometry_column)
+                gdf = read_geometry_file(
+                    args.input, args.input_crs, args.geometry_column
+                )
                 logger.info(f"CRS: {gdf.crs}")
             else:
                 # Show inspect mode help
                 logger.info("\nInspect Mode Options:")
                 logger.info("  --head N     Show first N rows in WKT format")
                 logger.info("  --tail N     Show last N rows in WKT format")
-                logger.info("  --crs        Show coordinate reference system info")
+                logger.info(
+                    "  --crs        Show coordinate reference system info"
+                )
             return
 
         # Default behavior: file conversion with optional operations
