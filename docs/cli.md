@@ -25,14 +25,31 @@ geoterminal INPUT [OUTPUT] [OPTIONS]
 - `--head N`: Show first N rows in WKT format
 - `--tail N`: Show last N rows in WKT format
 - `--crs`: Show coordinate reference system information
+- `--shape`: Show number of rows and columns
+- `--dtypes`: Show column data types
 
 ### Transform Mode Options
 
+#### Geometry Operations
 - `--buffer-size SIZE`: Apply buffer of SIZE meters
-- `--h3-res RES`: Convert to H3 hexagons at resolution RES
-- `--mask FILE`: Clip geometries using mask file
+- `--unary-union`: Merge all geometries into one
+- `--convex-hull`: Create convex hull of geometries
+- `--centroid`: Calculate centroid of geometries
+- `--envelope`: Get bounding box of geometries
+
+#### Filtering Operations
+- `--query EXPR`: Filter data using pandas query syntax
+- `--intersects GEOM`: Filter geometries that intersect with GEOM
+- `--mask GEOM`: Clip geometries using mask (file or WKT)
+
+#### Coordinate Operations
 - `--input-crs EPSG`: Set input CRS (default: 4326)
 - `--output-crs EPSG`: Set output CRS
+
+#### H3 Operations
+- `--h3-res RES`: Convert to H3 hexagons at resolution RES
+
+#### File Options
 - `--geometry-column COL`: Column name for CSV/ORC files
 
 ### General Options
@@ -65,50 +82,100 @@ geoterminal INPUT OUTPUT [OPTIONS]
 
 ### Options
 
-- `--buffer-size`: Buffer size to apply (in CRS units)
-- `--h3-res`: H3 resolution for polyfilling (0-15)
-- `--h3-geom`: Include H3 geometries in output (default: True)
-- `--input-crs`: Input CRS (default: 4326)
-- `--output-crs`: Output CRS
-- `--geometry-column`: Column name containing WKT geometry strings (for CSV/ORC files)
-- `--mask`: Mask geometry (file path or WKT string)
-- `--mask-crs`: CRS for mask geometry (default: 4326)
-- `--head`: Show first n rows of the geometry file
-- `--tail`: Show last n rows of the geometry file
-- `--rows`: Number of rows to show for head/tail (default: 5)
+#### Inspection Options
+- `--head N`: Show first N rows
+- `--tail N`: Show last N rows
+- `--shape`: Show number of rows and columns
+- `--dtypes`: Show column data types
+- `--crs`: Show coordinate reference system
+
+#### Geometry Operations
+- `--buffer-size SIZE`: Buffer size in CRS units
+- `--unary-union`: Merge all geometries
+- `--convex-hull`: Create convex hull
+- `--centroid`: Calculate centroid
+- `--envelope`: Get bounding box
+- `--simplify TOL`: Simplify geometries with tolerance level
+
+#### Filtering Operations
+- `--query EXPR`: Filter using pandas query syntax
+- `--intersects GEOM`: Filter by intersection
+- `--mask GEOM`: Clip using mask geometry
+
+#### Coordinate Operations
+- `--input-crs EPSG`: Input CRS (default: 4326)
+- `--output-crs EPSG`: Output CRS
+- `--mask-crs EPSG`: Mask CRS (default: 4326)
+
+#### H3 Operations
+- `--h3-res RES`: H3 resolution (0-15)
+
+#### File Options
+- `--geometry-column COL`: WKT column name for CSV/ORC
 
 ### Examples
 
+#### Basic Operations
 ```bash
-# Basic file conversion
+# File conversion
 geoterminal input.shp output.geojson
 
-# Process a WKT string
+# Process WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+```
 
-# Apply buffer and convert to H3 cells
-geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
+#### Data Inspection
+```bash
+# View data structure
+geoterminal input.geojson --shape    # Show rows × columns
+geoterminal input.geojson --dtypes   # Show column types
+geoterminal input.geojson --crs      # Show CRS
 
-# Convert WKT to H3 cells with geometries
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
+# View data content
+geoterminal input.geojson --head 10  # First 10 rows
+geoterminal input.geojson --tail 5   # Last 5 rows
+```
 
-# Reproject data
+#### Single Operations
+```bash
+# Geometry operations
+geoterminal input.shp output.geojson --buffer-size 1000
+geoterminal input.shp output.geojson --unary-union
+geoterminal input.shp output.geojson --convex-hull
+geoterminal input.shp output.geojson --centroid
+geoterminal input.shp output.geojson --simplify 0.001
+
+# Filtering operations
+geoterminal input.shp output.geojson --query "population > 1000000"
+geoterminal input.shp output.geojson --intersects other.shp
+
+# Coordinate operations
 geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
 
-# Clip geometries using a mask file
-geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
+# H3 operations
+geoterminal input.shp output.geojson --h3-res 6
+```
 
-# Clip geometries using a mask WKT
-geoterminal input.shp output.geojson --mask "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
+#### Advanced Chaining
+```bash
+# Find urban centers
+geoterminal cities.shp center.wkt \
+    --query "population > 1000000" \
+    --unary-union \
+    --centroid
 
-# View first 10 rows of a file
-geoterminal input.geojson --head --rows 10
+# Create service areas
+geoterminal points.shp area.geojson \
+    --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
+    --buffer-size 1000 \
+    --unary-union \
+    --convex-hull
 
-# View last 8 rows of a file
-geoterminal input.geojson --tail --rows 8
-
-# Work with CSV/ORC files using custom geometry columns
-geoterminal input.csv output.geojson --geometry-column my_wkt_column
+# Custom CSV processing
+geoterminal input.csv output.geojson \
+    --geometry-column my_wkt_column \
+    --query "status == 'active'" \
+    --buffer-size 500
 ```
 
 ## File Format Support

@@ -7,11 +7,13 @@ GeoTerminal provides two main modes of operation: Inspect Mode and Transform Mod
 When only an input file is provided, GeoTerminal enters inspect mode, allowing you to quickly examine your data:
 
 ```bash
-# View first N rows with simplified geometry representation
-geoterminal input.shp --head 10
+# View data structure
+geoterminal input.shp --shape     # Show number of rows and columns
+geoterminal input.shp --dtypes    # Show column data types
 
-# View last N rows
-geoterminal input.shp --tail 5
+# View data content
+geoterminal input.shp --head 10   # First 10 rows
+geoterminal input.shp --tail 5    # Last 5 rows
 
 # Show CRS information
 geoterminal input.shp --crs
@@ -61,32 +63,78 @@ geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
 ### Processing Options
 
-You can combine multiple processing options with your conversion commands:
+Geoterminal provides various operations that can be used individually:
 
 ```bash
-# Apply a buffer of 1000 meters and convert to H3 cells
-geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
+# Geometry Operations
+geoterminal input.shp output.geojson --buffer-size 1000     # Buffer
+geoterminal input.shp output.geojson --unary-union         # Merge all geometries
+geoterminal input.shp output.geojson --convex-hull         # Create convex hull
+geoterminal input.shp output.geojson --centroid            # Calculate centroid
+geoterminal input.shp output.geojson --envelope            # Get bounding box
+geoterminal input.shp output.geojson --simplify 0.001      # Simplify geometries
 
-# Convert WKT to H3 cells with geometries
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
+# Filtering Operations
+geoterminal input.shp output.geojson --query "population > 1000000"  # Filter by attribute
+geoterminal input.shp output.geojson --intersects other.shp          # Filter by intersection
+geoterminal input.shp output.geojson --mask mask.geojson            # Clip by mask
 
-# Reproject data
-geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
+# Coordinate Operations
+geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857  # Reproject
 
-# Clip geometries using a mask file
-geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
+# H3 Operations
+geoterminal input.shp output.geojson --h3-res 6  # Convert to H3 hexagons
+```
+
+### Advanced Usage
+
+Operations in Geoterminal are applied in the order they appear in the command line. This allows for powerful combinations of operations:
+
+```bash
+# Example 1: Find urban centers
+# 1. Filter cities with population > 1M
+# 2. Create a unary union of all large cities
+# 3. Calculate the centroid
+geoterminal cities.shp center.wkt \
+    --query "population > 1000000" \
+    --unary-union \
+    --centroid
+
+# Example 2: Create service areas
+# 1. Filter points that intersect with a region
+# 2. Create buffers around them
+# 3. Merge overlapping buffers
+# 4. Get a simplified boundary with reduced complexity
+geoterminal points.shp area.geojson \
+    --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
+    --buffer-size 1000 \
+    --unary-union \
+    --simplify 10 \
+    --convex-hull
+
+# Example 3: H3 analysis of high-density areas
+# 1. Filter high-density areas
+# 2. Reproject to equal-area projection
+# 3. Convert to H3 cells
+geoterminal density.shp h3_zones.geojson \
+    --query "density > 1000" \
+    --input-crs 4326 --output-crs 3857 \
+    --h3-res 8
 ```
 
 ### File Inspection
 
-View the contents of your files using the head and tail commands:
+Geoterminal provides comprehensive inspection capabilities:
 
 ```bash
-# View first 10 rows of a file
-geoterminal input.geojson --head --rows 10
+# View data structure
+geoterminal input.geojson --shape    # Number of rows and columns
+geoterminal input.geojson --dtypes   # Column data types
+geoterminal input.geojson --crs      # Coordinate reference system
 
-# View last 8 rows of a file
-geoterminal input.geojson --tail --rows 8
+# View data content
+geoterminal input.geojson --head 10  # First 10 rows
+geoterminal input.geojson --tail 5   # Last 5 rows
 ```
 
 ### File Format Support
@@ -124,11 +172,17 @@ import geopandas as gpd
 gdf = gpd.read_file("input.geojson")
 processor = GeometryProcessor(gdf)
 
-# Apply buffer
+# Basic operations
 buffered = processor.apply_buffer(distance=1000)
-
-# Reproject
 reprojected = processor.reproject("EPSG:3857")
+
+# Advanced operations
+union = processor.unary_union()                # Merge all geometries
+hull = processor.convex_hull()                 # Create convex hull
+centroid = processor.centroid()                # Calculate centroid
+envelope = processor.envelope()                # Get bounding box
+filtered = processor.intersects(other_gdf)     # Filter by intersection
+simplified = processor.simplify(tolerance=0.001) # Simplify geometries
 
 # Export
 buffered.to_file("output.geojson")

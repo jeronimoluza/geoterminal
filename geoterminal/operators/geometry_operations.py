@@ -128,6 +128,198 @@ class GeometryProcessor:
                 f"Clipping operation failed: {str(e)}"
             ) from e
 
+    def unary_union(self) -> gpd.GeoDataFrame:
+        """Compute the unary union of all geometries in the GeoDataFrame.
+
+        Returns:
+            GeoDataFrame with a single geometry representing the union
+
+        Raises:
+            GeometryOperationError: If unary union operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing unary union")
+            union_geom = self.gdf.geometry.unary_union
+            self.gdf = gpd.GeoDataFrame(
+                geometry=[union_geom], crs=self.gdf.crs
+            )
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Unary union operation failed: {str(e)}"
+            ) from e
+
+    def envelope(self) -> gpd.GeoDataFrame:
+        """Compute the bounding box of all geometries in the GeoDataFrame.
+
+        Returns:
+            GeoDataFrame with a single geometry representing the envelope
+
+        Raises:
+            GeometryOperationError: If envelope operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing envelope")
+            envelope_geom = self.gdf.geometry.total_bounds
+            from shapely.geometry import box
+
+            bbox = box(
+                envelope_geom[0],
+                envelope_geom[1],
+                envelope_geom[2],
+                envelope_geom[3],
+            )
+            self.gdf = gpd.GeoDataFrame(geometry=[bbox], crs=self.gdf.crs)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Envelope operation failed: {str(e)}"
+            ) from e
+
+    def convex_hull(self) -> gpd.GeoDataFrame:
+        """Compute the convex hull of all geometries in the GeoDataFrame.
+
+        Returns:
+            GeoDataFrame with a single geometry representing the convex hull
+
+        Raises:
+            GeometryOperationError: If convex hull operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing convex hull")
+            hull_geom = self.gdf.geometry.unary_union.convex_hull
+            self.gdf = gpd.GeoDataFrame(geometry=[hull_geom], crs=self.gdf.crs)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Convex hull operation failed: {str(e)}"
+            ) from e
+
+    def centroid(self) -> gpd.GeoDataFrame:
+        """Calculate the geometric center point of all features.
+
+        Computes the centroid of all geometries in the GeoDataFrame, returning
+        a new GeoDataFrame with a single point geometry.
+
+        Returns:
+            GeoDataFrame containing a single point geometry representing
+            the centroid of all input geometries.
+
+        Raises:
+            GeometryOperationError: If operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing centroid")
+            self.gdf["geometry"] = self.gdf.geometry.to_crs(
+                3857
+            ).centroid.to_crs(self.gdf.crs)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Centroid operation failed: {str(e)}"
+            ) from e
+
+    def intersects(
+        self, other: Union[str, gpd.GeoDataFrame]
+    ) -> gpd.GeoDataFrame:
+        """Filter geometries that intersect with the given geometry.
+
+        Args:
+            other: Either a WKT string or a GeoDataFrame to intersect with.
+                  If a GeoDataFrame is provided, it must have a geometry column
+                  named 'geometry' and a defined CRS.
+
+        Returns:
+            GeoDataFrame containing only the geometries that intersect with
+            the input geometry.
+
+        Raises:
+            GeometryOperationError: If operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            # Handle WKT input
+            if isinstance(other, str):
+                try:
+                    from shapely import wkt
+
+                    geom = wkt.loads(other)
+                    other_gdf = gpd.GeoDataFrame(
+                        geometry=[geom], crs=self.gdf.crs
+                    )
+                except Exception as e:
+                    raise GeometryOperationError(
+                        f"Invalid WKT geometry: {str(e)}"
+                    ) from e
+            else:
+                other_gdf = other
+
+            # Validate other GeoDataFrame
+            if not isinstance(other_gdf, gpd.GeoDataFrame):
+                raise GeometryOperationError(
+                    "Input must be a WKT string or GeoDataFrame"
+                )
+            if not other_gdf.crs:
+                raise GeometryOperationError(
+                    "Input GeoDataFrame must have a defined CRS"
+                )
+
+            # Reproject if needed
+            if other_gdf.crs != self.gdf.crs:
+                other_gdf = other_gdf.to_crs(self.gdf.crs)
+
+            # Get the unary union of the other geometries
+            other_geom = other_gdf.geometry.unary_union
+
+            # Filter geometries that intersect
+            mask = self.gdf.geometry.intersects(other_geom)
+            return self.gdf[mask].copy()
+
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Failed to compute intersection: {str(e)}"
+            ) from e
+
+    def simplify(self, tolerance: float) -> gpd.GeoDataFrame:
+        """Simplify geometries using Douglas-Peucker algorithm.
+
+        Args:
+            tolerance: Maximum allowed deviation from original geometry.
+                      Should be in the same units as\
+                      the geometry's coordinates.
+
+        Returns:
+            GeoDataFrame with simplified geometries
+
+        Raises:
+            GeometryOperationError: If simplification fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info(f"Simplifying geometries with tolerance {tolerance}")
+            self.gdf.geometry = self.gdf.geometry.simplify(tolerance)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Failed to simplify geometries: {str(e)}"
+            ) from e
+
 
 # For backward compatibility
 def apply_buffer(

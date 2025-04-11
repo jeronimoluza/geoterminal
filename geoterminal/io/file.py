@@ -243,6 +243,7 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
     - Shapefile (.shp)
     - CSV (.csv) with WKT geometry
     - ORC (.orc)
+    - WKT (.wkt)
 
     Args:
         gdf: GeoDataFrame to export
@@ -277,6 +278,18 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
             table = pa.Table.from_pandas(df)
             with pa.output_stream(path) as orc_writer:
                 pa.orc.write_table(table, orc_writer)
+        elif suffix == ".wkt":
+            # Convert to WKT format
+            if len(gdf) == 1:
+                # Single geometry
+                wkt_str = gdf.geometry.iloc[0].wkt
+            else:
+                # Multiple geometries - create a GEOMETRYCOLLECTION
+                wkt_list = gdf.geometry.apply(lambda g: g.wkt).tolist()
+                wkt_str = f"GEOMETRYCOLLECTION ({', '.join(wkt_list)})"
+            # Write to file
+            with open(path, "w") as f:
+                f.write(wkt_str)
         else:
             raise FileHandlerError(f"Unsupported output format: {suffix}")
 

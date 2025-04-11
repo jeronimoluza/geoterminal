@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2025-04-11
+
+### Added
+- New geometry operations:
+  - `--unary-union` to merge all geometries into one
+  - `--convex-hull` to create convex hull
+  - `--centroid` to calculate centroid
+  - `--envelope` to get bounding box
+  - `--intersects` to filter geometries by intersection
+  - `--simplify` to reduce geometry complexity with given tolerance
+- Data operations:
+  - `--query` to filter data using pandas query syntax
+- Enhanced inspect mode:
+  - `--shape` to show number of rows and columns
+  - `--dtypes` to show column data types
+- WKT output format (.wkt) supporting both single geometry and GEOMETRYCOLLECTION
+
+### Changed
+- H3 operations now always include hexagon geometries
+- Removed `--h3-geom` flag as it's no longer needed
+- Improved documentation with operation chaining examples
+- Reorganized CLI options into clearer categories
+
+### Fixed
+- Fixed duplicate test names in test_io.py
+- Added missing fixtures for WKT export tests
+
 ## [0.1.2] - 2025-04-10
 
 ### Added

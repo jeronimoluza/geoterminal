@@ -92,8 +92,9 @@ Exports data to file.
 **Supported Formats:**
 - GeoJSON (.geojson)
 - Shapefile (.shp)
-- CSV (.csv)
-- ORC (.orc)
+- CSV (.csv) with WKT geometry
+- ORC (.orc) with WKT geometry
+- WKT (.wkt) - Single geometry or GEOMETRYCOLLECTION
 
 ## Exceptions
 
@@ -132,6 +133,9 @@ from geoterminal.file_io import export_data
 # Export to GeoJSON
 export_data(gdf, "output.geojson")
 
-# Export to CSV
-export_data(df, "output.csv")
+# Export to CSV with WKT geometry
+export_data(gdf, "output.csv")
+
+# Export to WKT
+export_data(gdf, "output.wkt")  # Single geometry or GEOMETRYCOLLECTION
 ```

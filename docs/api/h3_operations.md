@@ -7,7 +7,7 @@ Module: `geoterminal.operators.h3_operations`
 ### polyfill
 
 ```python
-def polyfill(gdf: gpd.GeoDataFrame, resolution: int, include_geometry: bool = True) -> gpd.GeoDataFrame
+def polyfill(gdf: gpd.GeoDataFrame, resolution: int) -> gpd.GeoDataFrame
 ```
 
 Convert geometries to H3 hexagons at specified resolution.
@@ -21,7 +21,7 @@ Handles H3 grid operations on GeoDataFrames.
 ```python
 class H3Processor:
     def __init__(self, gdf: Optional[gpd.GeoDataFrame] = None)
-    def polyfill(self, resolution: int, include_geometry: bool = True) -> gpd.GeoDataFrame
+    def polyfill(self, resolution: int) -> gpd.GeoDataFrame
     def get_hex_geometry(self, h3_address: str) -> Polygon
 ```
 
@@ -78,22 +78,19 @@ Gets the geometry of an H3 hexagon.
 ```python
 def polyfill(
     self,
-    resolution: int,
-    include_geometry: bool = True
-) -> Union[gpd.GeoDataFrame, pd.DataFrame]
+    resolution: int
+) -> gpd.GeoDataFrame
 ```
 
-Fills polygons with H3 cells.
+Fills polygons with H3 cells. Always includes hexagon geometries.
 
 **Parameters:**
 
 - `resolution`: H3 resolution (0-15)
-- `include_geometry`: Whether to include hex geometries in output
 
 **Returns:**
 
-- GeoDataFrame with H3 cells if include_geometry=True
-- DataFrame with only H3 indexes if include_geometry=False
+- GeoDataFrame with H3 cells including hexagon geometries
 
 **Raises:**
 - `H3OperationError`: If polyfill operation fails
