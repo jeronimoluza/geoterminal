@@ -1,6 +1,6 @@
-# Contributing to Geoterminal
+# Contributing to geoterminal
 
-Thank you for your interest in contributing to Geoterminal! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to geoterminal! This document provides guidelines and instructions for contributing.
 
 ## Development Setup
 
@@ -40,7 +40,7 @@ Thank you for your interest in contributing to Geoterminal! This document provid
 
 2. Make your changes and ensure all tests pass:
    ```bash
-   make test
+   pytest
    ```
 
 3. Commit your changes with a descriptive message:
@@ -75,4 +75,4 @@ If you need help, you can:
 - Join our community discussions
 - Reach out to maintainers
 
-Thank you for contributing to Geoterminal!
+Thank you for contributing to geoterminal!

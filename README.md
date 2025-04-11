@@ -1,10 +1,10 @@
-# GeoTerminal
+# geoterminal
 
 [![PyPI version](https://img.shields.io/pypi/v/geoterminal.svg)](https://pypi.python.org/pypi/geoterminal/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-GeoTerminal is a command-line tool designed to simplify common GIS tasks that you may encounter in your daily work.
+geoterminal is a command-line tool designed to simplify common GIS tasks that you may encounter in your daily work.
 
 ## Features
 
@@ -69,7 +69,7 @@ poetry shell
 
 ### Basic Usage
 
-GeoTerminal accepts both file paths and WKT strings as input. The input and output file formats are automatically detected based on their extensions.
+geoterminal accepts both file paths and WKT strings as input. The input and output file formats are automatically detected based on their extensions.
 
 ```bash
 # Inspect data (show first 10 rows)
