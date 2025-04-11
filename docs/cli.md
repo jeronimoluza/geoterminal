@@ -2,7 +2,7 @@
 
 ## Overview
 
-GeoTerminal's CLI provides two main modes of operation:
+geoterminal's CLI provides two main modes of operation:
 
 1. **Inspect Mode**: When only INPUT is provided
 2. **Transform Mode**: When both INPUT and OUTPUT are provided

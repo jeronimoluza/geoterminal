@@ -7,7 +7,7 @@
 
 ## Dependencies
 
-Geoterminal requires the following main dependencies:
+geoterminal requires the following main dependencies:
 - geopandas
 - shapely
 - h3
@@ -59,7 +59,7 @@ poetry install --with docs
 
 ## Verifying Installation
 
-To verify that Geoterminal is installed correctly:
+To verify that geoterminal is installed correctly:
 
 ```bash
 geoterminal --version

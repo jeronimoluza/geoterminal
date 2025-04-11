@@ -12,7 +12,7 @@ def setup_parser() -> argparse.ArgumentParser:
         Configured argument parser
     """
     parser = argparse.ArgumentParser(
-        description="GeoTerminal is a command-line tool designed to \
+        description="geoterminal is a command-line tool designed to \
     simplify common GIS tasks that you may encounter in your daily work."
     )
 

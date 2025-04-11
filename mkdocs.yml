@@ -1,4 +1,4 @@
-site_name: Geoterminal
+site_name: geoterminal
 site_description: A Python library for geospatial data processing and H3 operations
 site_author: Jeronimo Luza
 repo_url: https://github.com/jeronimoluza/geoterminal
