@@ -2,11 +2,11 @@
 
 ## General Questions
 
-### What is Geoterminal?
-Geoterminal is a Python library and command-line tool for geospatial data processing, focusing on geometry operations and H3 grid integration.
+### What is geoterminal?
+geoterminal is a Python library and command-line tool for geospatial data processing, focusing on geometry operations and H3 grid integration.
 
 ### What file formats are supported?
-Geoterminal supports:
+geoterminal supports:
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV with WKT column
@@ -18,8 +18,8 @@ Geoterminal supports:
 ### Why am I getting GDAL-related errors?
 GDAL is a required dependency that sometimes needs to be installed separately. See the [Installation Guide](installation.md) for platform-specific instructions.
 
-### Can I use Geoterminal with Python 3.7?
-No, Geoterminal requires Python 3.10 or higher due to type hint features and dependency requirements.
+### Can I use geoterminal with Python 3.7?
+No, geoterminal requires Python 3.10 or higher due to type hint features and dependency requirements.
 
 ## Usage
 

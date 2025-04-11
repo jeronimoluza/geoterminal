@@ -67,7 +67,7 @@ geoterminal input.shp out.geojson --buffer-size 1000 --h3-res 7  # Buffer first
 geoterminal input.shp out.geojson --h3-res 7 --buffer-size 1000  # H3 first
 ```
 
-The Geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.
+The geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.
 
 ## Basic Usage
 
@@ -180,7 +180,7 @@ geoterminal input.csv output.geojson \
 
 ## File Format Support
 
-Geoterminal supports multiple file formats:
+geoterminal supports multiple file formats:
 
 - GeoJSON (.geojson)
 - Shapefile (.shp)

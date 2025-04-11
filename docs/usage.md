@@ -1,10 +1,10 @@
 # Usage Guide
 
-GeoTerminal provides two main modes of operation: Inspect Mode and Transform Mode.
+geoterminal provides two main modes of operation: Inspect Mode and Transform Mode.
 
 ## Inspect Mode
 
-When only an input file is provided, GeoTerminal enters inspect mode, allowing you to quickly examine your data:
+When only an input file is provided, geoterminal enters inspect mode, allowing you to quickly examine your data:
 
 ```bash
 # View data structure
@@ -21,7 +21,7 @@ geoterminal input.shp --crs
 
 ## Transform Mode
 
-When both input and output files are provided, GeoTerminal enters transform mode. Operations are applied in the exact order they appear in the command line:
+When both input and output files are provided, geoterminal enters transform mode. Operations are applied in the exact order they appear in the command line:
 
 ```bash
 # Buffer first, then convert to H3
@@ -45,13 +45,13 @@ geoterminal input.shp output.geojson --buffer-size 1000 --log-level DEBUG
 
 ## Basic Concepts
 
-Geoterminal provides both a Python API and a command-line interface (CLI) for geospatial operations.
+geoterminal provides both a Python API and a command-line interface (CLI) for geospatial operations.
 
 ## Command Line Interface
 
 ### Basic Usage
 
-Geoterminal accepts both file paths and WKT strings as input:
+geoterminal accepts both file paths and WKT strings as input:
 
 ```bash
 # Process a file
@@ -63,7 +63,7 @@ geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
 ### Processing Options
 
-Geoterminal provides various operations that can be used individually:
+geoterminal provides various operations that can be used individually:
 
 ```bash
 # Geometry Operations
@@ -88,7 +88,7 @@ geoterminal input.shp output.geojson --h3-res 6  # Convert to H3 hexagons
 
 ### Advanced Usage
 
-Operations in Geoterminal are applied in the order they appear in the command line. This allows for powerful combinations of operations:
+Operations in geoterminal are applied in the order they appear in the command line. This allows for powerful combinations of operations:
 
 ```bash
 # Example 1: Find urban centers
@@ -124,7 +124,7 @@ geoterminal density.shp h3_zones.geojson \
 
 ### File Inspection
 
-Geoterminal provides comprehensive inspection capabilities:
+geoterminal provides comprehensive inspection capabilities:
 
 ```bash
 # View data structure
@@ -139,7 +139,7 @@ geoterminal input.geojson --tail 5   # Last 5 rows
 
 ### File Format Support
 
-Geoterminal supports multiple file formats:
+geoterminal supports multiple file formats:
 
 - GeoJSON (.geojson)
 - Shapefile (.shp)
