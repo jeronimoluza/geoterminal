@@ -91,34 +91,33 @@ geoterminal input.shp output.geojson --h3-res 6  # Convert to H3 hexagons
 Operations in geoterminal are applied in the order they appear in the command line. This allows for powerful combinations of operations:
 
 ```bash
-# Example 1: Find urban centers
-# 1. Filter cities with population > 1M
-# 2. Create a unary union of all large cities
-# 3. Calculate the centroid
-geoterminal cities.shp center.wkt \
-    --query "population > 1000000" \
-    --unary-union \
-    --centroid
 
-# Example 2: Create service areas
-# 1. Filter points that intersect with a region
-# 2. Create buffers around them
-# 3. Merge overlapping buffers
-# 4. Get a simplified boundary with reduced complexity
-geoterminal points.shp area.geojson \
+```bash
+# Example 1: Find the center of a region's urban areas
+# 1. Filter cities with population > 1M
+# 2. Calculate the centroids
+# 3. Buffer the centroids by 1000 meters
+geoterminal cities.shp center.geojson \
+    --query "population > 1000000" \
+    --centroid \
+    --buffer-size 1000
+
+# Example 2: Create a simplified boundary around intersecting features
+# 1. Filter features that intersect with a region of interest
+# 2. Create a buffer around them
+# 3. Get the convex hull as a simplified boundary
+geoterminal features.shp boundary.geojson \
     --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
     --buffer-size 1000 \
-    --unary-union \
-    --simplify 10 \
     --convex-hull
 
-# Example 3: H3 analysis of high-density areas
-# 1. Filter high-density areas
-# 2. Reproject to equal-area projection
+# Example 3: H3 chained transformations
+# 1. Get centroids from geometries
+# 2. Buffer points 5000 meters to make circles
 # 3. Convert to H3 cells
 geoterminal density.shp h3_zones.geojson \
-    --query "density > 1000" \
-    --input-crs 4326 --output-crs 3857 \
+    --centroid
+    --buffer-size 5000
     --h3-res 8
 ```
 

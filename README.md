@@ -155,8 +155,7 @@ geoterminal cities.shp center.geojson \
 # Example 2: Create a simplified boundary around intersecting features
 # 1. Filter features that intersect with a region of interest
 # 2. Create a buffer around them
-# 3. Merge all buffers into one
-# 4. Get the convex hull as a simplified boundary
+# 3. Get the convex hull as a simplified boundary
 geoterminal features.shp boundary.geojson \
     --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
     --buffer-size 1000 \
