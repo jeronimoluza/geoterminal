@@ -36,7 +36,12 @@ def setup_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "output",
         nargs="?",
-        help="Output file path (format determined by extension)",
+        help="Output file path. If not provided, enters inspect mode. Use .wkt extension for WKT output format.",
+    )
+    parser.add_argument(
+        "--intersects",
+        help="Filter geometries that intersect with the given WKT or file path",
+        metavar="WKT/FILE",
     )
     parser.add_argument(
         "--mask", help="Mask geometry (file path or WKT string)"

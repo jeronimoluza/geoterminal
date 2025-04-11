@@ -1,6 +1,7 @@
 """Geometry processing functionality for the CLI."""
 
 import argparse
+import os
 import sys
 
 from loguru import logger
@@ -27,6 +28,7 @@ OP_FLAGS = {
     "--crs": "crs",
     "--shape": "shape",
     "--dtypes": "dtypes",
+    "--intersects": "intersects",
 }
 
 
@@ -56,6 +58,8 @@ def process_geometries(
                     value = args.buffer_size
                 elif op_type == "h3":
                     value = args.h3_res
+                elif op_type == "intersects":
+                    value = args.intersects
                 elif op_type == "reproject":
                     value = args.output_crs
                 elif op_type in [
@@ -98,6 +102,18 @@ def process_geometries(
                 processor.convex_hull()
             elif op_type == "centroid":
                 processor.centroid()
+            elif op_type == "intersects":
+                if os.path.exists(value):
+                    # Read the file
+                    other_gdf = read_geometry_file(value)
+                    if not other_gdf.crs:
+                        raise GeometryOperationError(
+                            f"Input file {value} must have a defined CRS"
+                        )
+                    processor.gdf = processor.intersects(other_gdf)
+                else:
+                    # Treat as WKT
+                    processor.gdf = processor.intersects(value)
             elif op_type == "query":
                 data_processor = DataProcessor(processor.gdf)
                 processor.gdf = data_processor.query(value)

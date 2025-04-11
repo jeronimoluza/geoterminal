@@ -231,6 +231,69 @@ class GeometryProcessor:
                 f"Centroid operation failed: {str(e)}"
             ) from e
 
+    def intersects(
+        self, other: Union[str, gpd.GeoDataFrame]
+    ) -> gpd.GeoDataFrame:
+        """Filter geometries that intersect with the given geometry.
+
+        Args:
+            other: Either a WKT string or a GeoDataFrame to intersect with.
+                  If a GeoDataFrame is provided, it must have a geometry column
+                  named 'geometry' and a defined CRS.
+
+        Returns:
+            GeoDataFrame containing only the geometries that intersect with
+            the input geometry.
+
+        Raises:
+            GeometryOperationError: If operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            # Handle WKT input
+            if isinstance(other, str):
+                try:
+                    from shapely import wkt
+
+                    geom = wkt.loads(other)
+                    other_gdf = gpd.GeoDataFrame(
+                        geometry=[geom], crs=self.gdf.crs
+                    )
+                except Exception as e:
+                    raise GeometryOperationError(
+                        f"Invalid WKT geometry: {str(e)}"
+                    ) from e
+            else:
+                other_gdf = other
+
+            # Validate other GeoDataFrame
+            if not isinstance(other_gdf, gpd.GeoDataFrame):
+                raise GeometryOperationError(
+                    "Input must be a WKT string or GeoDataFrame"
+                )
+            if not other_gdf.crs:
+                raise GeometryOperationError(
+                    "Input GeoDataFrame must have a defined CRS"
+                )
+
+            # Reproject if needed
+            if other_gdf.crs != self.gdf.crs:
+                other_gdf = other_gdf.to_crs(self.gdf.crs)
+
+            # Get the unary union of the other geometries
+            other_geom = other_gdf.geometry.unary_union
+
+            # Filter geometries that intersect
+            mask = self.gdf.geometry.intersects(other_geom)
+            return self.gdf[mask].copy()
+
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Failed to compute intersection: {str(e)}"
+            ) from e
+
 
 # For backward compatibility
 def apply_buffer(
