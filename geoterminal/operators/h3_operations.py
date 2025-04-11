@@ -4,7 +4,7 @@ This module provides functionality for working with Uber's H3 geospatial
 indexing system, including hexagon generation and polygon to H3 conversion.
 """
 
-from typing import List, Optional, Set
+from typing import Optional, Set
 
 import geopandas as gpd
 import h3
