@@ -6,11 +6,10 @@ various formats.
 
 import tempfile
 from pathlib import Path
-from typing import Generator
 
 import geopandas as gpd
 import pytest
-from shapely.geometry import Polygon
+from shapely.geometry import Point, Polygon
 
 from geoterminal.io.file import (
     FileHandlerError,
@@ -19,8 +18,27 @@ from geoterminal.io.file import (
     read_wkt,
 )
 
+from typing import Generator
+
 
 # Test fixtures
+@pytest.fixture
+def sample_point_gdf() -> gpd.GeoDataFrame:
+    """Create a sample GeoDataFrame with point geometry."""
+    point = Point(0, 0)
+    gdf = gpd.GeoDataFrame(geometry=[point], crs="EPSG:4326")
+    return gdf
+
+
+@pytest.fixture
+def sample_polygon_gdf() -> gpd.GeoDataFrame:
+    """Create a sample GeoDataFrame with polygon geometry."""
+    polygon1 = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
+    polygon2 = Polygon([(1, 0), (2, 0), (2, 1), (1, 1)])
+    gdf = gpd.GeoDataFrame(geometry=[polygon1, polygon2], crs="EPSG:4326")
+    return gdf
+
+
 @pytest.fixture
 def sample_wkt() -> str:
     """Create a sample WKT string for testing.
@@ -111,6 +129,62 @@ def test_read_geometry_file_invalid() -> None:
 
 
 # Test file exporting
+def test_export_csv(
+    tmp_path: Path, sample_point_gdf: gpd.GeoDataFrame
+) -> None:
+    """Test CSV export."""
+    output_file = tmp_path / "test.csv"
+    export_data(sample_point_gdf, output_file)
+    assert output_file.exists()
+
+
+def test_export_wkt_single_geometry(
+    tmp_path: Path, sample_point_gdf: gpd.GeoDataFrame
+) -> None:
+    """Test WKT export with a single geometry."""
+    output_file = tmp_path / "test.wkt"
+    export_data(sample_point_gdf, output_file)
+
+    # Check if file exists and contains valid WKT
+    assert output_file.exists()
+    with open(output_file) as f:
+        wkt = f.read().strip()
+
+    # Should be a single point WKT
+    assert wkt.startswith("POINT")
+
+    # Parse WKT to verify it's valid
+    from shapely import wkt as wkt_parser
+
+    geom = wkt_parser.loads(wkt)
+    assert geom.geom_type == "Point"
+
+
+def test_export_wkt_multiple_geometries(
+    tmp_path: Path, sample_polygon_gdf: gpd.GeoDataFrame
+) -> None:
+    """Test WKT export with multiple geometries."""
+    output_file = tmp_path / "test.wkt"
+    export_data(sample_polygon_gdf, output_file)
+
+    # Check if file exists and contains valid WKT
+    assert output_file.exists()
+    with open(output_file) as f:
+        wkt = f.read().strip()
+
+    # Should be a GEOMETRYCOLLECTION
+    assert wkt.startswith("GEOMETRYCOLLECTION")
+
+    # Parse WKT to verify it's valid
+    from shapely import wkt as wkt_parser
+
+    geom = wkt_parser.loads(wkt)
+    assert geom.geom_type == "GeometryCollection"
+    assert len(geom.geoms) == len(
+        sample_polygon_gdf
+    )  # Should have same number of geometries
+
+
 def test_export_geojson(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     """Test exporting data to GeoJSON format."""
     file_path = temp_dir / "output.geojson"
@@ -122,7 +196,7 @@ def test_export_geojson(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     assert len(gdf) == len(sample_gdf)
 
 
-def test_export_csv(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
+def test_export_csv_with_wkt_geometry(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     """Test exporting data to CSV format with WKT geometry."""
     file_path = temp_dir / "output.csv"
     export_data(sample_gdf, file_path)

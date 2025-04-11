@@ -287,9 +287,8 @@ def export_data(gdf: gpd.GeoDataFrame, output_file: Union[str, Path]) -> None:
                 # Multiple geometries - create a GEOMETRYCOLLECTION
                 wkt_list = gdf.geometry.apply(lambda g: g.wkt).tolist()
                 wkt_str = f"GEOMETRYCOLLECTION ({', '.join(wkt_list)})"
-            
             # Write to file
-            with open(path, 'w') as f:
+            with open(path, "w") as f:
                 f.write(wkt_str)
         else:
             raise FileHandlerError(f"Unsupported output format: {suffix}")

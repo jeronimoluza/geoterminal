@@ -151,3 +151,60 @@ def test_envelope(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
     assert (
         len(result.geometry.iloc[0].exterior.coords) == 5
     )  # 5 because first/last are same
+
+
+def test_intersects_with_wkt(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
+    """Test intersects operation with WKT input."""
+    processor = GeometryProcessor(sample_polygon_gdf)
+    
+    # Test with intersecting point
+    point_wkt = "POINT(0.5 0.5)"  # Point inside first polygon
+    result = processor.intersects(point_wkt)
+    assert isinstance(result, gpd.GeoDataFrame)
+    assert len(result) == 1  # Should return one geometry
+    
+    # Test with non-intersecting point
+    far_point = "POINT(10 10)"  # Point far from polygons
+    result = processor.intersects(far_point)
+    assert len(result) == 0  # Should return no geometries
+
+
+def test_intersects_with_geodataframe(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
+    """Test intersects operation with GeoDataFrame input."""
+    processor = GeometryProcessor(sample_polygon_gdf)
+    
+    # Create intersecting GeoDataFrame
+    point = Point(0.5, 0.5)  # Point inside first polygon
+    intersecting_gdf = gpd.GeoDataFrame(
+        geometry=[point], 
+        crs=sample_polygon_gdf.crs
+    )
+    
+    result = processor.intersects(intersecting_gdf)
+    assert isinstance(result, gpd.GeoDataFrame)
+    assert len(result) == 1  # Should return one geometry
+    
+    # Test with non-intersecting GeoDataFrame
+    far_point = Point(10, 10)  # Point far from polygons
+    non_intersecting_gdf = gpd.GeoDataFrame(
+        geometry=[far_point], 
+        crs=sample_polygon_gdf.crs
+    )
+    result = processor.intersects(non_intersecting_gdf)
+    assert len(result) == 0  # Should return no geometries
+
+
+def test_intersects_error_handling(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
+    """Test error handling in intersects operation."""
+    processor = GeometryProcessor(sample_polygon_gdf)
+    
+    # Test with invalid WKT
+    with pytest.raises(Exception):
+        processor.intersects("INVALID WKT")
+    
+    # Test with GeoDataFrame having no CRS
+    no_crs_gdf = gpd.GeoDataFrame(
+        geometry=[Point(0, 0)]
+    )
+    with pytest.raises(Exception):
+        processor.intersects(no_crs_gdf)

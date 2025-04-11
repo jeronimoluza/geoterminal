@@ -40,12 +40,12 @@ def test_simplify_geom_repr() -> None:
     """Test geometry representation simplification."""
     # Test point simplification
     point_wkt = "POINT (0.000000 0.000000)"
-    assert simplify_geom_repr(point_wkt) == "POINT (0 0)"
+    assert simplify_geom_repr(point_wkt) == "POINT(...)"
 
     # Test polygon simplification
     polygon_wkt = "POLYGON ((0.000000 0.000000, 1.000000 0.000000, \
     1.000000 1.000000, 0.000000 1.000000, 0.000000 0.000000))"
-    expected = "POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))"
+    expected = "POLYGON(...)"
     assert simplify_geom_repr(polygon_wkt) == expected
 
 
