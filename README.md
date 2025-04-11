@@ -15,6 +15,7 @@ GeoTerminal is a command-line tool designed to simplify common GIS tasks that yo
   - Convex hull
   - Centroid
   - Envelope (bounding box)
+  - Simplify geometries
   - Intersect with other geometries
 - H3 integration (polyfill)
 - CRS transformations
@@ -108,6 +109,9 @@ geoterminal input.shp output.geojson --centroid
 
 # Get envelope (bounding box)
 geoterminal input.shp output.geojson --envelope
+
+# Simplify geometries
+geoterminal input.shp output.geojson --simplify 0.001
 
 # Filter geometries that intersect with another file or WKT
 geoterminal input.shp output.geojson --intersects other.shp

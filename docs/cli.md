@@ -143,6 +143,7 @@ geoterminal input.shp output.geojson --buffer-size 1000
 geoterminal input.shp output.geojson --unary-union
 geoterminal input.shp output.geojson --convex-hull
 geoterminal input.shp output.geojson --centroid
+geoterminal input.shp output.geojson --simplify 0.001
 
 # Filtering operations
 geoterminal input.shp output.geojson --query "population > 1000000"
