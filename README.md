@@ -17,6 +17,7 @@ geoterminal is a command-line interface tool to quickly inspect and transform ge
   - Envelope (bounding box)
   - Simplify geometries
   - Intersect with other geometries
+  - More to come!
 - H3 integration (polyfill)
 - CRS transformations
 - Data operations:
@@ -154,8 +155,7 @@ geoterminal cities.shp center.geojson \
 # Example 2: Create a simplified boundary around intersecting features
 # 1. Filter features that intersect with a region of interest
 # 2. Create a buffer around them
-# 3. Merge all buffers into one
-# 4. Get the convex hull as a simplified boundary
+# 3. Get the convex hull as a simplified boundary
 geoterminal features.shp boundary.geojson \
     --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
     --buffer-size 1000 \

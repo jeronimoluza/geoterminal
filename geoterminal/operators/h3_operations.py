@@ -4,7 +4,7 @@ This module provides functionality for working with Uber's H3 geospatial
 indexing system, including hexagon generation and polygon to H3 conversion.
 """
 
-from typing import List, Optional, Set
+from typing import Optional, Set
 
 import geopandas as gpd
 import h3
@@ -102,23 +102,41 @@ class H3Processor:
 
         try:
             logger.info(f"Applying H3 polyfill at resolution {resolution}")
-            hexes: List[str] = []
 
-            # Explode multipolygons into individual polygons
-            self.gdf = self.gdf.explode(index_parts=True).reset_index(
-                drop=True
-            )
+            # Explode multipolygons into individual polygons and
+            # keep track of original index
+            exploded_gdf = self.gdf.explode(index_parts=True).reset_index()
 
-            for geom in self.gdf.geometry:
-                if geom.is_valid:
-                    hex_set: Set[str] = h3.geo_to_cells(geom, res=resolution)
-                    hexes.extend(list(hex_set))
+            # Create a list to store hex IDs and their corresponding row data
+            hex_data = []
+
+            for idx, row in exploded_gdf.iterrows():
+                if row.geometry.is_valid:
+                    hex_set: Set[str] = h3.geo_to_cells(
+                        row.geometry, res=resolution
+                    )
+                    # For each hex in the set,
+                    # create a record with original row data
+                    for hex_id in hex_set:
+                        # Create a new dict with all columns except geometry
+                        row_data = row.drop(["geometry"]).to_dict()
+                        row_data["hex"] = hex_id
+                        hex_data.append(row_data)
                 else:
-                    logger.warning("Skipping invalid geometry")
+                    logger.warning(f"Skipping invalid geometry at index {idx}")
 
-            hex_gdf = gpd.GeoDataFrame({"hex": hexes})
+            # Create GeoDataFrame from the collected data
+            hex_gdf = gpd.GeoDataFrame(hex_data)
+            hex_gdf = hex_gdf[
+                [
+                    col
+                    for col in hex_gdf.columns
+                    if not col.startswith("level_")
+                ]
+            ]
 
             if include_geometry:
+                # Add geometry column based on hex IDs
                 geometry_series = gpd.GeoSeries(
                     hex_gdf["hex"].apply(self.get_hex_geometry)
                 )

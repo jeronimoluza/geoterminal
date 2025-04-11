@@ -25,11 +25,13 @@ class GeometryProcessor:
 #### Methods
 
 Basic Operations:
+
 - `apply_buffer`: Apply a buffer of specified size in meters
 - `clip`: Clip geometries using a mask GeoDataFrame
 - `reproject`: Reproject geometries to target CRS
 
 Advanced Operations:
+
 - `unary_union`: Merge all geometries into one
 - `convex_hull`: Create convex hull of geometries
 - `centroid`: Calculate centroid of geometries
@@ -76,6 +78,7 @@ Creates a buffer around geometries.
 - GeoDataFrame with buffered geometries
 
 **Raises:**
+
 - `GeometryOperationError`: If buffer operation fails
 
 #### unary_union
@@ -91,6 +94,7 @@ Merges all geometries into a single geometry.
 - GeoDataFrame with a single merged geometry
 
 **Raises:**
+
 - `GeometryOperationError`: If union operation fails
 
 #### convex_hull
@@ -106,6 +110,7 @@ Creates a convex hull containing all geometries.
 - GeoDataFrame with convex hull geometry
 
 **Raises:**
+
 - `GeometryOperationError`: If convex hull operation fails
 
 #### centroid
@@ -121,6 +126,7 @@ Calculates the centroid of each geometry.
 - GeoDataFrame with centroid points
 
 **Raises:**
+
 - `GeometryOperationError`: If centroid calculation fails
 
 #### envelope
@@ -136,6 +142,7 @@ Creates a bounding box (envelope) for each geometry.
 - GeoDataFrame with envelope polygons
 
 **Raises:**
+
 - `GeometryOperationError`: If envelope operation fails
 
 #### intersects
@@ -155,6 +162,7 @@ Filters geometries that intersect with another geometry.
 - GeoDataFrame with geometries that intersect with the input
 
 **Raises:**
+
 - `GeometryOperationError`: If intersection operation fails
 
 #### simplify
@@ -175,6 +183,7 @@ Simplify geometries using Douglas-Peucker algorithm.
 - GeoDataFrame with simplified geometries
 
 **Raises:**
+
 - `GeometryOperationError`: If simplification fails
 
 #### clip

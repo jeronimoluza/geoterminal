@@ -93,6 +93,7 @@ Fills polygons with H3 cells. Always includes hexagon geometries.
 - GeoDataFrame with H3 cells including hexagon geometries
 
 **Raises:**
+
 - `H3OperationError`: If polyfill operation fails
 
 ### Properties
