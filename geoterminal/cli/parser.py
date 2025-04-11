@@ -72,7 +72,7 @@ def setup_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--head",
         type=int,
-        nargs='?',
+        nargs="?",
         const=5,
         default=None,
         metavar="N",
@@ -81,7 +81,7 @@ def setup_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--tail",
         type=int,
-        nargs='?',
+        nargs="?",
         const=5,
         default=None,
         metavar="N",
@@ -102,7 +102,7 @@ def setup_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Show the data types of all columns in the GeoDataFrame",
     )
-    
+
     # Geometric operations
     parser.add_argument(
         "--unary-union",
@@ -124,12 +124,13 @@ def setup_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Compute the centroid of all input geometries",
     )
-    
+
     # Data operations
     parser.add_argument(
         "--query",
         type=str,
-        help="Filter data using a pandas query string (e.g., 'column > value')",
+        help="Filter data using a pandas query string \
+        (e.g., 'column > value')",
     )
 
     return parser

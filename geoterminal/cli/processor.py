@@ -6,9 +6,9 @@ import sys
 from loguru import logger
 
 from geoterminal.io.file import read_geometry_file
+from geoterminal.operators.data_operations import DataProcessor
 from geoterminal.operators.geometry_operations import GeometryProcessor
 from geoterminal.operators.h3_operations import polyfill
-from geoterminal.operators.data_operations import DataProcessor
 from geoterminal.operators.inspect_operations import InspectProcessor
 
 # Map command line flags to operation types
@@ -58,7 +58,15 @@ def process_geometries(
                     value = args.h3_res
                 elif op_type == "reproject":
                     value = args.output_crs
-                elif op_type in ["unary_union", "envelope", "convex_hull", "centroid", "crs", "shape", "dtypes"]:
+                elif op_type in [
+                    "unary_union",
+                    "envelope",
+                    "convex_hull",
+                    "centroid",
+                    "crs",
+                    "shape",
+                    "dtypes",
+                ]:
                     value = True
                 elif op_type == "query":
                     value = args.query

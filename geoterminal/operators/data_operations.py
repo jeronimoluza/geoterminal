@@ -1,7 +1,7 @@
 """Data operations module.
 
-This module provides classes and functions for performing non-geometric operations
-on GeoDataFrames, such as filtering and querying.
+This module provides classes and functions for performing
+non-geometric operations on GeoDataFrames, such as filtering and querying.
 """
 
 from typing import Optional
@@ -43,7 +43,8 @@ class DataProcessor:
         """Filter the GeoDataFrame using a pandas query string.
 
         Args:
-            query_string: Query string in pandas query format (e.g., "column > value")
+            query_string: Query string in pandas query format
+            (e.g., "column > value")
 
         Returns:
             Filtered GeoDataFrame

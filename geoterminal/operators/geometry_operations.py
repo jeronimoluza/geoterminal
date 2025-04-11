@@ -143,7 +143,9 @@ class GeometryProcessor:
         try:
             logger.info("Computing unary union")
             union_geom = self.gdf.geometry.unary_union
-            self.gdf = gpd.GeoDataFrame(geometry=[union_geom], crs=self.gdf.crs)
+            self.gdf = gpd.GeoDataFrame(
+                geometry=[union_geom], crs=self.gdf.crs
+            )
             return self.gdf
         except Exception as e:
             raise GeometryOperationError(
@@ -151,7 +153,7 @@ class GeometryProcessor:
             ) from e
 
     def envelope(self) -> gpd.GeoDataFrame:
-        """Compute the envelope (bounding box) of all geometries in the GeoDataFrame.
+        """Compute the bounding box of all geometries in the GeoDataFrame.
 
         Returns:
             GeoDataFrame with a single geometry representing the envelope
@@ -166,7 +168,13 @@ class GeometryProcessor:
             logger.info("Computing envelope")
             envelope_geom = self.gdf.geometry.total_bounds
             from shapely.geometry import box
-            bbox = box(envelope_geom[0], envelope_geom[1], envelope_geom[2], envelope_geom[3])
+
+            bbox = box(
+                envelope_geom[0],
+                envelope_geom[1],
+                envelope_geom[2],
+                envelope_geom[3],
+            )
             self.gdf = gpd.GeoDataFrame(geometry=[bbox], crs=self.gdf.crs)
             return self.gdf
         except Exception as e:
@@ -197,20 +205,26 @@ class GeometryProcessor:
             ) from e
 
     def centroid(self) -> gpd.GeoDataFrame:
-        """Compute the centroid of all geometries in the GeoDataFrame.
+        """Calculate the geometric center point of all features.
+
+        Computes the centroid of all geometries in the GeoDataFrame, returning
+        a new GeoDataFrame with a single point geometry.
 
         Returns:
-            GeoDataFrame with a single geometry representing the centroid
+            GeoDataFrame containing a single point geometry representing
+            the centroid of all input geometries.
 
         Raises:
-            GeometryOperationError: If centroid operation fails
+            GeometryOperationError: If operation fails
         """
         if self.gdf is None:
             raise GeometryOperationError("No GeoDataFrame set")
 
         try:
             logger.info("Computing centroid")
-            self.gdf["geometry"] = self.gdf.geometry.to_crs(3857).centroid.to_crs(self.gdf.crs)
+            self.gdf["geometry"] = self.gdf.geometry.to_crs(
+                3857
+            ).centroid.to_crs(self.gdf.crs)
             return self.gdf
         except Exception as e:
             raise GeometryOperationError(

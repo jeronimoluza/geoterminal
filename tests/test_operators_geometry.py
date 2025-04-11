@@ -23,8 +23,9 @@ def sample_point_gdf() -> gpd.GeoDataFrame:
 @pytest.fixture
 def sample_polygon_gdf() -> gpd.GeoDataFrame:
     """Create a sample GeoDataFrame with polygon geometry."""
-    polygon = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
-    gdf = gpd.GeoDataFrame(geometry=[polygon], crs="EPSG:4326")
+    polygon1 = Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
+    polygon2 = Polygon([(1, 0), (2, 0), (2, 1), (1, 1)])
+    gdf = gpd.GeoDataFrame(geometry=[polygon1, polygon2], crs="EPSG:4326")
     return gdf
 
 
@@ -77,3 +78,76 @@ def test_geometry_processor_validation() -> None:
     # Should work with None
     processor = GeometryProcessor()
     assert processor.gdf is None
+
+
+def test_unary_union(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
+    """Test unary union operation on multiple geometries."""
+    processor = GeometryProcessor(sample_polygon_gdf)
+    result = processor.unary_union()
+
+    # Check if the result is a GeoDataFrame
+    assert isinstance(result, gpd.GeoDataFrame)
+    # Should have only one row after union
+    assert len(result) == 1
+    # Area should be equal to sum of original areas
+    assert (
+        abs(
+            result.geometry.iloc[0].area
+            - sum(sample_polygon_gdf.geometry.area)
+        )
+        < 1e-10
+    )
+
+
+def test_convex_hull(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
+    """Test convex hull operation on multiple geometries."""
+    processor = GeometryProcessor(sample_polygon_gdf)
+    result = processor.convex_hull()
+
+    # Check if the result is a GeoDataFrame
+    assert isinstance(result, gpd.GeoDataFrame)
+    # Should have only one row after convex hull
+    assert len(result) == 1
+    # Convex hull area should be >= original area
+    assert result.geometry.iloc[0].area >= sum(
+        sample_polygon_gdf.geometry.area
+    )
+
+
+def test_centroid(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
+    """Test centroid operation on multiple geometries."""
+    processor = GeometryProcessor(sample_polygon_gdf)
+    result = processor.centroid()
+
+    # Check if the result is a GeoDataFrame
+    assert isinstance(result, gpd.GeoDataFrame)
+    # Should have only one row for centroid
+    assert len(result) == len(sample_polygon_gdf)
+    # Result should be a Point
+    assert isinstance(result.geometry.iloc[0], Point)
+    # Centroid should be within the bounds of original geometries
+    bounds = sample_polygon_gdf.total_bounds
+    point = result.geometry.iloc[0]
+    assert bounds[0] <= point.x <= bounds[2]  # within x bounds
+    assert bounds[1] <= point.y <= bounds[3]  # within y bounds
+
+
+def test_envelope(sample_polygon_gdf: gpd.GeoDataFrame) -> None:
+    """Test envelope (bounding box) operation on multiple geometries."""
+    processor = GeometryProcessor(sample_polygon_gdf)
+    result = processor.envelope()
+
+    # Check if the result is a GeoDataFrame
+    assert isinstance(result, gpd.GeoDataFrame)
+    # Should have only one row for envelope
+    assert len(result) == 1
+    # Result should be a Polygon
+    assert isinstance(result.geometry.iloc[0], Polygon)
+    # Envelope area should be >= sum of original areas
+    assert result.geometry.iloc[0].area >= sum(
+        sample_polygon_gdf.geometry.area
+    )
+    # Check if it's actually rectangular (4 vertices)
+    assert (
+        len(result.geometry.iloc[0].exterior.coords) == 5
+    )  # 5 because first/last are same

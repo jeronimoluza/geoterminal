@@ -4,11 +4,12 @@ This module provides classes and functions for inspecting GeoDataFrames,
 including viewing data samples, structure information, and metadata.
 """
 
-from typing import Optional, Tuple, Dict, Any
+from typing import Any, Dict, Optional, Tuple
 
 import geopandas as gpd
-from shapely import wkt
 from loguru import logger
+from shapely import wkt
+
 
 def simplify_geom_repr(geom_wkt: str) -> str:
     """Convert WKT geometry to a simplified string representation.
@@ -23,6 +24,7 @@ def simplify_geom_repr(geom_wkt: str) -> str:
         return "None"
     return f"{wkt.loads(geom_wkt).geom_type.upper()}(...)"
 
+
 class InspectOperationError(Exception):
     """Custom exception for inspection operation errors."""
 
@@ -32,7 +34,8 @@ class InspectOperationError(Exception):
 class InspectProcessor:
     """Handle inspection operations with validation and error handling.
 
-    This class provides methods for common inspection operations on GeoDataFrames,
+    This class provides methods for common
+    inspection operations on GeoDataFrames,
     including head, tail, and metadata inspection.
     """
 

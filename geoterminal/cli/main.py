@@ -1,6 +1,7 @@
 """Command-line interface for the geoterminal package."""
 
 import sys
+
 from loguru import logger
 
 from geoterminal.cli.parser import setup_parser
@@ -10,17 +11,16 @@ from geoterminal.io.file import (
     export_data,
     read_geometry_file,
 )
-from geoterminal.operators.inspect_operations import InspectProcessor
 from geoterminal.log import setup_logging
 from geoterminal.operators.geometry_operations import (
     GeometryOperationError,
     GeometryProcessor,
 )
-from geoterminal.operators.h3_operations import H3OperationError
+from geoterminal.operators.inspect_operations import InspectProcessor
 
 
 def main() -> None:
-    """Main entry point for the CLI."""
+    """Execute the main CLI functionality."""
     try:
         # Parse arguments
         parser = setup_parser()
@@ -62,7 +62,9 @@ def main() -> None:
                 logger.info("\nInspect Mode Options:")
                 logger.info("  --head N     Show first N rows")
                 logger.info("  --tail N     Show last N rows")
-                logger.info("  --crs        Show coordinate reference system info")
+                logger.info(
+                    "  --crs        Show coordinate reference system info"
+                )
                 logger.info("  --shape      Show dimensions (rows × columns)")
                 logger.info("  --dtypes     Show column data types")
             return
