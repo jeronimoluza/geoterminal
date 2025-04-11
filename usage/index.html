@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jeronimo Luza" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Usage Guide - Geoterminal</title>
+    <title>Usage Guide - geoterminal</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Geoterminal
+          <a href=".." class="icon icon-home"> geoterminal
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -117,7 +117,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Geoterminal</a>
+          <a href="..">geoterminal</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -136,9 +136,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="usage-guide">Usage Guide<a class="headerlink" href="#usage-guide" title="Permanent link">&para;</a></h1>
-<p>GeoTerminal provides two main modes of operation: Inspect Mode and Transform Mode.</p>
+<p>geoterminal provides two main modes of operation: Inspect Mode and Transform Mode.</p>
 <h2 id="inspect-mode">Inspect Mode<a class="headerlink" href="#inspect-mode" title="Permanent link">&para;</a></h2>
-<p>When only an input file is provided, GeoTerminal enters inspect mode, allowing you to quickly examine your data:</p>
+<p>When only an input file is provided, geoterminal enters inspect mode, allowing you to quickly examine your data:</p>
 <pre class="highlight"><code class="language-bash"># View data structure
 geoterminal input.shp --shape     # Show number of rows and columns
 geoterminal input.shp --dtypes    # Show column data types
@@ -150,7 +150,7 @@ geoterminal input.shp --tail 5    # Last 5 rows
 # Show CRS information
 geoterminal input.shp --crs</code></pre>
 <h2 id="transform-mode">Transform Mode<a class="headerlink" href="#transform-mode" title="Permanent link">&para;</a></h2>
-<p>When both input and output files are provided, GeoTerminal enters transform mode. Operations are applied in the exact order they appear in the command line:</p>
+<p>When both input and output files are provided, geoterminal enters transform mode. Operations are applied in the exact order they appear in the command line:</p>
 <pre class="highlight"><code class="language-bash"># Buffer first, then convert to H3
 geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 7
 
@@ -164,17 +164,17 @@ geoterminal input.shp output.geojson --buffer-size 1000
 # Debug mode - detailed output with timestamps and file info
 geoterminal input.shp output.geojson --buffer-size 1000 --log-level DEBUG</code></pre>
 <h2 id="basic-concepts">Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permanent link">&para;</a></h2>
-<p>Geoterminal provides both a Python API and a command-line interface (CLI) for geospatial operations.</p>
+<p>geoterminal provides both a Python API and a command-line interface (CLI) for geospatial operations.</p>
 <h2 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">&para;</a></h2>
 <h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
-<p>Geoterminal accepts both file paths and WKT strings as input:</p>
+<p>geoterminal accepts both file paths and WKT strings as input:</p>
 <pre class="highlight"><code class="language-bash"># Process a file
 geoterminal input.shp output.geojson
 
 # Process a WKT string
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson</code></pre>
 <h3 id="processing-options">Processing Options<a class="headerlink" href="#processing-options" title="Permanent link">&para;</a></h3>
-<p>Geoterminal provides various operations that can be used individually:</p>
+<p>geoterminal provides various operations that can be used individually:</p>
 <pre class="highlight"><code class="language-bash"># Geometry Operations
 geoterminal input.shp output.geojson --buffer-size 1000     # Buffer
 geoterminal input.shp output.geojson --unary-union         # Merge all geometries
@@ -194,7 +194,7 @@ geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857  # Repro
 # H3 Operations
 geoterminal input.shp output.geojson --h3-res 6  # Convert to H3 hexagons</code></pre>
 <h3 id="advanced-usage">Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h3>
-<p>Operations in Geoterminal are applied in the order they appear in the command line. This allows for powerful combinations of operations:</p>
+<p>Operations in geoterminal are applied in the order they appear in the command line. This allows for powerful combinations of operations:</p>
 <pre class="highlight"><code class="language-bash"># Example 1: Find urban centers
 # 1. Filter cities with population &gt; 1M
 # 2. Create a unary union of all large cities
@@ -225,7 +225,7 @@ geoterminal density.shp h3_zones.geojson \
     --input-crs 4326 --output-crs 3857 \
     --h3-res 8</code></pre>
 <h3 id="file-inspection">File Inspection<a class="headerlink" href="#file-inspection" title="Permanent link">&para;</a></h3>
-<p>Geoterminal provides comprehensive inspection capabilities:</p>
+<p>geoterminal provides comprehensive inspection capabilities:</p>
 <pre class="highlight"><code class="language-bash"># View data structure
 geoterminal input.geojson --shape    # Number of rows and columns
 geoterminal input.geojson --dtypes   # Column data types
@@ -235,7 +235,7 @@ geoterminal input.geojson --crs      # Coordinate reference system
 geoterminal input.geojson --head 10  # First 10 rows
 geoterminal input.geojson --tail 5   # Last 5 rows</code></pre>
 <h3 id="file-format-support">File Format Support<a class="headerlink" href="#file-format-support" title="Permanent link">&para;</a></h3>
-<p>Geoterminal supports multiple file formats:</p>
+<p>geoterminal supports multiple file formats:</p>
 <ul>
 <li>GeoJSON (.geojson)</li>
 <li>Shapefile (.shp)</li>

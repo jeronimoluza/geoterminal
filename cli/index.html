@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jeronimo Luza" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>CLI Reference - Geoterminal</title>
+    <title>CLI Reference - geoterminal</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Geoterminal
+          <a href=".." class="icon icon-home"> geoterminal
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -159,7 +159,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Geoterminal</a>
+          <a href="..">geoterminal</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -179,7 +179,7 @@
               
                 <h1 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>GeoTerminal's CLI provides two main modes of operation:</p>
+<p>geoterminal's CLI provides two main modes of operation:</p>
 <ol>
 <li><strong>Inspect Mode</strong>: When only INPUT is provided</li>
 <li><strong>Transform Mode</strong>: When both INPUT and OUTPUT are provided</li>
@@ -238,7 +238,7 @@
 <pre class="highlight"><code class="language-bash"># These commands produce different results:
 geoterminal input.shp out.geojson --buffer-size 1000 --h3-res 7  # Buffer first
 geoterminal input.shp out.geojson --h3-res 7 --buffer-size 1000  # H3 first</code></pre>
-<p>The Geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.</p>
+<p>The geoterminal CLI provides a powerful interface for geospatial operations. It supports both file-based and WKT string input, with various processing options.</p>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <pre class="highlight"><code class="language-bash">geoterminal INPUT OUTPUT [OPTIONS]</code></pre>
 <h3 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h3>
@@ -337,7 +337,7 @@ geoterminal input.csv output.geojson \
     --query "status == 'active'" \
     --buffer-size 500</code></pre>
 <h2 id="file-format-support">File Format Support<a class="headerlink" href="#file-format-support" title="Permanent link">&para;</a></h2>
-<p>Geoterminal supports multiple file formats:</p>
+<p>geoterminal supports multiple file formats:</p>
 <ul>
 <li>GeoJSON (.geojson)</li>
 <li>Shapefile (.shp)</li>
