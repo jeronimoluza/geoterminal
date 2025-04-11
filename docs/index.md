@@ -1,6 +1,6 @@
-# Geoterminal Documentation
+# geoterminal Documentation
 
-Geoterminal is a powerful Python library for geospatial data processing and H3 operations. It provides a simple and efficient interface for working with various geospatial file formats and performing common geometric operations.
+geoterminal is a powerful Python library for geospatial data processing and H3 operations. It provides a simple and efficient interface for working with various geospatial file formats and performing common geometric operations.
 
 ## Key Features
 
@@ -14,7 +14,7 @@ Geoterminal is a powerful Python library for geospatial data processing and H3 o
 ## Quick Start
 
 ```bash
-# Install Geoterminal
+# Install geoterminal
 pip install geoterminal
 
 # Process a file
@@ -51,4 +51,4 @@ If you need help or have questions:
 
 ## License
 
-Geoterminal is released under the MIT License. See the [LICENSE](https://github.com/jeronimoluza/geoterminal/blob/main/LICENSE) file for details.
+geoterminal is released under the MIT License. See the [LICENSE](https://github.com/jeronimoluza/geoterminal/blob/main/LICENSE) file for details.

@@ -22,7 +22,7 @@ A clear and concise description of what you expected to happen.
 **System Information:**
  - OS: [e.g. Ubuntu 20.04]
  - Python Version: [e.g. 3.8.5]
- - Geoterminal Version: [e.g. 1.0.0]
+ - geoterminal Version: [e.g. 1.0.0]
 
 **Additional context**
 Add any other context about the problem here.

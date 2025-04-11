@@ -1,10 +1,10 @@
-# GeoTerminal
+# geoterminal
 
 [![PyPI version](https://img.shields.io/pypi/v/geoterminal.svg)](https://pypi.python.org/pypi/geoterminal/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-GeoTerminal is a command-line tool designed to simplify common GIS tasks that you may encounter in your daily work.
+geoterminal is a command-line interface tool to quickly inspect and transform geospatial data.
 
 ## Features
 
@@ -69,7 +69,7 @@ poetry shell
 
 ### Basic Usage
 
-GeoTerminal accepts both file paths and WKT strings as input. The input and output file formats are automatically detected based on their extensions.
+geoterminal accepts both file paths and WKT strings as input. The input and output file formats are automatically detected based on their extensions.
 
 ```bash
 # Inspect data (show first 10 rows)
@@ -144,12 +144,12 @@ Operations are applied in the order they appear in the command line. Here are so
 ```bash
 # Example 1: Find the center of a region's urban areas
 # 1. Filter cities with population > 1M
-# 2. Create a unary union of all large cities
-# 3. Calculate the centroid
-geoterminal cities.shp center.wkt \
+# 2. Calculate the centroids
+# 3. Buffer the centroids by 1000 meters
+geoterminal cities.shp center.geojson \
     --query "population > 1000000" \
-    --unary-union \
-    --centroid
+    --centroid \
+    --buffer-size 1000
 
 # Example 2: Create a simplified boundary around intersecting features
 # 1. Filter features that intersect with a region of interest
@@ -159,7 +159,6 @@ geoterminal cities.shp center.wkt \
 geoterminal features.shp boundary.geojson \
     --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
     --buffer-size 1000 \
-    --unary-union \
     --convex-hull
 ```
 
