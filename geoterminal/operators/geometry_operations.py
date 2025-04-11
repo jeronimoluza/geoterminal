@@ -63,7 +63,7 @@ class GeometryProcessor:
             raise GeometryOperationError("No GeoDataFrame set")
 
         try:
-            logger.info(f"Applying buffer of size {buffer_size}")
+            logger.info(f"Applying buffer of {buffer_size} meters")
             og_crs = self.gdf.crs
             self.gdf.geometry = (
                 self.gdf.geometry.to_crs(epsg=3857)
