@@ -90,6 +90,7 @@ Exports data to file.
 - `FileHandlerError`: If export fails
 
 **Supported Formats:**
+
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV (.csv) with WKT geometry
