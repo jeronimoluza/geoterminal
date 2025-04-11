@@ -8,7 +8,10 @@ from loguru import logger
 
 from geoterminal.io.file import read_geometry_file
 from geoterminal.operators.data_operations import DataProcessor
-from geoterminal.operators.geometry_operations import GeometryProcessor
+from geoterminal.operators.geometry_operations import (
+    GeometryOperationError,
+    GeometryProcessor,
+)
 from geoterminal.operators.h3_operations import polyfill
 from geoterminal.operators.inspect_operations import InspectProcessor
 

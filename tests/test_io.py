@@ -6,6 +6,7 @@ various formats.
 
 import tempfile
 from pathlib import Path
+from typing import Generator
 
 import geopandas as gpd
 import pytest
@@ -17,8 +18,6 @@ from geoterminal.io.file import (
     read_geometry_file,
     read_wkt,
 )
-
-from typing import Generator
 
 
 # Test fixtures
@@ -196,7 +195,9 @@ def test_export_geojson(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
     assert len(gdf) == len(sample_gdf)
 
 
-def test_export_csv_with_wkt_geometry(temp_dir: Path, sample_gdf: gpd.GeoDataFrame) -> None:
+def test_export_csv_with_wkt_geometry(
+    temp_dir: Path, sample_gdf: gpd.GeoDataFrame
+) -> None:
     """Test exporting data to CSV format with WKT geometry."""
     file_path = temp_dir / "output.csv"
     export_data(sample_gdf, file_path)
