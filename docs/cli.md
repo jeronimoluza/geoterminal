@@ -95,6 +95,7 @@ geoterminal INPUT OUTPUT [OPTIONS]
 - `--convex-hull`: Create convex hull
 - `--centroid`: Calculate centroid
 - `--envelope`: Get bounding box
+- `--simplify TOL`: Simplify geometries with tolerance level
 
 #### Filtering Operations
 - `--query EXPR`: Filter using pandas query syntax

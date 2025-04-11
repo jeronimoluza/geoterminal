@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `--centroid` to calculate centroid
   - `--envelope` to get bounding box
   - `--intersects` to filter geometries by intersection
+  - `--simplify` to reduce geometry complexity with given tolerance
 - Data operations:
   - `--query` to filter data using pandas query syntax
 - Enhanced inspect mode:

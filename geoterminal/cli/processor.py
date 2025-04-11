@@ -32,6 +32,7 @@ OP_FLAGS = {
     "--shape": "shape",
     "--dtypes": "dtypes",
     "--intersects": "intersects",
+    "--simplify": "simplify",
 }
 
 
@@ -65,6 +66,8 @@ def process_geometries(
                     value = args.intersects
                 elif op_type == "reproject":
                     value = args.output_crs
+                elif op_type == "simplify":
+                    value = args.simplify
                 elif op_type in [
                     "unary_union",
                     "envelope",
@@ -117,6 +120,8 @@ def process_geometries(
                 else:
                     # Treat as WKT
                     processor.gdf = processor.intersects(value)
+            elif op_type == "simplify":
+                processor.simplify(value)
             elif op_type == "query":
                 data_processor = DataProcessor(processor.gdf)
                 processor.gdf = data_processor.query(value)

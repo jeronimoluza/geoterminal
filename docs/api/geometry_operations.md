@@ -19,6 +19,7 @@ class GeometryProcessor:
     def centroid(self) -> None
     def envelope(self) -> None
     def intersects(self, other: Union[str, gpd.GeoDataFrame]) -> None
+    def simplify(self, tolerance: float) -> None
 ```
 
 #### Methods
@@ -34,6 +35,7 @@ Advanced Operations:
 - `centroid`: Calculate centroid of geometries
 - `envelope`: Get bounding box of geometries
 - `intersects`: Filter geometries that intersect with another geometry
+- `simplify`: Simplify geometries using Douglas-Peucker algorithm
 
 ## Exceptions
 
@@ -154,6 +156,26 @@ Filters geometries that intersect with another geometry.
 
 **Raises:**
 - `GeometryOperationError`: If intersection operation fails
+
+#### simplify
+
+```python
+def simplify(self, tolerance: float) -> gpd.GeoDataFrame
+```
+
+Simplify geometries using Douglas-Peucker algorithm.
+
+**Parameters:**
+
+- `tolerance`: Maximum allowed deviation from original geometry.
+              Should be in the same units as the geometry's coordinates.
+
+**Returns:**
+
+- GeoDataFrame with simplified geometries
+
+**Raises:**
+- `GeometryOperationError`: If simplification fails
 
 #### clip
 

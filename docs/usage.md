@@ -72,6 +72,7 @@ geoterminal input.shp output.geojson --unary-union         # Merge all geometrie
 geoterminal input.shp output.geojson --convex-hull         # Create convex hull
 geoterminal input.shp output.geojson --centroid            # Calculate centroid
 geoterminal input.shp output.geojson --envelope            # Get bounding box
+geoterminal input.shp output.geojson --simplify 0.001      # Simplify geometries
 
 # Filtering Operations
 geoterminal input.shp output.geojson --query "population > 1000000"  # Filter by attribute
@@ -103,11 +104,12 @@ geoterminal cities.shp center.wkt \
 # 1. Filter points that intersect with a region
 # 2. Create buffers around them
 # 3. Merge overlapping buffers
-# 4. Get a simplified boundary
+# 4. Get a simplified boundary with reduced complexity
 geoterminal points.shp area.geojson \
     --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
     --buffer-size 1000 \
     --unary-union \
+    --simplify 10 \
     --convex-hull
 
 # Example 3: H3 analysis of high-density areas
@@ -180,6 +182,7 @@ hull = processor.convex_hull()                 # Create convex hull
 centroid = processor.centroid()                # Calculate centroid
 envelope = processor.envelope()                # Get bounding box
 filtered = processor.intersects(other_gdf)     # Filter by intersection
+simplified = processor.simplify(tolerance=0.001) # Simplify geometries
 
 # Export
 buffered.to_file("output.geojson")

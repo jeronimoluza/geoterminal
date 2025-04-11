@@ -294,6 +294,32 @@ class GeometryProcessor:
                 f"Failed to compute intersection: {str(e)}"
             ) from e
 
+    def simplify(self, tolerance: float) -> gpd.GeoDataFrame:
+        """Simplify geometries using Douglas-Peucker algorithm.
+
+        Args:
+            tolerance: Maximum allowed deviation from original geometry.
+                      Should be in the same units as\
+                      the geometry's coordinates.
+
+        Returns:
+            GeoDataFrame with simplified geometries
+
+        Raises:
+            GeometryOperationError: If simplification fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info(f"Simplifying geometries with tolerance {tolerance}")
+            self.gdf.geometry = self.gdf.geometry.simplify(tolerance)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Failed to simplify geometries: {str(e)}"
+            ) from e
+
 
 # For backward compatibility
 def apply_buffer(

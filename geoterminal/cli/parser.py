@@ -127,6 +127,12 @@ def setup_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Compute the centroid of all input geometries",
     )
+    parser.add_argument(
+        "--simplify",
+        type=float,
+        help="Simplify geometries with the given tolerance level",
+        metavar="TOLERANCE",
+    )
 
     # Data operations
     parser.add_argument(

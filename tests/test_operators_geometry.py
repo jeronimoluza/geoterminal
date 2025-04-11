@@ -208,3 +208,47 @@ def test_intersects_error_handling(
     no_crs_gdf = gpd.GeoDataFrame(geometry=[Point(0, 0)])
     with pytest.raises(Exception):
         processor.intersects(no_crs_gdf)
+
+
+def test_simplify(sample_point_gdf: gpd.GeoDataFrame) -> None:
+    """Test simplify operation on polygon geometries."""
+    # Create a point and buffer it to create a complex circular polygon
+    point = Point(0, 0)
+    point_gdf = gpd.GeoDataFrame(
+        geometry=[point], crs="EPSG:4326"
+    )  # Use projected CRS for meters
+    processor = GeometryProcessor(point_gdf)
+
+    # Buffer by 1000 meters to create a circle with many vertices
+    buffered = processor.apply_buffer(10)
+    original_vertices = len(buffered.unary_union.exterior.coords)
+
+    # Test with reasonable tolerance
+    processor = GeometryProcessor(buffered)
+    result = processor.simplify(tolerance=2)
+    print(buffered)
+    print(result)
+    assert isinstance(result, gpd.GeoDataFrame)
+    assert len(result) == 1  # Should maintain number of geometries
+    assert (
+        len(result.geometry.iloc[0].exterior.coords) < original_vertices
+    )  # Should have fewer vertices
+
+
+def test_simplify_error_handling() -> None:
+    """Test error handling in simplify operation."""
+    processor = GeometryProcessor()
+
+    # Test with no GeoDataFrame set
+    with pytest.raises(Exception):
+        processor.simplify(0.1)
+
+    # Test with negative tolerance (should raise error)
+    processor = GeometryProcessor(
+        gpd.GeoDataFrame(
+            geometry=[Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])],
+            crs="EPSG:4326",
+        )
+    )
+    with pytest.raises(Exception):
+        processor.simplify(-0.1)  # Should raise error
