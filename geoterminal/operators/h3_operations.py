@@ -119,7 +119,6 @@ class H3Processor:
             hex_gdf = gpd.GeoDataFrame({"hex": hexes})
 
             if include_geometry:
-                logger.info("Including hexagon geometries in output")
                 geometry_series = gpd.GeoSeries(
                     hex_gdf["hex"].apply(self.get_hex_geometry)
                 )
