@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
-geoterminal is a command-line tool designed to simplify common GIS tasks that you may encounter in your daily work.
+geoterminal is a command-line interface tool to quickly inspect and transform geospatial data.
 
 ## Features
 
