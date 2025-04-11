@@ -144,12 +144,12 @@ Operations are applied in the order they appear in the command line. Here are so
 ```bash
 # Example 1: Find the center of a region's urban areas
 # 1. Filter cities with population > 1M
-# 2. Create a unary union of all large cities
-# 3. Calculate the centroid
-geoterminal cities.shp center.wkt \
+# 2. Calculate the centroids
+# 3. Buffer the centroids by 1000 meters
+geoterminal cities.shp center.geojson \
     --query "population > 1000000" \
-    --unary-union \
-    --centroid
+    --centroid \
+    --buffer-size 1000
 
 # Example 2: Create a simplified boundary around intersecting features
 # 1. Filter features that intersect with a region of interest
@@ -159,7 +159,6 @@ geoterminal cities.shp center.wkt \
 geoterminal features.shp boundary.geojson \
     --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
     --buffer-size 1000 \
-    --unary-union \
     --convex-hull
 ```
 
