@@ -40,10 +40,7 @@ geoterminal is a command-line interface tool to quickly inspect and transform ge
 pip install geoterminal
 ```
 
-For development, we use Poetry.
-
-```bash
-Then clone and install the project:
+For development, clone the repository and install with Poetry:
 
 ```bash
 # Clone the repository
