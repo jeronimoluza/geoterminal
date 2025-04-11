@@ -45,18 +45,6 @@ poetry install
 poetry shell
 ```
 
-### Optional Dependencies
-
-For development:
-```bash
-poetry install --with dev
-```
-
-For documentation:
-```bash
-poetry install --with docs
-```
-
 ## Verifying Installation
 
 To verify that geoterminal is installed correctly:
