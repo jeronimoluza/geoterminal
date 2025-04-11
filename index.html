@@ -43,7 +43,7 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#features">Features</a>
+    <li class="toctree-l2"><a class="reference internal" href="#key-features">Key Features</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
     </li>
@@ -112,12 +112,14 @@
               
                 <h1 id="geoterminal-documentation">Geoterminal Documentation<a class="headerlink" href="#geoterminal-documentation" title="Permanent link">&para;</a></h1>
 <p>Geoterminal is a powerful Python library for geospatial data processing and H3 operations. It provides a simple and efficient interface for working with various geospatial file formats and performing common geometric operations.</p>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Multiple File Format Support</strong>: Work with GeoJSON, Shapefile, CSV, and WKT formats</li>
-<li><strong>Geometry Operations</strong>: Buffer, clip, and reproject geometries</li>
+<li><strong>File Format Support</strong>: GeoJSON, Shapefile, CSV, ORC, and WKT</li>
+<li><strong>Geometry Operations</strong>: Buffer, union, convex hull, centroid, envelope, and more</li>
+<li><strong>Data Operations</strong>: Query filtering using pandas syntax</li>
 <li><strong>H3 Integration</strong>: Efficient hexagonal hierarchical geospatial indexing</li>
-<li><strong>Command Line Interface</strong>: Easy-to-use CLI for common operations</li>
+<li><strong>Command Line Interface</strong>: Easy-to-use CLI with operation chaining</li>
+<li><strong>Inspection Tools</strong>: Shape, data types, and CRS information</li>
 </ul>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <pre class="highlight"><code class="language-bash"># Install Geoterminal
@@ -130,7 +132,13 @@ geoterminal input.shp output.geojson
 geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
 # Apply a buffer of 1000 meters and convert to H3 cells
-geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6</code></pre>
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
+
+# Chain operations to find urban centers
+geoterminal cities.shp centers.wkt \
+    --query "population &gt; 1000000" \
+    --unary-union \
+    --centroid</code></pre>
 <h2 id="documentation-sections">Documentation Sections<a class="headerlink" href="#documentation-sections" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="installation/">Installation</a></li>
@@ -200,5 +208,5 @@ geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6</code></pre>
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-04-10 21:34:18.427335+00:00
+Build Date UTC : 2025-04-11 17:52:30.167189+00:00
 -->

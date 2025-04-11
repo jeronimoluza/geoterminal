@@ -81,6 +81,18 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#apply_buffer">apply_buffer</a>
     </li>
+    <li class="toctree-l4"><a class="reference internal" href="#unary_union">unary_union</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#convex_hull">convex_hull</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#centroid">centroid</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#envelope">envelope</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#intersects">intersects</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#simplify">simplify</a>
+    </li>
     <li class="toctree-l4"><a class="reference internal" href="#clip">clip</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#reproject">reproject</a>
@@ -156,13 +168,25 @@
     def __init__(self, gdf: Optional[gpd.GeoDataFrame] = None)
     def apply_buffer(self, size: float) -&gt; None
     def clip(self, mask_gdf: gpd.GeoDataFrame) -&gt; None
-    def reproject(self, target_crs: int) -&gt; None</code></pre>
+    def reproject(self, target_crs: int) -&gt; None
+    def unary_union(self) -&gt; None
+    def convex_hull(self) -&gt; None
+    def centroid(self) -&gt; None
+    def envelope(self) -&gt; None
+    def intersects(self, other: Union[str, gpd.GeoDataFrame]) -&gt; None
+    def simplify(self, tolerance: float) -&gt; None</code></pre>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>apply_buffer</code>: Apply a buffer of specified size in meters</li>
-<li><code>clip</code>: Clip geometries using a mask GeoDataFrame</li>
-<li><code>reproject</code>: Reproject geometries to target CRS</li>
-</ul>
+<p>Basic Operations:
+- <code>apply_buffer</code>: Apply a buffer of specified size in meters
+- <code>clip</code>: Clip geometries using a mask GeoDataFrame
+- <code>reproject</code>: Reproject geometries to target CRS</p>
+<p>Advanced Operations:
+- <code>unary_union</code>: Merge all geometries into one
+- <code>convex_hull</code>: Create convex hull of geometries
+- <code>centroid</code>: Calculate centroid of geometries
+- <code>envelope</code>: Get bounding box of geometries
+- <code>intersects</code>: Filter geometries that intersect with another geometry
+- <code>simplify</code>: Simplify geometries using Douglas-Peucker algorithm</p>
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
 <h3 id="geometryoperationerror">GeometryOperationError<a class="headerlink" href="#geometryoperationerror" title="Permanent link">&para;</a></h3>
 <p>Raised when geometry operations fail.</p>
@@ -188,6 +212,69 @@
 </ul>
 <p><strong>Raises:</strong>
 - <code>GeometryOperationError</code>: If buffer operation fails</p>
+<h4 id="unary_union">unary_union<a class="headerlink" href="#unary_union" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def unary_union(self) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Merges all geometries into a single geometry.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with a single merged geometry</li>
+</ul>
+<p><strong>Raises:</strong>
+- <code>GeometryOperationError</code>: If union operation fails</p>
+<h4 id="convex_hull">convex_hull<a class="headerlink" href="#convex_hull" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def convex_hull(self) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Creates a convex hull containing all geometries.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with convex hull geometry</li>
+</ul>
+<p><strong>Raises:</strong>
+- <code>GeometryOperationError</code>: If convex hull operation fails</p>
+<h4 id="centroid">centroid<a class="headerlink" href="#centroid" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def centroid(self) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Calculates the centroid of each geometry.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with centroid points</li>
+</ul>
+<p><strong>Raises:</strong>
+- <code>GeometryOperationError</code>: If centroid calculation fails</p>
+<h4 id="envelope">envelope<a class="headerlink" href="#envelope" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def envelope(self) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Creates a bounding box (envelope) for each geometry.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with envelope polygons</li>
+</ul>
+<p><strong>Raises:</strong>
+- <code>GeometryOperationError</code>: If envelope operation fails</p>
+<h4 id="intersects">intersects<a class="headerlink" href="#intersects" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def intersects(self, other: Union[str, gpd.GeoDataFrame]) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Filters geometries that intersect with another geometry.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>other</code>: WKT string or GeoDataFrame to test intersection against</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with geometries that intersect with the input</li>
+</ul>
+<p><strong>Raises:</strong>
+- <code>GeometryOperationError</code>: If intersection operation fails</p>
+<h4 id="simplify">simplify<a class="headerlink" href="#simplify" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">def simplify(self, tolerance: float) -&gt; gpd.GeoDataFrame</code></pre>
+<p>Simplify geometries using Douglas-Peucker algorithm.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>tolerance</code>: Maximum allowed deviation from original geometry.
+              Should be in the same units as the geometry's coordinates.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with simplified geometries</li>
+</ul>
+<p><strong>Raises:</strong>
+- <code>GeometryOperationError</code>: If simplification fails</p>
 <h4 id="clip">clip<a class="headerlink" href="#clip" title="Permanent link">&para;</a></h4>
 <pre class="highlight"><code class="language-python">def clip(self, mask: Union[gpd.GeoDataFrame, Polygon]) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Clips geometries using a mask.</p>

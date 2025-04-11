@@ -63,6 +63,18 @@
     <li class="toctree-l3"><a class="reference internal" href="#inspect-mode-options">Inspect Mode Options</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#transform-mode-options">Transform Mode Options</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#geometry-operations">Geometry Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#filtering-operations">Filtering Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#coordinate-operations">Coordinate Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#h3-operations">H3 Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#file-options">File Options</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#general-options">General Options</a>
     </li>
@@ -75,8 +87,32 @@
     <li class="toctree-l3"><a class="reference internal" href="#arguments_1">Arguments</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#options_1">Options</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#inspection-options">Inspection Options</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#geometry-operations_1">Geometry Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#filtering-operations_1">Filtering Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#coordinate-operations_1">Coordinate Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#h3-operations_1">H3 Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#file-options_1">File Options</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#basic-operations">Basic Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#data-inspection">Data Inspection</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#single-operations">Single Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#advanced-chaining">Advanced Chaining</a>
+    </li>
+        </ul>
     </li>
         </ul>
     </li>
@@ -161,14 +197,35 @@
 <li><code>--head N</code>: Show first N rows in WKT format</li>
 <li><code>--tail N</code>: Show last N rows in WKT format</li>
 <li><code>--crs</code>: Show coordinate reference system information</li>
+<li><code>--shape</code>: Show number of rows and columns</li>
+<li><code>--dtypes</code>: Show column data types</li>
 </ul>
 <h3 id="transform-mode-options">Transform Mode Options<a class="headerlink" href="#transform-mode-options" title="Permanent link">&para;</a></h3>
+<h4 id="geometry-operations">Geometry Operations<a class="headerlink" href="#geometry-operations" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>--buffer-size SIZE</code>: Apply buffer of SIZE meters</li>
-<li><code>--h3-res RES</code>: Convert to H3 hexagons at resolution RES</li>
-<li><code>--mask FILE</code>: Clip geometries using mask file</li>
+<li><code>--unary-union</code>: Merge all geometries into one</li>
+<li><code>--convex-hull</code>: Create convex hull of geometries</li>
+<li><code>--centroid</code>: Calculate centroid of geometries</li>
+<li><code>--envelope</code>: Get bounding box of geometries</li>
+</ul>
+<h4 id="filtering-operations">Filtering Operations<a class="headerlink" href="#filtering-operations" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--query EXPR</code>: Filter data using pandas query syntax</li>
+<li><code>--intersects GEOM</code>: Filter geometries that intersect with GEOM</li>
+<li><code>--mask GEOM</code>: Clip geometries using mask (file or WKT)</li>
+</ul>
+<h4 id="coordinate-operations">Coordinate Operations<a class="headerlink" href="#coordinate-operations" title="Permanent link">&para;</a></h4>
+<ul>
 <li><code>--input-crs EPSG</code>: Set input CRS (default: 4326)</li>
 <li><code>--output-crs EPSG</code>: Set output CRS</li>
+</ul>
+<h4 id="h3-operations">H3 Operations<a class="headerlink" href="#h3-operations" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--h3-res RES</code>: Convert to H3 hexagons at resolution RES</li>
+</ul>
+<h4 id="file-options">File Options<a class="headerlink" href="#file-options" title="Permanent link">&para;</a></h4>
+<ul>
 <li><code>--geometry-column COL</code>: Column name for CSV/ORC files</li>
 </ul>
 <h3 id="general-options">General Options<a class="headerlink" href="#general-options" title="Permanent link">&para;</a></h3>
@@ -190,49 +247,95 @@ geoterminal input.shp out.geojson --h3-res 7 --buffer-size 1000  # H3 first</cod
 <li><code>OUTPUT</code>: Output file path (optional; format determined by extension)</li>
 </ul>
 <h3 id="options_1">Options<a class="headerlink" href="#options_1" title="Permanent link">&para;</a></h3>
+<h4 id="inspection-options">Inspection Options<a class="headerlink" href="#inspection-options" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>--buffer-size</code>: Buffer size to apply (in CRS units)</li>
-<li><code>--h3-res</code>: H3 resolution for polyfilling (0-15)</li>
-<li><code>--h3-geom</code>: Include H3 geometries in output (default: True)</li>
-<li><code>--input-crs</code>: Input CRS (default: 4326)</li>
-<li><code>--output-crs</code>: Output CRS</li>
-<li><code>--geometry-column</code>: Column name containing WKT geometry strings (for CSV/ORC files)</li>
-<li><code>--mask</code>: Mask geometry (file path or WKT string)</li>
-<li><code>--mask-crs</code>: CRS for mask geometry (default: 4326)</li>
-<li><code>--head</code>: Show first n rows of the geometry file</li>
-<li><code>--tail</code>: Show last n rows of the geometry file</li>
-<li><code>--rows</code>: Number of rows to show for head/tail (default: 5)</li>
+<li><code>--head N</code>: Show first N rows</li>
+<li><code>--tail N</code>: Show last N rows</li>
+<li><code>--shape</code>: Show number of rows and columns</li>
+<li><code>--dtypes</code>: Show column data types</li>
+<li><code>--crs</code>: Show coordinate reference system</li>
+</ul>
+<h4 id="geometry-operations_1">Geometry Operations<a class="headerlink" href="#geometry-operations_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--buffer-size SIZE</code>: Buffer size in CRS units</li>
+<li><code>--unary-union</code>: Merge all geometries</li>
+<li><code>--convex-hull</code>: Create convex hull</li>
+<li><code>--centroid</code>: Calculate centroid</li>
+<li><code>--envelope</code>: Get bounding box</li>
+<li><code>--simplify TOL</code>: Simplify geometries with tolerance level</li>
+</ul>
+<h4 id="filtering-operations_1">Filtering Operations<a class="headerlink" href="#filtering-operations_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--query EXPR</code>: Filter using pandas query syntax</li>
+<li><code>--intersects GEOM</code>: Filter by intersection</li>
+<li><code>--mask GEOM</code>: Clip using mask geometry</li>
+</ul>
+<h4 id="coordinate-operations_1">Coordinate Operations<a class="headerlink" href="#coordinate-operations_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--input-crs EPSG</code>: Input CRS (default: 4326)</li>
+<li><code>--output-crs EPSG</code>: Output CRS</li>
+<li><code>--mask-crs EPSG</code>: Mask CRS (default: 4326)</li>
+</ul>
+<h4 id="h3-operations_1">H3 Operations<a class="headerlink" href="#h3-operations_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--h3-res RES</code>: H3 resolution (0-15)</li>
+</ul>
+<h4 id="file-options_1">File Options<a class="headerlink" href="#file-options_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--geometry-column COL</code>: WKT column name for CSV/ORC</li>
 </ul>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-bash"># Basic file conversion
+<h4 id="basic-operations">Basic Operations<a class="headerlink" href="#basic-operations" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-bash"># File conversion
 geoterminal input.shp output.geojson
 
-# Process a WKT string
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
+# Process WKT string
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson</code></pre>
+<h4 id="data-inspection">Data Inspection<a class="headerlink" href="#data-inspection" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-bash"># View data structure
+geoterminal input.geojson --shape    # Show rows × columns
+geoterminal input.geojson --dtypes   # Show column types
+geoterminal input.geojson --crs      # Show CRS
 
-# Apply buffer and convert to H3 cells
-geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
+# View data content
+geoterminal input.geojson --head 10  # First 10 rows
+geoterminal input.geojson --tail 5   # Last 5 rows</code></pre>
+<h4 id="single-operations">Single Operations<a class="headerlink" href="#single-operations" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-bash"># Geometry operations
+geoterminal input.shp output.geojson --buffer-size 1000
+geoterminal input.shp output.geojson --unary-union
+geoterminal input.shp output.geojson --convex-hull
+geoterminal input.shp output.geojson --centroid
+geoterminal input.shp output.geojson --simplify 0.001
 
-# Convert WKT to H3 cells with geometries
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
+# Filtering operations
+geoterminal input.shp output.geojson --query "population &gt; 1000000"
+geoterminal input.shp output.geojson --intersects other.shp
 
-# Reproject data
+# Coordinate operations
 geoterminal input.shp output.geojson --input-crs 4326 --output-crs 3857
 
-# Clip geometries using a mask file
-geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
+# H3 operations
+geoterminal input.shp output.geojson --h3-res 6</code></pre>
+<h4 id="advanced-chaining">Advanced Chaining<a class="headerlink" href="#advanced-chaining" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-bash"># Find urban centers
+geoterminal cities.shp center.wkt \
+    --query "population &gt; 1000000" \
+    --unary-union \
+    --centroid
 
-# Clip geometries using a mask WKT
-geoterminal input.shp output.geojson --mask "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
+# Create service areas
+geoterminal points.shp area.geojson \
+    --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
+    --buffer-size 1000 \
+    --unary-union \
+    --convex-hull
 
-# View first 10 rows of a file
-geoterminal input.geojson --head --rows 10
-
-# View last 8 rows of a file
-geoterminal input.geojson --tail --rows 8
-
-# Work with CSV/ORC files using custom geometry columns
-geoterminal input.csv output.geojson --geometry-column my_wkt_column</code></pre>
+# Custom CSV processing
+geoterminal input.csv output.geojson \
+    --geometry-column my_wkt_column \
+    --query "status == 'active'" \
+    --buffer-size 500</code></pre>
 <h2 id="file-format-support">File Format Support<a class="headerlink" href="#file-format-support" title="Permanent link">&para;</a></h2>
 <p>Geoterminal supports multiple file formats:</p>
 <ul>
