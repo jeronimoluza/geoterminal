@@ -36,12 +36,12 @@ jobs:
         run: |
           # Get the current version from pyproject.toml
           CURRENT_VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
-          
+
           # Get the version from the previous commit on main
           git checkout HEAD^
           PREVIOUS_VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
           git checkout -
-          
+
           # Compare versions
           if [ "$CURRENT_VERSION" != "$PREVIOUS_VERSION" ]; then
             echo "Version changed from $PREVIOUS_VERSION to $CURRENT_VERSION"
