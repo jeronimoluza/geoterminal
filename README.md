@@ -45,7 +45,6 @@ For development, we use Poetry.
 ```bash
 Then clone and install the project:
 
-```bash
 # Clone the repository
 git clone https://github.com/jeronimoluza/geoterminal.git
 cd geoterminal
