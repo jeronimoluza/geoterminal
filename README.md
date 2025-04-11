@@ -8,12 +8,24 @@ GeoTerminal is a command-line tool designed to simplify common GIS tasks that yo
 
 ## Features
 
-- File format conversion (GeoJSON, Shapefile, CSV, ORC)
-- Geometry operations (buffer, clip)
+- File format conversion (GeoJSON, Shapefile, CSV, ORC, WKT)
+- Geometry operations:
+  - Buffer and clip
+  - Unary union
+  - Convex hull
+  - Centroid
+  - Envelope (bounding box)
+  - Intersect with other geometries
 - H3 integration (polyfill)
 - CRS transformations
-- Inspect mode for quick data viewing
-- Operation order preservation and offering both a Python API and CLI for maximum flexibility.
+- Data operations:
+  - Query filtering using pandas syntax
+- Inspect operations:
+  - View first/last N rows
+  - Get CRS information
+  - Get shape (rows × columns)
+  - Get column data types
+- Operation order preservation
 
 
 
@@ -81,32 +93,85 @@ geoterminal input.shp output.geojson --buffer-size 1000 --log-level DEBUG
 You can combine multiple processing options with your conversion commands:
 
 ```bash
-# Apply a buffer of 1000 meters and convert to H3 cells
-geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
+# Geometry Operations
+# Apply a buffer
+geoterminal input.shp output.geojson --buffer-size 1000
 
-# Convert WKT to H3 cells with geometries
-geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson --h3-res 6 --h3-geom
+# Create a unary union of all geometries
+geoterminal input.shp output.geojson --unary-union
 
-# Reproject data
+# Create a convex hull
+geoterminal input.shp output.geojson --convex-hull
+
+# Calculate centroid
+geoterminal input.shp output.geojson --centroid
+
+# Get envelope (bounding box)
+geoterminal input.shp output.geojson --envelope
+
+# Filter geometries that intersect with another file or WKT
+geoterminal input.shp output.geojson --intersects other.shp
+geoterminal input.shp output.geojson --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))"
+
+# H3 Operations
+# Convert to H3 cells (includes hexagon geometries)
+geoterminal input.shp output.geojson --h3-res 6
+
+# Reprojection
+# Reproject data to a different CRS
 geoterminal input.shp output.csv --input-crs 4326 --output-crs 3857
 
+# Clipping
 # Clip geometries using a mask file
 geoterminal input.shp output.geojson --mask mask.geojson --mask-crs 4326
 
 # Clip geometries using a mask WKT
 geoterminal input.shp output.geojson --mask "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))"
+
+# Data Operations
+# Filter data using pandas query syntax
+geoterminal input.shp output.geojson --query "population > 1000000"
+```
+
+### Chaining Operations
+
+Operations are applied in the order they appear in the command line. Here are some practical examples:
+
+```bash
+# Example 1: Find the center of a region's urban areas
+# 1. Filter cities with population > 1M
+# 2. Create a unary union of all large cities
+# 3. Calculate the centroid
+geoterminal cities.shp center.wkt \
+    --query "population > 1000000" \
+    --unary-union \
+    --centroid
+
+# Example 2: Create a simplified boundary around intersecting features
+# 1. Filter features that intersect with a region of interest
+# 2. Create a buffer around them
+# 3. Merge all buffers into one
+# 4. Get the convex hull as a simplified boundary
+geoterminal features.shp boundary.geojson \
+    --intersects "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))" \
+    --buffer-size 1000 \
+    --unary-union \
+    --convex-hull
 ```
 
 ### File Inspection
 
-View the contents of your files using the head and tail commands:
+Inspect your geospatial data with various commands:
 
 ```bash
-# View first 10 rows of a file
-geoterminal input.geojson --head --rows 10
+# View first/last N rows
+geoterminal input.geojson --head 10  # First 10 rows
+geoterminal input.geojson --tail 5   # Last 5 rows
 
-# View last 8 rows of a file
-geoterminal input.geojson --tail --rows 8
+# Get information about the data
+geoterminal input.geojson --crs      # Show coordinate reference system
+geoterminal input.geojson --shape    # Show number of rows and columns
+geoterminal input.geojson --dtypes   # Show column data types
 ```
 
 ## Python API
@@ -127,8 +192,11 @@ buffered = processor.apply_buffer(distance=1000)
 h3_processor = H3Processor(gdf)
 h3_cells = h3_processor.polyfill(resolution=6)
 
-# Export
-h3_cells.to_file("output.geojson")
+# Export (supports various formats)
+h3_cells.to_file("output.geojson")  # GeoJSON
+h3_cells.to_file("output.shp")      # Shapefile
+h3_cells.to_file("output.csv")      # CSV with WKT geometry
+h3_cells.to_file("output.wkt")      # WKT (single geometry or GEOMETRYCOLLECTION)
 ```
 
 ## Documentation

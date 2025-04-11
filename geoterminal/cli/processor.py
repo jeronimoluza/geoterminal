@@ -93,7 +93,7 @@ def process_geometries(
                 processor.apply_buffer(value)
             elif op_type == "h3":
                 processor.gdf = polyfill(
-                    processor.gdf, value, include_geometry=args.h3_geom
+                    processor.gdf, value, include_geometry=True
                 )
             elif op_type == "reproject":
                 processor.reproject(value)

@@ -14,13 +14,26 @@ class GeometryProcessor:
     def apply_buffer(self, size: float) -> None
     def clip(self, mask_gdf: gpd.GeoDataFrame) -> None
     def reproject(self, target_crs: int) -> None
+    def unary_union(self) -> None
+    def convex_hull(self) -> None
+    def centroid(self) -> None
+    def envelope(self) -> None
+    def intersects(self, other: Union[str, gpd.GeoDataFrame]) -> None
 ```
 
 #### Methods
 
+Basic Operations:
 - `apply_buffer`: Apply a buffer of specified size in meters
 - `clip`: Clip geometries using a mask GeoDataFrame
 - `reproject`: Reproject geometries to target CRS
+
+Advanced Operations:
+- `unary_union`: Merge all geometries into one
+- `convex_hull`: Create convex hull of geometries
+- `centroid`: Calculate centroid of geometries
+- `envelope`: Get bounding box of geometries
+- `intersects`: Filter geometries that intersect with another geometry
 
 ## Exceptions
 
@@ -62,6 +75,85 @@ Creates a buffer around geometries.
 
 **Raises:**
 - `GeometryOperationError`: If buffer operation fails
+
+#### unary_union
+
+```python
+def unary_union(self) -> gpd.GeoDataFrame
+```
+
+Merges all geometries into a single geometry.
+
+**Returns:**
+
+- GeoDataFrame with a single merged geometry
+
+**Raises:**
+- `GeometryOperationError`: If union operation fails
+
+#### convex_hull
+
+```python
+def convex_hull(self) -> gpd.GeoDataFrame
+```
+
+Creates a convex hull containing all geometries.
+
+**Returns:**
+
+- GeoDataFrame with convex hull geometry
+
+**Raises:**
+- `GeometryOperationError`: If convex hull operation fails
+
+#### centroid
+
+```python
+def centroid(self) -> gpd.GeoDataFrame
+```
+
+Calculates the centroid of each geometry.
+
+**Returns:**
+
+- GeoDataFrame with centroid points
+
+**Raises:**
+- `GeometryOperationError`: If centroid calculation fails
+
+#### envelope
+
+```python
+def envelope(self) -> gpd.GeoDataFrame
+```
+
+Creates a bounding box (envelope) for each geometry.
+
+**Returns:**
+
+- GeoDataFrame with envelope polygons
+
+**Raises:**
+- `GeometryOperationError`: If envelope operation fails
+
+#### intersects
+
+```python
+def intersects(self, other: Union[str, gpd.GeoDataFrame]) -> gpd.GeoDataFrame
+```
+
+Filters geometries that intersect with another geometry.
+
+**Parameters:**
+
+- `other`: WKT string or GeoDataFrame to test intersection against
+
+**Returns:**
+
+- GeoDataFrame with geometries that intersect with the input
+
+**Raises:**
+- `GeometryOperationError`: If intersection operation fails
 
 #### clip
 

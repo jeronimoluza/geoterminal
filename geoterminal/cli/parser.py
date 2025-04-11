@@ -57,13 +57,10 @@ def setup_parser() -> argparse.ArgumentParser:
         "--buffer-size", type=float, help="Buffer size to apply"
     )
     parser.add_argument(
-        "--h3-res", type=int, help="H3 resolution for polyfilling"
-    )
-    parser.add_argument(
-        "--h3-geom",
-        default=True,
-        action="store_true",
-        help="Include H3 geometries",
+        "--h3-res",
+        type=int,
+        help="H3 resolution for converting geometries to H3 cells\
+        (includes hexagon geometries)",
     )
     parser.add_argument(
         "--input-crs", type=int, default=4326, help="Input CRS (default: 4326)"
