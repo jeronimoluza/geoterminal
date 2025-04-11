@@ -8,6 +8,7 @@ from loguru import logger
 from geoterminal.io.file import read_geometry_file
 from geoterminal.operators.geometry_operations import GeometryProcessor
 from geoterminal.operators.h3_operations import polyfill
+from geoterminal.operators.data_operations import DataProcessor
 
 # Map command line flags to operation types
 OP_FLAGS = {
@@ -18,6 +19,8 @@ OP_FLAGS = {
     "--unary-union": "unary_union",
     "--envelope": "envelope",
     "--convex-hull": "convex_hull",
+    "--centroid": "centroid",
+    "--query": "query",
 }
 
 
@@ -49,8 +52,10 @@ def process_geometries(
                     value = args.h3_res
                 elif op_type == "reproject":
                     value = args.output_crs
-                elif op_type in ["unary_union", "envelope", "convex_hull"]:
+                elif op_type in ["unary_union", "envelope", "convex_hull", "centroid"]:
                     value = True
+                elif op_type == "query":
+                    value = args.query
 
                 if value is not None:
                     operations.append((op_type, value))
@@ -73,6 +78,13 @@ def process_geometries(
                 processor.unary_union()
             elif op_type == "envelope":
                 processor.envelope()
+            elif op_type == "convex_hull":
+                processor.convex_hull()
+            elif op_type == "centroid":
+                processor.centroid()
+            elif op_type == "query":
+                data_processor = DataProcessor(processor.gdf)
+                processor.gdf = data_processor.query(value)
             elif op_type == "convex_hull":
                 processor.convex_hull()
 

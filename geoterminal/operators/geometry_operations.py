@@ -196,6 +196,27 @@ class GeometryProcessor:
                 f"Convex hull operation failed: {str(e)}"
             ) from e
 
+    def centroid(self) -> gpd.GeoDataFrame:
+        """Compute the centroid of all geometries in the GeoDataFrame.
+
+        Returns:
+            GeoDataFrame with a single geometry representing the centroid
+
+        Raises:
+            GeometryOperationError: If centroid operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing centroid")
+            self.gdf["geometry"] = self.gdf.geometry.to_crs(3857).centroid.to_crs(self.gdf.crs)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Centroid operation failed: {str(e)}"
+            ) from e
+
 
 # For backward compatibility
 def apply_buffer(

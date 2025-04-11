@@ -103,5 +103,17 @@ def setup_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Compute the convex hull of all input geometries",
     )
+    parser.add_argument(
+        "--centroid",
+        action="store_true",
+        help="Compute the centroid of all input geometries",
+    )
+    
+    # Data operations
+    parser.add_argument(
+        "--query",
+        type=str,
+        help="Filter data using a pandas query string (e.g., 'column > value')",
+    )
 
     return parser
