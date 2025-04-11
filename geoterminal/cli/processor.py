@@ -9,6 +9,7 @@ from geoterminal.io.file import read_geometry_file
 from geoterminal.operators.geometry_operations import GeometryProcessor
 from geoterminal.operators.h3_operations import polyfill
 from geoterminal.operators.data_operations import DataProcessor
+from geoterminal.operators.inspect_operations import InspectProcessor
 
 # Map command line flags to operation types
 OP_FLAGS = {
@@ -21,6 +22,11 @@ OP_FLAGS = {
     "--convex-hull": "convex_hull",
     "--centroid": "centroid",
     "--query": "query",
+    "--head": "head",
+    "--tail": "tail",
+    "--crs": "crs",
+    "--shape": "shape",
+    "--dtypes": "dtypes",
 }
 
 
@@ -52,10 +58,12 @@ def process_geometries(
                     value = args.h3_res
                 elif op_type == "reproject":
                     value = args.output_crs
-                elif op_type in ["unary_union", "envelope", "convex_hull", "centroid"]:
+                elif op_type in ["unary_union", "envelope", "convex_hull", "centroid", "crs", "shape", "dtypes"]:
                     value = True
                 elif op_type == "query":
                     value = args.query
+                elif op_type in ["head", "tail"]:
+                    value = getattr(args, op_type)
 
                 if value is not None:
                     operations.append((op_type, value))
@@ -85,8 +93,25 @@ def process_geometries(
             elif op_type == "query":
                 data_processor = DataProcessor(processor.gdf)
                 processor.gdf = data_processor.query(value)
-            elif op_type == "convex_hull":
-                processor.convex_hull()
+            elif op_type in ["head", "tail", "crs", "shape", "dtypes"]:
+                inspect_processor = InspectProcessor(processor.gdf)
+                if op_type == "head":
+                    result = inspect_processor.head(value if value else 5)
+                    print(result)
+                elif op_type == "tail":
+                    result = inspect_processor.tail(value if value else 5)
+                    print(result)
+                elif op_type == "crs":
+                    crs = inspect_processor.get_crs()
+                    print(f"CRS: {crs}")
+                elif op_type == "shape":
+                    shape = inspect_processor.get_shape()
+                    print(f"Shape: {shape[0]} rows × {shape[1]} columns")
+                elif op_type == "dtypes":
+                    dtypes = inspect_processor.get_dtypes()
+                    print("Column data types:")
+                    for col, dtype in dtypes.items():
+                        print(f"  {col}: {dtype}")
 
     except Exception as e:
         logger.error(f"Unexpected error during processing: {str(e)}")

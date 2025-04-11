@@ -72,19 +72,35 @@ def setup_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--head",
         type=int,
+        nargs='?',
+        const=5,
+        default=None,
         metavar="N",
-        help="Show first N rows of the geometry file in WKT format",
+        help="Show first N rows of the geometry file (default: 5)",
     )
     parser.add_argument(
         "--tail",
         type=int,
+        nargs='?',
+        const=5,
+        default=None,
         metavar="N",
-        help="Show last N rows of the geometry file in WKT format",
+        help="Show last N rows of the geometry file (default: 5)",
     )
     parser.add_argument(
         "--crs",
         action="store_true",
         help="Show coordinate reference system information",
+    )
+    parser.add_argument(
+        "--shape",
+        action="store_true",
+        help="Show the dimensions (rows, columns) of the GeoDataFrame",
+    )
+    parser.add_argument(
+        "--dtypes",
+        action="store_true",
+        help="Show the data types of all columns in the GeoDataFrame",
     )
     
     # Geometric operations
