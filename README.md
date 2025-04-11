@@ -40,18 +40,9 @@ geoterminal is a command-line interface tool to quickly inspect and transform ge
 pip install geoterminal
 ```
 
-For development, we use Poetry. First install Poetry if you haven't already:
+For development, we use Poetry.
 
 ```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
-Or if you have Homebrew installed, you can do:
-
-```bash
-brew install poetry
-```
-
 Then clone and install the project:
 
 ```bash
@@ -88,6 +79,21 @@ geoterminal input.shp output.geojson --h3-res 7 --buffer-size 1000  # H3 first, 
 
 # Set log level for detailed output
 geoterminal input.shp output.geojson --buffer-size 1000 --log-level DEBUG
+```
+
+### File Inspection
+
+Inspect your geospatial data with various commands:
+
+```bash
+# View first/last N rows
+geoterminal input.geojson --head 10  # First 10 rows
+geoterminal input.geojson --tail 5   # Last 5 rows
+
+# Get information about the data
+geoterminal input.geojson --crs      # Show coordinate reference system
+geoterminal input.geojson --shape    # Show number of rows and columns
+geoterminal input.geojson --dtypes   # Show column data types
 ```
 
 ### Processing Options
@@ -162,20 +168,6 @@ geoterminal features.shp boundary.geojson \
     --convex-hull
 ```
 
-### File Inspection
-
-Inspect your geospatial data with various commands:
-
-```bash
-# View first/last N rows
-geoterminal input.geojson --head 10  # First 10 rows
-geoterminal input.geojson --tail 5   # Last 5 rows
-
-# Get information about the data
-geoterminal input.geojson --crs      # Show coordinate reference system
-geoterminal input.geojson --shape    # Show number of rows and columns
-geoterminal input.geojson --dtypes   # Show column data types
-```
 
 ## Python API
 
