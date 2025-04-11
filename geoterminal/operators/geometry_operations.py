@@ -128,6 +128,74 @@ class GeometryProcessor:
                 f"Clipping operation failed: {str(e)}"
             ) from e
 
+    def unary_union(self) -> gpd.GeoDataFrame:
+        """Compute the unary union of all geometries in the GeoDataFrame.
+
+        Returns:
+            GeoDataFrame with a single geometry representing the union
+
+        Raises:
+            GeometryOperationError: If unary union operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing unary union")
+            union_geom = self.gdf.geometry.unary_union
+            self.gdf = gpd.GeoDataFrame(geometry=[union_geom], crs=self.gdf.crs)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Unary union operation failed: {str(e)}"
+            ) from e
+
+    def envelope(self) -> gpd.GeoDataFrame:
+        """Compute the envelope (bounding box) of all geometries in the GeoDataFrame.
+
+        Returns:
+            GeoDataFrame with a single geometry representing the envelope
+
+        Raises:
+            GeometryOperationError: If envelope operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing envelope")
+            envelope_geom = self.gdf.geometry.total_bounds
+            from shapely.geometry import box
+            bbox = box(envelope_geom[0], envelope_geom[1], envelope_geom[2], envelope_geom[3])
+            self.gdf = gpd.GeoDataFrame(geometry=[bbox], crs=self.gdf.crs)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Envelope operation failed: {str(e)}"
+            ) from e
+
+    def convex_hull(self) -> gpd.GeoDataFrame:
+        """Compute the convex hull of all geometries in the GeoDataFrame.
+
+        Returns:
+            GeoDataFrame with a single geometry representing the convex hull
+
+        Raises:
+            GeometryOperationError: If convex hull operation fails
+        """
+        if self.gdf is None:
+            raise GeometryOperationError("No GeoDataFrame set")
+
+        try:
+            logger.info("Computing convex hull")
+            hull_geom = self.gdf.geometry.unary_union.convex_hull
+            self.gdf = gpd.GeoDataFrame(geometry=[hull_geom], crs=self.gdf.crs)
+            return self.gdf
+        except Exception as e:
+            raise GeometryOperationError(
+                f"Convex hull operation failed: {str(e)}"
+            ) from e
+
 
 # For backward compatibility
 def apply_buffer(

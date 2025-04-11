@@ -15,6 +15,9 @@ OP_FLAGS = {
     "--buffer-size": "buffer",
     "--h3-res": "h3",
     "--output-crs": "reproject",
+    "--unary-union": "unary_union",
+    "--envelope": "envelope",
+    "--convex-hull": "convex_hull",
 }
 
 
@@ -46,6 +49,8 @@ def process_geometries(
                     value = args.h3_res
                 elif op_type == "reproject":
                     value = args.output_crs
+                elif op_type in ["unary_union", "envelope", "convex_hull"]:
+                    value = True
 
                 if value is not None:
                     operations.append((op_type, value))
@@ -64,6 +69,12 @@ def process_geometries(
                 )
             elif op_type == "reproject":
                 processor.reproject(value)
+            elif op_type == "unary_union":
+                processor.unary_union()
+            elif op_type == "envelope":
+                processor.envelope()
+            elif op_type == "convex_hull":
+                processor.convex_hull()
 
     except Exception as e:
         logger.error(f"Unexpected error during processing: {str(e)}")

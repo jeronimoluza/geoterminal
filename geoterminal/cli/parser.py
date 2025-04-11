@@ -86,17 +86,22 @@ def setup_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Show coordinate reference system information",
     )
-
-    # # Add subcommands
-    # subparsers = parser.add_subparsers(
-    #     dest="command", help="Additional commands"
-    # )
-
-    # Set up head and tail commands
-    # setup_head_command(subparsers)
-    # setup_tail_command(subparsers)
-
-    # # Set up clip command
-    # setup_clip_command(subparsers)
+    
+    # Geometric operations
+    parser.add_argument(
+        "--unary-union",
+        action="store_true",
+        help="Compute the unary union of all input geometries",
+    )
+    parser.add_argument(
+        "--envelope",
+        action="store_true",
+        help="Compute the bounding box envelope of all input geometries",
+    )
+    parser.add_argument(
+        "--convex-hull",
+        action="store_true",
+        help="Compute the convex hull of all input geometries",
+    )
 
     return parser
