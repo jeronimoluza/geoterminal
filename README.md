@@ -17,6 +17,7 @@ geoterminal is a command-line interface tool to quickly inspect and transform ge
   - Envelope (bounding box)
   - Simplify geometries
   - Intersect with other geometries
+  - More to come!
 - H3 integration (polyfill)
 - CRS transformations
 - Data operations:
