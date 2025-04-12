@@ -7,8 +7,11 @@ including viewing data samples, structure information, and metadata.
 from typing import Any, Dict, Optional, Tuple
 
 import geopandas as gpd
+import pandas as pd
 from loguru import logger
 from shapely import wkt
+
+pd.set_option("display.max_columns", 100)
 
 
 def simplify_geom_repr(geom_wkt: str) -> str:
@@ -158,7 +161,7 @@ class InspectProcessor:
             raise InspectOperationError("No GeoDataFrame set")
 
         try:
-            logger.info("Getting data types information")
+            logger.info("Getting data types")
             return self.gdf.dtypes.to_dict()
         except Exception as e:
             raise InspectOperationError(
