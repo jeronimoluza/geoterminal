@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "geoterminal"
-version = "0.1.3"
+version = "0.1.4"
 description = "geoterminal is a command-line tool designed to simplify common GIS tasks that you may encounter in your daily work."
 authors = [{name = "Jerónimo Luza", email = "jero.luza@gmail.com"}]
 license = {text = "MIT"}
@@ -17,7 +17,6 @@ dependencies = [
   "pyarrow>=6.0.0",
   "shapely>=1.7.0",
   "h3>=4.1.2",
-  "tomli>=2.0.0",
   "loguru>=0.7.0"
 ]
 
