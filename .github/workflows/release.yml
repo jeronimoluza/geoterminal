@@ -29,17 +29,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install toml
 
       - name: Check version changes
         id: version_check
         run: |
-          # Get the current version from pyproject.toml
-          CURRENT_VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+          # Get the current version from _version.py
+          CURRENT_VERSION=$(python -c "import re; content = open('geoterminal/_version.py').read(); print(re.search('__version__ = \\\'(.*?)\\\'', content).group(1))")
 
           # Get the version from the previous commit on main
           git checkout HEAD^
-          PREVIOUS_VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+          PREVIOUS_VERSION=$(python -c "import re; content = open('geoterminal/_version.py').read(); print(re.search('__version__ = \\\'(.*?)\\\'', content).group(1))")
           git checkout -
 
           # Compare versions

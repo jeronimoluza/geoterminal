@@ -17,7 +17,6 @@ dependencies = [
   "pyarrow>=6.0.0",
   "shapely>=1.7.0",
   "h3>=4.1.2",
-  "tomli>=2.0.0",
   "loguru>=0.7.0"
 ]
 
