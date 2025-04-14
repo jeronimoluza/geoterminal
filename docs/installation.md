@@ -8,11 +8,13 @@
 ## Dependencies
 
 geoterminal requires the following main dependencies:
+
 - geopandas
 - shapely
 - h3
 - pandas
 - pyarrow
+- loguru
 
 ## Installation Methods
 
@@ -76,6 +78,7 @@ brew install gdal
 ### Other Issues
 
 For other installation issues:
+
 1. Check your Python version: `python --version`
 2. Ensure pip is up to date: `pip install --upgrade pip`
 3. Check the [GitHub issues](https://github.com/jeronimoluza/geoterminal/issues) for similar problems
