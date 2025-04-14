@@ -3,6 +3,5 @@ pandas
 geopandas
 h3==4.1.2
 shapely
-click
 pytest
 argparse
