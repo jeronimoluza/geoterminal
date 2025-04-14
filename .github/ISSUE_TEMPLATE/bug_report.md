@@ -7,16 +7,25 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+- [ ] I have checked that this issue has not already been reported.
+
+- [ ] I have confirmed this bug exists on the latest version of geoterminal.
+
+- [ ] (optional) I have confirmed this bug exists on the main branch of geoterminal.
+
+#### Describe the bug
+
 A clear and concise description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Run command '...'
-2. With input file '....'
-3. See error
+#### Code Sample, a copy-pastable example
 
-**Expected behavior**
+```python
+# Your code here
+
+```
+
+#### Expected behavior
+
 A clear and concise description of what you expected to happen.
 
 **System Information:**

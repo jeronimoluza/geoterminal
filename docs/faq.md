@@ -7,11 +7,12 @@ geoterminal is a Python library and command-line tool for geospatial data proces
 
 ### What file formats are supported?
 geoterminal supports:
+
 - GeoJSON (.geojson)
 - Shapefile (.shp)
 - CSV with WKT column
 - ORC with WKT column
-- Direct WKT string input
+- Direct WKT string input/output
 
 ## Installation
 
@@ -37,39 +38,6 @@ Common issues with WKT input:
 1. Missing CRS specification (use `--mask-crs` for CLI or `crs` parameter in API)
 2. Invalid WKT syntax
 3. Self-intersecting or invalid geometry
-
-### How do I choose the right H3 resolution?
-H3 resolution choice depends on your use case:
-
-- Resolution 0-3: Continental scale
-- Resolution 4-7: Regional scale
-- Resolution 8-10: City scale
-- Resolution 11-15: Building scale
-
-Consider that each increase in resolution approximately septuples the number of cells.
-
-## Common Issues
-
-### Invalid Geometry Errors
-
-1. Check for self-intersecting polygons
-2. Ensure geometries are properly closed
-3. Use `shapely.is_valid` to validate geometries
-4. Consider using `shapely.make_valid()`
-
-### CRS Mismatches
-
-1. Always check input CRS
-2. Use appropriate CRS for your region
-3. Be careful with lat/lon order in WKT
-4. Remember that H3 expects WGS84 (EPSG:4326)
-
-### Performance Issues
-
-1. Use appropriate H3 resolution
-2. Enable parallel processing
-3. Consider chunking large datasets
-4. Profile memory usage
 
 ## Contributing
 

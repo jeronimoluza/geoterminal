@@ -12,13 +12,13 @@ cd geoterminal
 
 2. Create a virtual environment:
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+poetry install
+poetry shell
 ```
 
 3. Install development dependencies:
 ```bash
-pip install -e ".[dev]"
+pip install -e .
 ```
 
 4. Install pre-commit hooks:
@@ -56,6 +56,7 @@ git commit -m "Description of changes"
 ## Code Style
 
 We use:
+
 - Black for code formatting
 - isort for import sorting
 - flake8 for linting
