@@ -9,7 +9,7 @@ geoterminal is a powerful Python library for geospatial data processing and H3 o
 - **Data Operations**: Query filtering using pandas syntax
 - **H3 Integration**: Efficient hexagonal hierarchical geospatial indexing
 - **Command Line Interface**: Easy-to-use CLI with operation chaining
-- **Inspection Tools**: Shape, data types, and CRS information
+- **Inspection Tools**: Head, tail, shape, data types, and CRS information
 
 ## Quick Start
 
