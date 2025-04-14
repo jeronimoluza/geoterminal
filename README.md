@@ -1,7 +1,7 @@
 # geoterminal
 
 [![PyPI version](https://img.shields.io/pypi/v/geoterminal.svg)](https://pypi.python.org/pypi/geoterminal/)
-[![Actions Status](https://github.com/geoterminal/workflows/Tests/badge.svg)](https://github.com/geoterminal/actions?query=workflow%3ATests)
+[![Actions Status](https://github.com/jeronimoluza/geoterminal/workflows/CI/badge.svg)](https://github.com/jeronimoluza/geoterminal/actions?query=workflow%3ACI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
