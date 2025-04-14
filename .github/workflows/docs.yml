@@ -31,4 +31,3 @@ jobs:
           # This is needed so mkdocs can push to gh-pages
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mkdocs gh-deploy
-
