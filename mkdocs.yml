@@ -25,8 +25,8 @@ nav:
     - Geometry Operations: api/geometry_operations.md
     - H3 Operations: api/h3_operations.md
     - File I/O: api/file_io.md
-  - Contributing: contributing.md
-  - FAQ: faq.md
+  - Community:
+    - Contributing: contributing.md
   - Changelog: changelog.md
 
 markdown_extensions:

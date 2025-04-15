@@ -45,9 +45,8 @@ geoterminal cities.shp centers.wkt \
 
 If you need help or have questions:
 
-1. Check the [FAQ](faq.md)
-2. Open an issue on GitHub
-3. Join our community discussions
+1. Open an issue on GitHub
+2. Join our community discussions
 
 ## License
 

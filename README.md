@@ -30,9 +30,9 @@ geoterminal is a command-line interface tool to quickly inspect and transform ge
   - Get column data types
 - Operation order preservation
 
-
-
 ## Quick Start
+
+Check out the [walkthrough in this blog post](https://jeronimoluza.github.io/posts/geoterminal-is-out/)!
 
 ### Installation
 
@@ -198,9 +198,8 @@ Comprehensive documentation is available:
 
 - [Installation Guide](docs/installation.md)
 - [Usage Guide](docs/usage.md)
-- [API Reference](docs/api.md)
+- [API Reference](docs/api/geometry_operations.md)
 - [CLI Documentation](docs/cli.md)
-- [FAQ](docs/faq.md)
 
 ## Contributing
 
