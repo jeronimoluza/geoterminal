@@ -10,12 +10,10 @@ Thank you for your interest in contributing to geoterminal! This document provid
    cd geoterminal
    ```
 
-2. Create a virtual environment and install dependencies:
+2. Create a virtual environment:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   pip install -r requirements-dev.txt
+   poetry install
+   poetry shell
    ```
 
 3. Install pre-commit hooks:
