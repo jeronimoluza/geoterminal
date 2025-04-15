@@ -119,24 +119,23 @@
 <li><strong>Inspection Tools</strong>: Head, tail, shape, data types, and CRS information</li>
 </ul>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install geoterminal</span>
-pip<span class="w"> </span>install<span class="w"> </span>geoterminal
+<pre class="highlight"><code class="language-bash"># Install geoterminal
+pip install geoterminal
 
-<span class="c1"># Process a file</span>
-geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson
+# Process a file
+geoterminal input.shp output.geojson
 
-<span class="c1"># Process a WKT string</span>
-geoterminal<span class="w"> </span><span class="s2">&quot;POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))&quot;</span><span class="w"> </span>output.geojson
+# Process a WKT string
+geoterminal "POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))" output.geojson
 
-<span class="c1"># Apply a buffer of 1000 meters and convert to H3 cells</span>
-geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--buffer-size<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--h3-res<span class="w"> </span><span class="m">6</span>
+# Apply a buffer of 1000 meters and convert to H3 cells
+geoterminal input.shp output.geojson --buffer-size 1000 --h3-res 6
 
-<span class="c1"># Chain operations to find urban centers in a specific country</span>
-geoterminal<span class="w"> </span>cities.shp<span class="w"> </span>centers.wkt<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--query<span class="w"> </span><span class="s2">&quot;country == &#39;Country A&#39;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--query<span class="w"> </span><span class="s2">&quot;population &gt; 1000000&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--centroid
-</code></pre></div>
+# Chain operations to find urban centers in a specific country
+geoterminal cities.shp centers.wkt \
+    --query "country == 'Country A'" \
+    --query "population &gt; 1000000" \
+    --centroid</code></pre>
 <h2 id="documentation-sections">Documentation Sections<a class="headerlink" href="#documentation-sections" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="installation/">Installation</a></li>
@@ -205,5 +204,5 @@ geoterminal<span class="w"> </span>cities.shp<span class="w"> </span>centers.wkt
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-04-15 14:02:06.960424+00:00
+Build Date UTC : 2025-04-15 14:05:25.724016+00:00
 -->

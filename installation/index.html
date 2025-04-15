@@ -138,49 +138,41 @@
 </ul>
 <h2 id="installation-methods">Installation Methods<a class="headerlink" href="#installation-methods" title="Permanent link">&para;</a></h2>
 <h3 id="1-from-pypi-recommended">1. From PyPI (Recommended)<a class="headerlink" href="#1-from-pypi-recommended" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>geoterminal
-</code></pre></div>
+<pre class="highlight"><code class="language-bash">pip install geoterminal</code></pre>
 <h3 id="2-from-source-development">2. From Source (Development)<a class="headerlink" href="#2-from-source-development" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Install Poetry if you haven't already:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sSL<span class="w"> </span>https://install.python-poetry.org<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">curl -sSL https://install.python-poetry.org | python3 -</code></pre></p>
 </li>
 <li>
 <p>Clone the repository:
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/jeronimoluza/geoterminal.git
-<span class="nb">cd</span><span class="w"> </span>geoterminal
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">git clone https://github.com/jeronimoluza/geoterminal.git
+cd geoterminal</code></pre></p>
 </li>
 <li>
 <p>Install dependencies and create virtual environment:
-<div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>install
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">poetry install</code></pre></p>
 </li>
 <li>
 <p>Activate the virtual environment:
-<div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>shell
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">poetry shell</code></pre></p>
 </li>
 </ol>
 <h2 id="verifying-installation">Verifying Installation<a class="headerlink" href="#verifying-installation" title="Permanent link">&para;</a></h2>
 <p>To verify that geoterminal is installed correctly:</p>
-<div class="highlight"><pre><span></span><code>geoterminal<span class="w"> </span>--version
-</code></pre></div>
+<pre class="highlight"><code class="language-bash">geoterminal --version</code></pre>
 <h2 id="common-installation-issues">Common Installation Issues<a class="headerlink" href="#common-installation-issues" title="Permanent link">&para;</a></h2>
 <h3 id="missing-gdal">Missing GDAL<a class="headerlink" href="#missing-gdal" title="Permanent link">&para;</a></h3>
 <p>If you encounter GDAL-related errors:</p>
 <ol>
 <li>
 <p>On Ubuntu/Debian:
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gdal-bin<span class="w"> </span>libgdal-dev
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">sudo apt-get install gdal-bin libgdal-dev</code></pre></p>
 </li>
 <li>
 <p>On macOS:
-<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>gdal
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">brew install gdal</code></pre></p>
 </li>
 <li>
 <p>On Windows:</p>

@@ -124,12 +124,11 @@
 <p>Module: <code>geoterminal.io.file</code></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="read_geometry_file">read_geometry_file<a class="headerlink" href="#read_geometry_file" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_geometry_file</span><span class="p">(</span>
-    <span class="n">file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
-    <span class="n">crs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">geometry_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def read_geometry_file(
+    file_path: Union[str, Path],
+    crs: Optional[int] = None,
+    geometry_column: Optional[str] = None
+) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Reads geometry from file or WKT string.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -154,11 +153,10 @@
 <li>WKT string</li>
 </ul>
 <h3 id="export_data">export_data<a class="headerlink" href="#export_data" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export_data</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
-    <span class="n">output_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def export_data(
+    data: Union[gpd.GeoDataFrame, pd.DataFrame],
+    output_path: Union[str, Path]
+) -&gt; None</code></pre>
 <p>Exports data to file.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -179,36 +177,33 @@
 </ul>
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
 <h3 id="filehandlererror">FileHandlerError<a class="headerlink" href="#filehandlererror" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FileHandlerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">class FileHandlerError(Exception)</code></pre>
 <p>Raised when file operations fail. Includes detailed error message.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="reading-files">Reading Files<a class="headerlink" href="#reading-files" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoterminal.file_io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_geometry_file</span>
+<pre class="highlight"><code class="language-python">from geoterminal.file_io import read_geometry_file
 
-<span class="c1"># Read GeoJSON</span>
-<span class="n">gdf</span> <span class="o">=</span> <span class="n">read_geometry_file</span><span class="p">(</span><span class="s2">&quot;input.geojson&quot;</span><span class="p">)</span>
+# Read GeoJSON
+gdf = read_geometry_file("input.geojson")
 
-<span class="c1"># Read WKT with CRS</span>
-<span class="n">wkt</span> <span class="o">=</span> <span class="s2">&quot;POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))&quot;</span>
-<span class="n">gdf</span> <span class="o">=</span> <span class="n">read_geometry_file</span><span class="p">(</span><span class="n">wkt</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+# Read WKT with CRS
+wkt = "POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))"
+gdf = read_geometry_file(wkt, crs="EPSG:4326")
 
-<span class="c1"># Read CSV/ORC with custom geometry column</span>
-<span class="n">gdf</span> <span class="o">=</span> <span class="n">read_geometry_file</span><span class="p">(</span><span class="s2">&quot;input.csv&quot;</span><span class="p">,</span> <span class="n">geometry_column</span><span class="o">=</span><span class="s2">&quot;my_wkt_column&quot;</span><span class="p">)</span>
-<span class="n">gdf</span> <span class="o">=</span> <span class="n">read_geometry_file</span><span class="p">(</span><span class="s2">&quot;input.orc&quot;</span><span class="p">,</span> <span class="n">geometry_column</span><span class="o">=</span><span class="s2">&quot;my_wkt_column&quot;</span><span class="p">)</span>
-</code></pre></div>
+# Read CSV/ORC with custom geometry column
+gdf = read_geometry_file("input.csv", geometry_column="my_wkt_column")
+gdf = read_geometry_file("input.orc", geometry_column="my_wkt_column")</code></pre>
 <h3 id="exporting-files">Exporting Files<a class="headerlink" href="#exporting-files" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoterminal.file_io</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_data</span>
+<pre class="highlight"><code class="language-python">from geoterminal.file_io import export_data
 
-<span class="c1"># Export to GeoJSON</span>
-<span class="n">export_data</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="s2">&quot;output.geojson&quot;</span><span class="p">)</span>
+# Export to GeoJSON
+export_data(gdf, "output.geojson")
 
-<span class="c1"># Export to CSV with WKT geometry</span>
-<span class="n">export_data</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="s2">&quot;output.csv&quot;</span><span class="p">)</span>
+# Export to CSV with WKT geometry
+export_data(gdf, "output.csv")
 
-<span class="c1"># Export to WKT</span>
-<span class="n">export_data</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="s2">&quot;output.wkt&quot;</span><span class="p">)</span>  <span class="c1"># Single geometry or GEOMETRYCOLLECTION</span>
-</code></pre></div>
+# Export to WKT
+export_data(gdf, "output.wkt")  # Single geometry or GEOMETRYCOLLECTION</code></pre>
               
             </div>
           </div><footer>

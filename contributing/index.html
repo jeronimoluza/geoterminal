@@ -120,52 +120,44 @@
 <ol>
 <li>
 <p>Fork and clone the repository:
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/yourusername/geoterminal.git
-<span class="nb">cd</span><span class="w"> </span>geoterminal
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">git clone https://github.com/yourusername/geoterminal.git
+cd geoterminal</code></pre></p>
 </li>
 <li>
 <p>Create a virtual environment:
-<div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>install
-poetry<span class="w"> </span>shell
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">poetry install
+poetry shell</code></pre></p>
 </li>
 <li>
 <p>Install development dependencies:
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">pip install -e .</code></pre></p>
 </li>
 <li>
 <p>Install pre-commit hooks:
-<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>install
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">pre-commit install</code></pre></p>
 </li>
 </ol>
 <h2 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Create a new branch:
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature-name
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">git checkout -b feature-name</code></pre></p>
 </li>
 <li>
 <p>Make your changes and write tests</p>
 </li>
 <li>
 <p>Run tests:
-<div class="highlight"><pre><span></span><code>pytest
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">pytest</code></pre></p>
 </li>
 <li>
 <p>Run pre-commit checks:
-<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">pre-commit run --all-files</code></pre></p>
 </li>
 <li>
 <p>Commit your changes:
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Description of changes&quot;</span>
-</code></pre></div></p>
+<pre class="highlight"><code class="language-bash">git add .
+git commit -m "Description of changes"</code></pre></p>
 </li>
 <li>
 <p>Push to your fork and create a pull request</p>

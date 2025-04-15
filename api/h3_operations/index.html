@@ -150,17 +150,15 @@
 <p>Module: <code>geoterminal.operators.h3_operations</code></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="polyfill">polyfill<a class="headerlink" href="#polyfill" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyfill</span><span class="p">(</span><span class="n">gdf</span><span class="p">:</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">,</span> <span class="n">resolution</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def polyfill(gdf: gpd.GeoDataFrame, resolution: int) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Convert geometries to H3 hexagons at specified resolution.</p>
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="h3processor">H3Processor<a class="headerlink" href="#h3processor" title="Permanent link">&para;</a></h3>
 <p>Handles H3 grid operations on GeoDataFrames.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">H3Processor</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gdf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">polyfill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolution</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_hex_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h3_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polygon</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">class H3Processor:
+    def __init__(self, gdf: Optional[gpd.GeoDataFrame] = None)
+    def polyfill(self, resolution: int) -&gt; gpd.GeoDataFrame
+    def get_hex_geometry(self, h3_address: str) -&gt; Polygon</code></pre>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>polyfill</code>: Convert geometries to H3 hexagons</li>
@@ -172,17 +170,15 @@
 <h2 id="h3processor_1">H3Processor<a class="headerlink" href="#h3processor_1" title="Permanent link">&para;</a></h2>
 <p>The <code>H3Processor</code> class handles H3 grid operations.</p>
 <h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">H3Processor</span><span class="p">(</span><span class="n">gdf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">H3Processor(gdf: Optional[gpd.GeoDataFrame] = None)</code></pre>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>gdf</code>: Optional GeoDataFrame to process. If None, can be set later.</li>
 </ul>
 <h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h3>
 <h4 id="get_hex_geometry">get_hex_geometry<a class="headerlink" href="#get_hex_geometry" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">get_hex_geometry</span><span class="p">(</span><span class="n">hex_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polygon</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">@staticmethod
+def get_hex_geometry(hex_id: str) -&gt; Polygon</code></pre>
 <p>Gets the geometry of an H3 hexagon.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -197,11 +193,10 @@
 <li><code>H3OperationError</code>: If hex_id is invalid</li>
 </ul>
 <h4 id="polyfill_1">polyfill<a class="headerlink" href="#polyfill_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">polyfill</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def polyfill(
+    self,
+    resolution: int
+) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Fills polygons with H3 cells. Always includes hexagon geometries.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -217,14 +212,12 @@
 </ul>
 <h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
 <h4 id="gdf">gdf<a class="headerlink" href="#gdf" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gdf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">@property
+def gdf(self) -&gt; Optional[gpd.GeoDataFrame]</code></pre>
 <p>The current GeoDataFrame being processed.</p>
 <h3 id="exceptions_1">Exceptions<a class="headerlink" href="#exceptions_1" title="Permanent link">&para;</a></h3>
 <h4 id="h3operationerror_1">H3OperationError<a class="headerlink" href="#h3operationerror_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">H3OperationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">class H3OperationError(Exception)</code></pre>
 <p>Raised when an H3 operation fails. Includes detailed error message.</p>
               
             </div>

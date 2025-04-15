@@ -161,18 +161,17 @@
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <h3 id="geometryprocessor">GeometryProcessor<a class="headerlink" href="#geometryprocessor" title="Permanent link">&para;</a></h3>
 <p>Handles geometry operations on GeoDataFrames.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GeometryProcessor</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gdf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">apply_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask_gdf</span><span class="p">:</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">reproject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_crs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">unary_union</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">convex_hull</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">envelope</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">simplify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">class GeometryProcessor:
+    def __init__(self, gdf: Optional[gpd.GeoDataFrame] = None)
+    def apply_buffer(self, size: float) -&gt; None
+    def clip(self, mask_gdf: gpd.GeoDataFrame) -&gt; None
+    def reproject(self, target_crs: int) -&gt; None
+    def unary_union(self) -&gt; None
+    def convex_hull(self) -&gt; None
+    def centroid(self) -&gt; None
+    def envelope(self) -&gt; None
+    def intersects(self, other: Union[str, gpd.GeoDataFrame]) -&gt; None
+    def simplify(self, tolerance: float) -&gt; None</code></pre>
 <h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
 <p>Basic Operations:</p>
 <ul>
@@ -195,16 +194,14 @@
 <h2 id="geometryprocessor_1">GeometryProcessor<a class="headerlink" href="#geometryprocessor_1" title="Permanent link">&para;</a></h2>
 <p>The <code>GeometryProcessor</code> class is the main interface for geometric operations.</p>
 <h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">GeometryProcessor</span><span class="p">(</span><span class="n">gdf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">GeometryProcessor(gdf: Optional[gpd.GeoDataFrame] = None)</code></pre>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>gdf</code>: Optional GeoDataFrame to process. If None, can be set later.</li>
 </ul>
 <h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h3>
 <h4 id="apply_buffer">apply_buffer<a class="headerlink" href="#apply_buffer" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">apply_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def apply_buffer(self, distance: float) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Creates a buffer around geometries.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -219,8 +216,7 @@
 <li><code>GeometryOperationError</code>: If buffer operation fails</li>
 </ul>
 <h4 id="unary_union">unary_union<a class="headerlink" href="#unary_union" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">unary_union</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def unary_union(self) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Merges all geometries into a single geometry.</p>
 <p><strong>Returns:</strong></p>
 <ul>
@@ -231,8 +227,7 @@
 <li><code>GeometryOperationError</code>: If union operation fails</li>
 </ul>
 <h4 id="convex_hull">convex_hull<a class="headerlink" href="#convex_hull" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convex_hull</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def convex_hull(self) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Creates a convex hull containing all geometries.</p>
 <p><strong>Returns:</strong></p>
 <ul>
@@ -243,8 +238,7 @@
 <li><code>GeometryOperationError</code>: If convex hull operation fails</li>
 </ul>
 <h4 id="centroid">centroid<a class="headerlink" href="#centroid" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def centroid(self) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Calculates the centroid of each geometry.</p>
 <p><strong>Returns:</strong></p>
 <ul>
@@ -255,8 +249,7 @@
 <li><code>GeometryOperationError</code>: If centroid calculation fails</li>
 </ul>
 <h4 id="envelope">envelope<a class="headerlink" href="#envelope" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">envelope</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def envelope(self) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Creates a bounding box (envelope) for each geometry.</p>
 <p><strong>Returns:</strong></p>
 <ul>
@@ -267,8 +260,7 @@
 <li><code>GeometryOperationError</code>: If envelope operation fails</li>
 </ul>
 <h4 id="intersects">intersects<a class="headerlink" href="#intersects" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def intersects(self, other: Union[str, gpd.GeoDataFrame]) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Filters geometries that intersect with another geometry.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -283,8 +275,7 @@
 <li><code>GeometryOperationError</code>: If intersection operation fails</li>
 </ul>
 <h4 id="simplify">simplify<a class="headerlink" href="#simplify" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">simplify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def simplify(self, tolerance: float) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Simplify geometries using Douglas-Peucker algorithm.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -300,8 +291,7 @@
 <li><code>GeometryOperationError</code>: If simplification fails</li>
 </ul>
 <h4 id="clip">clip<a class="headerlink" href="#clip" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def clip(self, mask: Union[gpd.GeoDataFrame, Polygon]) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Clips geometries using a mask.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -316,8 +306,7 @@
 <li><code>GeometryOperationError</code>: If clip operation fails</li>
 </ul>
 <h4 id="reproject">reproject<a class="headerlink" href="#reproject" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reproject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_crs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">def reproject(self, target_crs: Union[str, int]) -&gt; gpd.GeoDataFrame</code></pre>
 <p>Reprojects the GeoDataFrame to a new CRS.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -333,19 +322,16 @@
 </ul>
 <h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
 <h4 id="gdf">gdf<a class="headerlink" href="#gdf" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gdf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">@property
+def gdf(self) -&gt; Optional[gpd.GeoDataFrame]</code></pre>
 <p>The current GeoDataFrame being processed.</p>
 <h4 id="crs">crs<a class="headerlink" href="#crs" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">crs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">@property
+def crs(self) -&gt; Optional[str]</code></pre>
 <p>The CRS of the current GeoDataFrame.</p>
 <h3 id="exceptions_1">Exceptions<a class="headerlink" href="#exceptions_1" title="Permanent link">&para;</a></h3>
 <h4 id="geometryoperationerror_1">GeometryOperationError<a class="headerlink" href="#geometryoperationerror_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GeometryOperationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">class GeometryOperationError(Exception)</code></pre>
 <p>Raised when a geometry operation fails. Includes detailed error message.</p>
               
             </div>
