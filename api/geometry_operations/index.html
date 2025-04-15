@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jeronimo Luza" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Geometry Operations - geoterminal</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Geometry Operations";
+        var mkdocs_page_input_path = "api/geometry_operations.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> geoterminal
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI Reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Geometry Operations</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#geometryprocessor">GeometryProcessor</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#geometryoperationerror">GeometryOperationError</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#geometryprocessor_1">GeometryProcessor</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#constructor">Constructor</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#methods_1">Methods</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#apply_buffer">apply_buffer</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#unary_union">unary_union</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#convex_hull">convex_hull</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#centroid">centroid</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#envelope">envelope</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#intersects">intersects</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#simplify">simplify</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#clip">clip</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#reproject">reproject</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#properties">Properties</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#gdf">gdf</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#crs">crs</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#exceptions_1">Exceptions</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#geometryoperationerror_1">GeometryOperationError</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../h3_operations/">H3 Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../file_io/">File I/O</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Community</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contributing/">Contributing</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">geoterminal</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API Reference</li>
+      <li class="breadcrumb-item active">Geometry Operations</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/jeronimoluza/geoterminal/edit/master/docs/api/geometry_operations.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="geometry-operations-api">Geometry Operations API<a class="headerlink" href="#geometry-operations-api" title="Permanent link">&para;</a></h1>
+<p>Module: <code>geoterminal.operators.geometry_operations</code></p>
+<h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
+<h3 id="geometryprocessor">GeometryProcessor<a class="headerlink" href="#geometryprocessor" title="Permanent link">&para;</a></h3>
+<p>Handles geometry operations on GeoDataFrames.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GeometryProcessor</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gdf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask_gdf</span><span class="p">:</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reproject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_crs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unary_union</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convex_hull</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">envelope</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simplify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<h4 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
+<p>Basic Operations:</p>
+<ul>
+<li><code>apply_buffer</code>: Apply a buffer of specified size in meters</li>
+<li><code>clip</code>: Clip geometries using a mask GeoDataFrame</li>
+<li><code>reproject</code>: Reproject geometries to target CRS</li>
+</ul>
+<p>Advanced Operations:</p>
+<ul>
+<li><code>unary_union</code>: Merge all geometries into one</li>
+<li><code>convex_hull</code>: Create convex hull of geometries</li>
+<li><code>centroid</code>: Calculate centroid of geometries</li>
+<li><code>envelope</code>: Get bounding box of geometries</li>
+<li><code>intersects</code>: Filter geometries that intersect with another geometry</li>
+<li><code>simplify</code>: Simplify geometries using Douglas-Peucker algorithm</li>
+</ul>
+<h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
+<h3 id="geometryoperationerror">GeometryOperationError<a class="headerlink" href="#geometryoperationerror" title="Permanent link">&para;</a></h3>
+<p>Raised when geometry operations fail.</p>
+<h2 id="geometryprocessor_1">GeometryProcessor<a class="headerlink" href="#geometryprocessor_1" title="Permanent link">&para;</a></h2>
+<p>The <code>GeometryProcessor</code> class is the main interface for geometric operations.</p>
+<h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">GeometryProcessor</span><span class="p">(</span><span class="n">gdf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>gdf</code>: Optional GeoDataFrame to process. If None, can be set later.</li>
+</ul>
+<h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h3>
+<h4 id="apply_buffer">apply_buffer<a class="headerlink" href="#apply_buffer" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">apply_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Creates a buffer around geometries.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>distance</code>: Buffer distance in the units of the GeoDataFrame's CRS</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with buffered geometries</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If buffer operation fails</li>
+</ul>
+<h4 id="unary_union">unary_union<a class="headerlink" href="#unary_union" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">unary_union</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Merges all geometries into a single geometry.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with a single merged geometry</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If union operation fails</li>
+</ul>
+<h4 id="convex_hull">convex_hull<a class="headerlink" href="#convex_hull" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">convex_hull</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Creates a convex hull containing all geometries.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with convex hull geometry</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If convex hull operation fails</li>
+</ul>
+<h4 id="centroid">centroid<a class="headerlink" href="#centroid" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Calculates the centroid of each geometry.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with centroid points</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If centroid calculation fails</li>
+</ul>
+<h4 id="envelope">envelope<a class="headerlink" href="#envelope" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">envelope</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Creates a bounding box (envelope) for each geometry.</p>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with envelope polygons</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If envelope operation fails</li>
+</ul>
+<h4 id="intersects">intersects<a class="headerlink" href="#intersects" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">intersects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Filters geometries that intersect with another geometry.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>other</code>: WKT string or GeoDataFrame to test intersection against</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with geometries that intersect with the input</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If intersection operation fails</li>
+</ul>
+<h4 id="simplify">simplify<a class="headerlink" href="#simplify" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">simplify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Simplify geometries using Douglas-Peucker algorithm.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>tolerance</code>: Maximum allowed deviation from original geometry.
+              Should be in the same units as the geometry's coordinates.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with simplified geometries</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If simplification fails</li>
+</ul>
+<h4 id="clip">clip<a class="headerlink" href="#clip" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Clips geometries using a mask.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>mask</code>: GeoDataFrame or Polygon to use as clip mask</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>GeoDataFrame with clipped geometries</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If clip operation fails</li>
+</ul>
+<h4 id="reproject">reproject<a class="headerlink" href="#reproject" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reproject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_crs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span>
+</code></pre></div>
+<p>Reprojects the GeoDataFrame to a new CRS.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target_crs</code>: Target CRS as EPSG code or string</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>Reprojected GeoDataFrame</li>
+</ul>
+<p><strong>Raises:</strong></p>
+<ul>
+<li><code>GeometryOperationError</code>: If reprojection fails</li>
+</ul>
+<h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
+<h4 id="gdf">gdf<a class="headerlink" href="#gdf" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gdf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">]</span>
+</code></pre></div>
+<p>The current GeoDataFrame being processed.</p>
+<h4 id="crs">crs<a class="headerlink" href="#crs" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">crs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</code></pre></div>
+<p>The CRS of the current GeoDataFrame.</p>
+<h3 id="exceptions_1">Exceptions<a class="headerlink" href="#exceptions_1" title="Permanent link">&para;</a></h3>
+<h4 id="geometryoperationerror_1">GeometryOperationError<a class="headerlink" href="#geometryoperationerror_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GeometryOperationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span>
+</code></pre></div>
+<p>Raised when a geometry operation fails. Includes detailed error message.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../cli/" class="btn btn-neutral float-left" title="CLI Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../h3_operations/" class="btn btn-neutral float-right" title="H3 Operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/jeronimoluza/geoterminal" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../cli/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../h3_operations/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jeronimo Luza" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CLI Reference - geoterminal</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CLI Reference";
+        var mkdocs_page_input_path = "cli.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> geoterminal
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">CLI Reference</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#command-structure">Command Structure</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#arguments">Arguments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#options">Options</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#inspection-options">Inspection Options</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#geometry-operations">Geometry Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#filtering-operations">Filtering Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#coordinate-operations">Coordinate Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#h3-operations">H3 Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#file-options">File Options</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#general-options">General Options</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-handling">Error Handling</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/geometry_operations/">Geometry Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/h3_operations/">H3 Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/file_io/">File I/O</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Community</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">geoterminal</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Getting Started</li>
+      <li class="breadcrumb-item active">CLI Reference</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/jeronimoluza/geoterminal/edit/master/docs/cli.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>geoterminal's CLI provides two main modes of operation:</p>
+<ol>
+<li><strong>Inspect Mode</strong>: When only INPUT is provided</li>
+<li><strong>Transform Mode</strong>: When both INPUT and OUTPUT are provided</li>
+</ol>
+<h2 id="command-structure">Command Structure<a class="headerlink" href="#command-structure" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>geoterminal<span class="w"> </span>INPUT<span class="w"> </span>OUTPUT<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</code></pre></div>
+<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>INPUT</code>: Input geometry (file path or WKT string)</li>
+<li><code>OUTPUT</code>: Output file path (optional; format determined by extension)</li>
+</ul>
+<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<h4 id="inspection-options">Inspection Options<a class="headerlink" href="#inspection-options" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--head N</code>: Show first N rows</li>
+<li><code>--tail N</code>: Show last N rows</li>
+<li><code>--shape</code>: Show number of rows and columns</li>
+<li><code>--dtypes</code>: Show column data types</li>
+<li><code>--crs</code>: Show coordinate reference system</li>
+</ul>
+<h4 id="geometry-operations">Geometry Operations<a class="headerlink" href="#geometry-operations" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--buffer-size SIZE</code>: Buffer size in CRS units</li>
+<li><code>--unary-union</code>: Merge all geometries</li>
+<li><code>--convex-hull</code>: Create convex hull</li>
+<li><code>--centroid</code>: Calculate centroid</li>
+<li><code>--envelope</code>: Get bounding box</li>
+<li><code>--simplify TOL</code>: Simplify geometries with tolerance level</li>
+</ul>
+<h4 id="filtering-operations">Filtering Operations<a class="headerlink" href="#filtering-operations" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--query EXPR</code>: Filter using pandas query syntax</li>
+<li><code>--intersects GEOM</code>: Filter by intersection</li>
+<li><code>--mask GEOM</code>: Clip using mask geometry</li>
+</ul>
+<h4 id="coordinate-operations">Coordinate Operations<a class="headerlink" href="#coordinate-operations" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--input-crs EPSG</code>: Input CRS (default: 4326)</li>
+<li><code>--output-crs EPSG</code>: Output CRS</li>
+<li><code>--mask-crs EPSG</code>: Mask CRS (default: 4326)</li>
+</ul>
+<h4 id="h3-operations">H3 Operations<a class="headerlink" href="#h3-operations" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--h3-res RES</code>: H3 resolution (0-15)</li>
+</ul>
+<h4 id="file-options">File Options<a class="headerlink" href="#file-options" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--geometry-column COL</code>: WKT column name for CSV/ORC</li>
+</ul>
+<h3 id="general-options">General Options<a class="headerlink" href="#general-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>--version</code>: Show version information</li>
+<li><code>--log-level {DEBUG,INFO,WARNING,ERROR}</code>: Set logging level (default: INFO)</li>
+</ul>
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<p>The CLI will exit with non-zero status in case of errors:</p>
+<ul>
+<li>1: Invalid arguments</li>
+<li>2: File operation error</li>
+<li>3: Geometry operation error</li>
+<li>4: H3 operation error</li>
+</ul>
+<p>Error messages are printed to stderr with details about the failure.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../usage/" class="btn btn-neutral float-left" title="Usage Guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../api/geometry_operations/" class="btn btn-neutral float-right" title="Geometry Operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/jeronimoluza/geoterminal" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../usage/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../api/geometry_operations/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

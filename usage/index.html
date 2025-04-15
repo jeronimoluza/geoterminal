@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jeronimo Luza" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Usage Guide - geoterminal</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Usage Guide";
+        var mkdocs_page_input_path = "usage.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> geoterminal
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Usage Guide</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#command-line-interface">Command Line Interface</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basic-usage">Basic Usage</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#supported-formats">Supported Formats</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#operations">Operations</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#basic-operations">Basic Operations</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#operation-order">Operation Order</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#advanced-examples">Advanced Examples</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#python-api">Python API</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#geometry-processing">Geometry Processing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#h3-grid-operations">H3 Grid Operations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#file-operations">File Operations</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli/">CLI Reference</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/geometry_operations/">Geometry Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/h3_operations/">H3 Operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/file_io/">File I/O</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Community</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">geoterminal</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Getting Started</li>
+      <li class="breadcrumb-item active">Usage Guide</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/jeronimoluza/geoterminal/edit/master/docs/usage.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="usage-guide">Usage Guide<a class="headerlink" href="#usage-guide" title="Permanent link">&para;</a></h1>
+<p>geoterminal provides both a command-line interface (CLI) and a Python API for geospatial operations.</p>
+<h2 id="command-line-interface">Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">&para;</a></h2>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<p>geoterminal has two main modes:</p>
+<ol>
+<li>
+<p><strong>Inspect Mode</strong> (single input file):
+<div class="highlight"><pre><span></span><code><span class="c1"># View data structure</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>--shape<span class="w">     </span><span class="c1"># Show rows and columns</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>--dtypes<span class="w">    </span><span class="c1"># Show column types</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>--crs<span class="w">       </span><span class="c1"># Show CRS information</span>
+
+<span class="c1"># View data content</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>--head<span class="w"> </span><span class="m">10</span><span class="w">   </span><span class="c1"># First 10 rows</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>--tail<span class="w"> </span><span class="m">5</span><span class="w">    </span><span class="c1"># Last 5 rows</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Transform Mode</strong> (input and output files):
+<div class="highlight"><pre><span></span><code><span class="c1"># Process a file</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson
+
+<span class="c1"># Process a WKT string</span>
+geoterminal<span class="w"> </span><span class="s2">&quot;POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))&quot;</span><span class="w"> </span>output.geojson
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="supported-formats">Supported Formats<a class="headerlink" href="#supported-formats" title="Permanent link">&para;</a></h3>
+<ul>
+<li>GeoJSON (.geojson)</li>
+<li>Shapefile (.shp)</li>
+<li>CSV/ORC with WKT column</li>
+<li>Direct WKT string input/output</li>
+</ul>
+<p>For CSV/ORC files, specify the geometry column (default is "geometry"):</p>
+<div class="highlight"><pre><span></span><code>geoterminal<span class="w"> </span>input.csv<span class="w"> </span>output.geojson<span class="w"> </span>--geometry-column<span class="w"> </span>my_wkt_column
+</code></pre></div>
+<h3 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h3>
+<h4 id="basic-operations">Basic Operations<a class="headerlink" href="#basic-operations" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Geometry Operations</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--buffer-size<span class="w"> </span><span class="m">1000</span><span class="w">     </span><span class="c1"># Buffer</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--unary-union<span class="w">         </span><span class="c1"># Merge geometries</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--convex-hull<span class="w">         </span><span class="c1"># Create hull</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--centroid<span class="w">            </span><span class="c1"># Get centroid</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--simplify<span class="w"> </span><span class="m">0</span>.001<span class="w">      </span><span class="c1"># Simplify</span>
+
+<span class="c1"># Filtering</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;population &gt; 1000000&quot;</span><span class="w">  </span><span class="c1"># By attribute</span>
+
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--intersects<span class="w"> </span>other.shp<span class="w">          </span><span class="c1"># By intersection</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--intersects<span class="w"> </span><span class="s2">&quot;POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))&quot;</span><span class="w">  </span><span class="c1"># By intersection with WKT</span>
+
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--mask<span class="w"> </span>mask.geojson<span class="w">            </span><span class="c1"># By mask</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--mask<span class="w"> </span><span class="s2">&quot;POLYGON((30 10, 40 40, 20 40, 10 20, 30 10))&quot;</span><span class="w">  </span><span class="c1"># By mask with WKT</span>
+
+<span class="c1"># Coordinate Systems</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--input-crs<span class="w"> </span><span class="m">4326</span><span class="w"> </span>--output-crs<span class="w"> </span><span class="m">3857</span>
+
+<span class="c1"># H3 Grid</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>output.geojson<span class="w"> </span>--h3-res<span class="w"> </span><span class="m">6</span>
+</code></pre></div>
+<h4 id="operation-order">Operation Order<a class="headerlink" href="#operation-order" title="Permanent link">&para;</a></h4>
+<p>Operations are applied in sequence. Compare:
+<div class="highlight"><pre><span></span><code><span class="c1"># Different results:</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>out.geojson<span class="w"> </span>--buffer-size<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--h3-res<span class="w"> </span><span class="m">7</span><span class="w">  </span><span class="c1"># Buffer first</span>
+geoterminal<span class="w"> </span>input.shp<span class="w"> </span>out.geojson<span class="w"> </span>--h3-res<span class="w"> </span><span class="m">7</span><span class="w"> </span>--buffer-size<span class="w"> </span><span class="m">1000</span><span class="w">  </span><span class="c1"># H3 first</span>
+</code></pre></div></p>
+<h4 id="advanced-examples">Advanced Examples<a class="headerlink" href="#advanced-examples" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate metropolitan areas</span>
+geoterminal<span class="w"> </span>cities.shp<span class="w"> </span>centers.geojson<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--query<span class="w"> </span><span class="s2">&quot;population &gt; 1000000&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--centroid<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--buffer-size<span class="w"> </span><span class="m">1000</span>
+
+<span class="c1"># Generate areas of interest in H3 hexagons</span>
+geoterminal<span class="w"> </span>density.shp<span class="w"> </span>h3_zones.geojson<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--centroid<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--buffer-size<span class="w"> </span><span class="m">5000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--h3-res<span class="w"> </span><span class="m">8</span>
+</code></pre></div>
+<h2 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h2>
+<h3 id="geometry-processing">Geometry Processing<a class="headerlink" href="#geometry-processing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoterminal.geometry_operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeometryProcessor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+
+<span class="c1"># Initialize</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;input.geojson&quot;</span><span class="p">)</span>
+<span class="n">processor</span> <span class="o">=</span> <span class="n">GeometryProcessor</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>
+
+<span class="c1"># Operations</span>
+<span class="n">buffered</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">apply_buffer</span><span class="p">(</span><span class="n">distance</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">union</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">unary_union</span><span class="p">()</span>
+<span class="n">hull</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">convex_hull</span><span class="p">()</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">other_gdf</span><span class="p">)</span>
+
+<span class="c1"># Export</span>
+<span class="n">buffered</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;output.geojson&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="h3-grid-operations">H3 Grid Operations<a class="headerlink" href="#h3-grid-operations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoterminal.h3_operations</span><span class="w"> </span><span class="kn">import</span> <span class="n">H3Processor</span>
+
+<span class="c1"># Convert to H3</span>
+<span class="n">processor</span> <span class="o">=</span> <span class="n">H3Processor</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>
+<span class="n">h3_cells</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">polyfill</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">h3_cells</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;output.geojson&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="file-operations">File Operations<a class="headerlink" href="#file-operations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geoterminal.file_io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_geometry_file</span><span class="p">,</span> <span class="n">export_data</span>
+
+<span class="c1"># Read/Write</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">read_geometry_file</span><span class="p">(</span><span class="s2">&quot;input.geojson&quot;</span><span class="p">)</span>
+<span class="n">export_data</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="s2">&quot;output.geojson&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>For more examples, check our <a href="https://github.com/jeronimoluza/geoterminal/tree/main/examples">examples directory</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../installation/" class="btn btn-neutral float-left" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../cli/" class="btn btn-neutral float-right" title="CLI Reference">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/jeronimoluza/geoterminal" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../cli/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
